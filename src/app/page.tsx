@@ -1,3 +1,3 @@
 export const Page = () => {
-  return <h1>Hello, Next.js!</h1>
+  return <h1>Hello, World!</h1>
 }
