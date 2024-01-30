@@ -9,7 +9,8 @@ _Install yarn_
 > npm i -g yarn
 
 _Clone repo code_
-git clone https://github.com/jackbelyeu/fffa.git
+
+> git clone https://github.com/jackbelyeu/fffa.git
 
 Using [yarn package manager](https://yarnpkg.com/) is recommended over npm.
 
