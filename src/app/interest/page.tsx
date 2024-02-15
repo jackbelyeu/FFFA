@@ -1,136 +1,215 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 export default function Interest() {
-  const [player, setPlayer] = React.useState({
+  const [interested, setInterested] = React.useState({
     name: "",
     email: "",
     phone: "",
-    sunday: "",
+    sunday: [] as string[],
     team: "",
     position: "",
     field: "",
     opinion: "",
   });
+  const router = useRouter();
+  const sendMail = (): any => {
+    const emailAddress = "varangantipr@gmail.com";
+    const subject = "Express Interest in 2024 Season";
+    const body = "I am interested in the 2024 season";
+    window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+  };
+  const onhandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target;
+    if (checked) {
+      setInterested((prev) => ({ ...prev, sunday: [...prev.sunday, value] }));
+    }
+    if (!checked) {
+      setInterested((prev) => ({
+        ...prev,
+        sunday: prev.sunday.filter((day) => day !== value),
+      }));
+    }
+  };
+  const handleSubmit = async(e: any) => {
+    e.preventDefault();
+    if (interested.sunday.length < 1) {
+      alert("Please select at least one Sunday afternoon availability");
+    } try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(interested),
+      });
+  
+      if (response.ok) {
+        router.push("/thankyou");
+      } else {
+        throw new Error("Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to submit the form. Please try again later.");
+    }
+  };
+
   return (
     <div>
       <h1>Hello, Express Interest Page!</h1>
       <p>Express interest in the 2024 season.</p>
+
+      <button onClick={sendMail}>Contact Organizer</button>
       <form>
         <label htmlFor="name">Name:</label>
         <input
           type="text"
           name="name"
-          onChange={(e) => setPlayer({ ...player, name: e.target.value })}
+          onChange={(e) =>
+            setInterested({ ...interested, name: e.target.value })
+          }
         />
         <br />
         <label htmlFor="email">Email:</label>
         <input
           type="text"
           name="email"
-          onChange={(e) => setPlayer({ ...player, email: e.target.value })}
+          onChange={(e) =>
+            setInterested({ ...interested, email: e.target.value })
+          }
         />
         <br />
         <label htmlFor="phone">Phone:</label>
         <input
           type="text"
           name="phone"
-          onChange={(e) => setPlayer({ ...player, phone: e.target.value })}
+          onChange={(e) =>
+            setInterested({ ...interested, phone: e.target.value })
+          }
         />
         <br />
         <label htmlFor="availability">
           Mark your Sunday afternoon availability:
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="oct8"
+              onChange={onhandleChange}
             />{" "}
             October 8th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="oct15"
+              onChange={onhandleChange}
             />{" "}
             October 15th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="oct22"
+              onChange={onhandleChange}
             />{" "}
             October 22nd
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="oct29"
+              onChange={onhandleChange}
             />{" "}
             October 29th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="nov5"
+              onChange={onhandleChange}
             />{" "}
             November 5th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="nov12"
-            />
+              onChange={onhandleChange}
+            />{" "}
             November 12th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="nov19"
-            />
+              onChange={onhandleChange}
+            />{" "}
             November 19th
-          </label>
+          </span>
           <br />
-          <label>
+          <span>
             <input
               type="checkbox"
               id="availability"
               name="sunday"
               value="nov26"
-            />
+              onChange={onhandleChange}
+            />{" "}
             November 26th
-          </label>
+          </span>
         </label>
         <br />
         <label>
           Which team are you interested in?
           <br />
           <label htmlFor="chickens">
-            <input type="radio" id="chickens" name="team" value="Chickens" />
+            <input
+              type="radio"
+              id="chickens"
+              name="team"
+              value="Chickens"
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
             Chickens
           </label>
           <br />
           <label htmlFor="hyenas">
-            <input type="radio" id="hyenas" name="team" value="Hyenas" /> Hyenas
+            <input
+              type="radio"
+              id="hyenas"
+              name="team"
+              value="Hyenas"
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
+            Hyenas
           </label>
           <br />
           <label htmlFor="mosquitoes">
@@ -139,12 +218,26 @@ export default function Interest() {
               id="mosquitoes"
               name="team"
               value="Mosquitoes"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
             Mosquitoes
           </label>
           <br />
           <label htmlFor="emus">
-            <input type="radio" id="emus" name="team" value="Emus" /> Emus
+            <input
+              type="radio"
+              id="emus"
+              name="team"
+              value="Emus"
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
+            Emus
           </label>
           <br />
           <label htmlFor="mockingbirds">
@@ -153,12 +246,25 @@ export default function Interest() {
               id="mockingbirds"
               name="team"
               value="Mockingbirds"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
             Mockingbirds
           </label>
           <br />
           <label htmlFor="grasskickers">
-            <input type="radio" id="grasskickers" name="team" value="team6" />
+            <input
+              type="radio"
+              id="grasskickers"
+              name="team"
+              value="team6"
+              onChange={(e) =>
+                setInterested({ ...interested, team: e.target.value })
+              }
+              required
+            />{" "}
             Grasskickers
           </label>
         </label>
@@ -166,68 +272,121 @@ export default function Interest() {
         <label>
           What is your preferred position??
           <br />
-          <label htmlFor="forward">
-            <input type="radio" id="forward" name="position" value="forward" />
+          <span>
+            <input
+              type="radio"
+              id="forward"
+              name="position"
+              value="forward"
+              onChange={(e) =>
+                setInterested({ ...interested, position: e.target.value })
+              }
+              required
+            />{" "}
             Forward
-          </label>
+          </span>
           <br />
-          <label htmlFor="midfielder">
+          <span>
             <input
               type="radio"
               id="midfielder"
               name="position"
               value="midfielder"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, position: e.target.value })
+              }
+              required
+            />{" "}
             Midfielder
-          </label>
+          </span>
           <br />
-          <label htmlFor="defender">
+          <span>
             <input
               type="radio"
               id="defender"
               name="position"
               value="defender"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, position: e.target.value })
+              }
+              required
+            />{" "}
             Defender
-          </label>
+          </span>
           <br />
-          <label htmlFor="goalkeeper">
+          <span>
             <input
               type="radio"
               id="goalkeeper"
               name="position"
               value="goalkeeper"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, position: e.target.value })
+              }
+              required
+            />{" "}
             Goalkeeper
-          </label>
+          </span>
           <br />
-          <label htmlFor="Too many to Specify">
+          <span>
             <input
               type="radio"
               id="Too many to Specify"
               name="position"
               value="Too many to Specify"
-            />
+              onChange={(e) =>
+                setInterested({ ...interested, position: e.target.value })
+              }
+              required
+            />{" "}
             Too Many to Specify
-          </label>
+          </span>
         </label>
         <br />
         <label htmlFor="fieldPreference">
           What kind of Field you prefer to play on ?
           <br />
-          <label htmlFor="grass">
-            <input type="radio" id="grass" name="field" value="grass" />{" "}
+          <span>
+            <input
+              type="radio"
+              id="grass"
+              name="field"
+              value="grass"
+              onChange={(e) =>
+                setInterested({ ...interested, field: e.target.value })
+              }
+              required
+            />{" "}
             Grass
-          </label>
+          </span>
           <br />
-          <label htmlFor="turf">
-            <input type="radio" id="turf" name="field" value="turf" /> Turf
-          </label>
+          <span>
+            <input
+              type="radio"
+              id="turf"
+              name="field"
+              value="turf"
+              onChange={(e) =>
+                setInterested({ ...interested, field: e.target.value })
+              }
+              required
+            />{" "}
+            Turf
+          </span>
           <br />
-          <label htmlFor="nopref">
-            <input type="radio" id="nopref" name="field" value="nopref" /> No
-            Preference
-          </label>
+          <span>
+            <input
+              type="radio"
+              id="nopref"
+              name="field"
+              value="nopref"
+              onChange={(e) =>
+                setInterested({ ...interested, field: e.target.value })
+              }
+              required
+            />{" "}
+            No Preference
+          </span>
         </label>
 
         <br />
@@ -240,15 +399,27 @@ export default function Interest() {
               height: "100px",
               backgroundColor: "lightgray",
             }}
-            onChange={(e) => setPlayer({ ...player, opinion: e.target.value })}
+            onChange={(e) =>
+              setInterested({ ...interested, opinion: e.target.value })
+            }
+            required
             name="opinion"
           />
         </label>
         <br />
         <button
-          onClick={() => {
-            console.log("Player", player);
-          }}
+          type="submit"
+          onClick={handleSubmit}
+          disabled={
+            interested.sunday.length < 1 ||
+            !interested.name ||
+            !interested.email ||
+            !interested.phone ||
+            !interested.team ||
+            !interested.position ||
+            !interested.field ||
+            !interested.opinion
+          }
         >
           Submit
         </button>
