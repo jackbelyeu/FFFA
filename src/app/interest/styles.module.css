@@ -8,7 +8,8 @@
 .interest form label {
     font-size: 20px;
     margin-bottom: 10px;
-    margin-top: 10px;;
+    margin-top: 10px;
+    ;
 }
 
 .interest form input {
@@ -42,4 +43,27 @@
     border-radius: 5px;
     background-color: green;
     cursor: pointer;
+}
+
+.interest button:hover {
+    background-color: darkgreen;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.interest button:disabled {
+    background-color: grey;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: not-allowed;
 }
