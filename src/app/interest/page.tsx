@@ -73,7 +73,7 @@ export default function Interest() {
         <br />
         <label htmlFor="email">Email:</label>
         <input
-          type="text"
+          type="email"
           name="email"
           onChange={(e) =>
             setInterested({ ...interested, email: e.target.value })
@@ -82,7 +82,7 @@ export default function Interest() {
         <br />
         <label htmlFor="phone">Phone:</label>
         <input
-          type="text"
+          type="number"
           name="phone"
           onChange={(e) =>
             setInterested({ ...interested, phone: e.target.value })
@@ -388,7 +388,6 @@ export default function Interest() {
             No Preference
           </span>
         </label>
-
         <br />
         <label>
           A space for your opinion
