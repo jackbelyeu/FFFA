@@ -33,9 +33,7 @@ export default function Interest() {
   };
   const handleSubmit = async(e: any) => {
     e.preventDefault();
-    if (interested.sunday.length < 1) {
-      alert("Please select at least one Sunday afternoon availability");
-    } try {
+    try {
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
@@ -90,7 +88,7 @@ export default function Interest() {
         />
         <br />
         <label htmlFor="availability">
-          Mark your Sunday afternoon availability:
+          Mark your Sunday afternoon availability<small><small> (Select at least one Sunday)</small> </small>:
           <br />
           <span>
             <input
@@ -407,21 +405,31 @@ export default function Interest() {
         </label>
         <br />
         <button
-          type="submit"
-          onClick={handleSubmit}
-          disabled={
-            interested.sunday.length < 1 ||
-            !interested.name ||
-            !interested.email ||
-            !interested.phone ||
-            !interested.team ||
-            !interested.position ||
-            !interested.field ||
-            !interested.opinion
-          }
-        >
-          Submit
-        </button>
+  type="submit"
+  onClick={handleSubmit}
+  disabled={
+    interested.sunday.length < 1 ||
+    !interested.name ||
+    !interested.email ||
+    !interested.phone ||
+    !interested.team ||
+    !interested.position ||
+    !interested.field ||
+    !interested.opinion
+  }
+>
+  {interested.sunday.length < 1 ||
+    !interested.name ||
+    !interested.email ||
+    !interested.phone ||
+    !interested.team ||
+    !interested.position ||
+    !interested.field ||
+    !interested.opinion
+    ? "Please fill out all the fields to submit the form"
+    : "Submit"}
+</button>
+
       </form>
     </div>
   );
