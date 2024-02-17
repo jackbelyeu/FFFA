@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+
 export default function Interest() {
-  const [interested, setInterested] = React.useState({
+  const [interested, setInterested] = useState({
     name: "",
     email: "",
     phone: "",
@@ -12,26 +13,27 @@ export default function Interest() {
     field: "",
     opinion: "",
   });
+
   const router = useRouter();
-  const sendMail = (): any => {
+
+  const sendEmail = () => {
     const emailAddress = "varangantipr@gmail.com";
     const subject = "Express Interest in 2024 Season";
     const body = "I am interested in the 2024 season";
     window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
   };
-  const onhandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
-    if (checked) {
-      setInterested((prev) => ({ ...prev, sunday: [...prev.sunday, value] }));
-    }
-    if (!checked) {
-      setInterested((prev) => ({
-        ...prev,
-        sunday: prev.sunday.filter((day) => day !== value),
-      }));
-    }
+    setInterested((prev) => ({
+      ...prev,
+      sunday: checked
+        ? [...prev.sunday, value]
+        : prev.sunday.filter((day) => day !== value),
+    }));
   };
-  const handleSubmit = async(e: any) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const response = await fetch("/api/send-email", {
@@ -53,12 +55,22 @@ export default function Interest() {
     }
   };
 
+  const isFormValid =
+    interested.sunday.length < 1 ||
+    !interested.name ||
+    !interested.email ||
+    !interested.phone ||
+    !interested.team ||
+    !interested.position ||
+    !interested.field ||
+    !interested.opinion;
+
   return (
     <div>
       <h1>Hello, Express Interest Page!</h1>
       <p>Express interest in the 2024 season.</p>
 
-      <button onClick={sendMail}>Contact Organizer</button>
+      <button onClick={sendEmail}>Contact Organizer</button>
       <form>
         <label htmlFor="name">Name:</label>
         <input
@@ -80,7 +92,7 @@ export default function Interest() {
         <br />
         <label htmlFor="phone">Phone:</label>
         <input
-          type="number"
+          type="tel"
           name="phone"
           onChange={(e) =>
             setInterested({ ...interested, phone: e.target.value })
@@ -96,7 +108,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="oct8"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             October 8th
           </span>
@@ -107,7 +119,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="oct15"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             October 15th
           </span>
@@ -118,7 +130,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="oct22"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             October 22nd
           </span>
@@ -129,7 +141,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="oct29"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             October 29th
           </span>
@@ -140,7 +152,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="nov5"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             November 5th
           </span>
@@ -151,7 +163,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="nov12"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             November 12th
           </span>
@@ -162,7 +174,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="nov19"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             November 19th
           </span>
@@ -173,7 +185,7 @@ export default function Interest() {
               id="availability"
               name="sunday"
               value="nov26"
-              onChange={onhandleChange}
+              onChange={handleChange}
             />{" "}
             November 26th
           </span>
@@ -404,32 +416,13 @@ export default function Interest() {
           />
         </label>
         <br />
-        <button
-  type="submit"
-  onClick={handleSubmit}
-  disabled={
-    interested.sunday.length < 1 ||
-    !interested.name ||
-    !interested.email ||
-    !interested.phone ||
-    !interested.team ||
-    !interested.position ||
-    !interested.field ||
-    !interested.opinion
-  }
->
-  {interested.sunday.length < 1 ||
-    !interested.name ||
-    !interested.email ||
-    !interested.phone ||
-    !interested.team ||
-    !interested.position ||
-    !interested.field ||
-    !interested.opinion
-    ? "Please fill out all the fields to submit the form"
-    : "Submit"}
-</button>
-
+        <button type="submit" disabled={isFormValid}
+        onClick={handleSubmit}
+        >
+          {isFormValid
+            ? "Please fill all the fields to submit the form."
+            : "Submit"}
+        </button>
       </form>
     </div>
   );
