@@ -21,7 +21,11 @@ export async function POST(request: NextRequest){
             <p>Team: ${team}</p>
             <p>Position: ${position}</p>
             <p>Field: ${field}</p>
-            <p>Opinion: ${opinion}</p>
+            <p>Opinion: ${
+                opinion
+                    ? opinion
+                    : "No opinion"
+            }</p>
             `
         })
         return NextResponse.json({

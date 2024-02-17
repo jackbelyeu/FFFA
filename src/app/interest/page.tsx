@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export default function Interest() {
   const [interested, setInterested] = useState({
@@ -14,7 +14,7 @@ export default function Interest() {
     opinion: "",
   });
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const sendEmail = () => {
     const emailAddress = "varangantipr@gmail.com";
@@ -23,7 +23,7 @@ export default function Interest() {
     window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { checked, value } = e.target;
     setInterested((prev) => ({
       ...prev,
@@ -43,9 +43,10 @@ export default function Interest() {
         },
         body: JSON.stringify(interested),
       });
-  
+
       if (response.ok) {
-        router.push("/thankyou");
+        // router.push("/thankyou");
+        alert("Form submitted successfully");
       } else {
         throw new Error("Failed to send email");
       }
@@ -62,16 +63,30 @@ export default function Interest() {
     !interested.phone ||
     !interested.team ||
     !interested.position ||
-    !interested.field ;
+    !interested.field;
 
   return (
     <div>
       <h1>Hello, Express Interest Page!</h1>
-      <p>Express interest in the 2024 season.</p>
-
-      <button onClick={sendEmail}>Contact Organizer</button>
+      <p>
+        The role of this form is to collect info on how many people would like
+        to play in a randomized league, such that we can generate new totally
+        random teams. Please fill out this form ONLY if you are planning to
+        participate in the majority of this 4-week trial (assuming you are in
+        town and available at time of the game). Expected to run mid-October
+        through mid-November.
+      </p>
+      <button onClick={sendEmail}>Contact Organizer</button>{" "}
+      <button>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
+          target="_blank"
+        >
+          Google Form
+        </a>
+      </button>
       <form>
-        <label htmlFor="name">Name:</label>
+        <label >Name: 
         <input
           type="text"
           name="name"
@@ -79,8 +94,10 @@ export default function Interest() {
             setInterested({ ...interested, name: e.target.value })
           }
         />
+        {interested.name === "" && <span style={{color: "red"}}> *</span>}
+        </label>
         <br />
-        <label htmlFor="email">Email:</label>
+        <label>Email:
         <input
           type="email"
           name="email"
@@ -88,8 +105,10 @@ export default function Interest() {
             setInterested({ ...interested, email: e.target.value })
           }
         />
+        {interested.email === "" && <span style={{color: "red"}} >*</span>}
+        </label>
         <br />
-        <label htmlFor="phone">Phone:</label>
+        <label>Phone:
         <input
           type="tel"
           name="phone"
@@ -97,103 +116,110 @@ export default function Interest() {
             setInterested({ ...interested, phone: e.target.value })
           }
         />
-        <br />
-        <label htmlFor="availability">
-          Mark your Sunday afternoon availability<small><small> (Select at least one Sunday)</small> </small>:
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="oct8"
-              onChange={handleChange}
-            />{" "}
-            October 8th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="oct15"
-              onChange={handleChange}
-            />{" "}
-            October 15th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="oct22"
-              onChange={handleChange}
-            />{" "}
-            October 22nd
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="oct29"
-              onChange={handleChange}
-            />{" "}
-            October 29th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="nov5"
-              onChange={handleChange}
-            />{" "}
-            November 5th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="nov12"
-              onChange={handleChange}
-            />{" "}
-            November 12th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="nov19"
-              onChange={handleChange}
-            />{" "}
-            November 19th
-          </span>
-          <br />
-          <span>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="nov26"
-              onChange={handleChange}
-            />{" "}
-            November 26th
-          </span>
+        {interested.phone === "" && <span style={{color: "red"}}> *</span>}
         </label>
         <br />
         <label>
-          Which team are you interested in?
+          Mark your Sunday afternoon availability <small>(Select at least one Sunday)</small> :
+          {interested.sunday.length < 1 && <span style={{color: "red"}}> *</span>}
+        </label>
+        
+        
           <br />
-          <label htmlFor="chickens">
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="October 8th"
+              onChange={handleChange}
+            />{" "}
+            October 8th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="October 15th"
+              onChange={handleChange}
+            />{" "}
+            October 15th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="October 22nd"
+              onChange={handleChange}
+            />{" "}
+            October 22nd
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="October 29th"
+              onChange={handleChange}
+            />{" "}
+            October 29th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="November 5th"
+              onChange={handleChange}
+            />{" "}
+            November 5th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="November 12th"
+              onChange={handleChange}
+            />{" "}
+            November 12th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="November 19th"
+              onChange={handleChange}
+            />{" "}
+            November 19th
+          </label>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              id="availability"
+              name="sunday"
+              value="November 26th"
+              onChange={handleChange}
+            />{" "}
+            November 26th
+          </label>
+        <br />
+        <label>
+          Which team are you interested in?
+          {interested.team === "" && <span style={{color: "red"}}> *</span>}
+        </label>
+          <br />
+          <label>
             <input
               type="radio"
               id="chickens"
@@ -207,7 +233,7 @@ export default function Interest() {
             Chickens
           </label>
           <br />
-          <label htmlFor="hyenas">
+          <label >
             <input
               type="radio"
               id="hyenas"
@@ -221,7 +247,7 @@ export default function Interest() {
             Hyenas
           </label>
           <br />
-          <label htmlFor="mosquitoes">
+          <label>
             <input
               type="radio"
               id="mosquitoes"
@@ -235,7 +261,7 @@ export default function Interest() {
             Mosquitoes
           </label>
           <br />
-          <label htmlFor="emus">
+          <label>
             <input
               type="radio"
               id="emus"
@@ -249,7 +275,7 @@ export default function Interest() {
             Emus
           </label>
           <br />
-          <label htmlFor="mockingbirds">
+          <label>
             <input
               type="radio"
               id="mockingbirds"
@@ -263,7 +289,7 @@ export default function Interest() {
             Mockingbirds
           </label>
           <br />
-          <label htmlFor="grasskickers">
+          <label >
             <input
               type="radio"
               id="grasskickers"
@@ -276,127 +302,129 @@ export default function Interest() {
             />{" "}
             Grasskickers
           </label>
-        </label>
         <br />
         <label>
           What is your preferred position??
+          {interested.position === "" && <span style={{color: "red"}}> *</span>}
+        </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="forward"
               name="position"
-              value="forward"
+              value="Forward"
               onChange={(e) =>
                 setInterested({ ...interested, position: e.target.value })
               }
               required
             />{" "}
             Forward
-          </span>
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="midfielder"
               name="position"
-              value="midfielder"
+              value="Midfielder"
               onChange={(e) =>
                 setInterested({ ...interested, position: e.target.value })
               }
               required
             />{" "}
             Midfielder
-          </span>
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="defender"
               name="position"
-              value="defender"
+              value="Defender"
               onChange={(e) =>
                 setInterested({ ...interested, position: e.target.value })
               }
               required
             />{" "}
             Defender
-          </span>
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="goalkeeper"
               name="position"
-              value="goalkeeper"
+              value="Goalkeeper"
               onChange={(e) =>
                 setInterested({ ...interested, position: e.target.value })
               }
               required
             />{" "}
             Goalkeeper
-          </span>
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="Too many to Specify"
               name="position"
-              value="Too many to Specify"
+              value="Too Many to Specify"
               onChange={(e) =>
                 setInterested({ ...interested, position: e.target.value })
               }
               required
             />{" "}
             Too Many to Specify
-          </span>
-        </label>
+          </label>
         <br />
-        <label htmlFor="fieldPreference">
+        <label>
           What kind of Field you prefer to play on ?
+          {interested.field === "" && <span style={{color: "red"}}> *</span>}
+        </label>
           <br />
-          <span>
+          <label>
+   
             <input
               type="radio"
               id="grass"
               name="field"
-              value="grass"
+              value="Grass"
               onChange={(e) =>
                 setInterested({ ...interested, field: e.target.value })
               }
               required
             />{" "}
-            Grass
-          </span>
+                   Grass
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="turf"
               name="field"
-              value="turf"
+              value="Turf"
               onChange={(e) =>
                 setInterested({ ...interested, field: e.target.value })
               }
               required
-            />{" "}
-            Turf
-          </span>
+              />{" "}
+              Turf
+          </label>
           <br />
-          <span>
+          <label>
             <input
               type="radio"
               id="nopref"
               name="field"
-              value="nopref"
+              value="No Preference"
               onChange={(e) =>
                 setInterested({ ...interested, field: e.target.value })
               }
               required
             />{" "}
             No Preference
-          </span>
-        </label>
+          </label>
         <br />
         <label>
           A space for your opinion
@@ -415,9 +443,7 @@ export default function Interest() {
           />
         </label>
         <br />
-        <button type="submit" disabled={isFormValid}
-        onClick={handleSubmit}
-        >
+        <button type="submit" disabled={isFormValid} onClick={handleSubmit}>
           {isFormValid
             ? "Please fill all the fields to submit the form."
             : "Submit"}
