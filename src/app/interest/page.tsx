@@ -67,7 +67,7 @@ export default function Interest() {
 
   return (
     <div>
-      <h1>Hello, Express Interest Page!</h1>
+      <h1>Express  Your Interest for Season 2024!</h1>
       <p>
         The role of this form is to collect info on how many people would like
         to play in a randomized league, such that we can generate new totally

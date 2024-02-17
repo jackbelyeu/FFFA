@@ -7,7 +7,7 @@ test("renders without crashing", () => {
   expect(
     screen.getByRole("heading", {
       level: 1,
-      name: "Hello, Express Interest Page!",
+      name: "Express Your Interest for Season 2024!",
     })
   ).toBeDefined();
   expect(
@@ -58,9 +58,8 @@ test("renders without crashing", () => {
   expect(screen.getByRole("radio", { name: "No Preference" })).toBeDefined();
   const textBoxes = screen.getAllByRole("textbox");
   expect(textBoxes.length).toBe(4);
-
-  
   const checkboxes = screen.getAllByRole("checkbox");
   expect(checkboxes.length).toBe(8);
-  // expect(screen.getByRole("form", { name: "Submit" })).toBeDefined();
+  const radios = screen.getAllByRole("radio");
+  expect(radios.length).toBe(14);
 });
