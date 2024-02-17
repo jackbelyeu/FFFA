@@ -23,7 +23,7 @@ export default function Interest() {
     window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     const { checked, value } = e.target;
     setInterested((prev) => ({
       ...prev,
@@ -33,7 +33,7 @@ export default function Interest() {
     }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
     try {
       const response = await fetch("/api/send-email", {
@@ -62,8 +62,7 @@ export default function Interest() {
     !interested.phone ||
     !interested.team ||
     !interested.position ||
-    !interested.field ||
-    !interested.opinion;
+    !interested.field ;
 
   return (
     <div>
