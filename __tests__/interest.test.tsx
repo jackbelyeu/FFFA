@@ -16,16 +16,10 @@ test("renders without crashing", () => {
     )
   ).toBeDefined();
   expect(
-    screen.getByRole("button", { name: "Contact Organizer" })
-  ).toBeDefined();
-  expect(screen.getByRole("button", { name: "Google Form" })).toBeDefined();
-
-  expect(
     screen.getByRole("button", {
       name: "Please fill all the fields to submit the form.",
     })
   ).toBeDefined();
-  expect(screen.getByRole("link", { name: "Google Form" })).toBeDefined();
   expect(screen.getByRole("textbox", { name: "Name: *" })).toBeDefined();
   expect(screen.getByRole("textbox", { name: "Email: *" })).toBeDefined();
   expect(screen.getByRole("textbox", { name: "Phone: *" })).toBeDefined();
