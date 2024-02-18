@@ -16,12 +16,7 @@ export default function Interest() {
 
   // const router = useRouter();
 
-  const sendEmail = () => {
-    const emailAddress = "varangantipr@gmail.com";
-    const subject = "Express Interest in 2024 Season";
-    const body = "I am interested in the 2024 season";
-    window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
-  };
+ 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { checked, value } = e.target;
@@ -47,6 +42,7 @@ export default function Interest() {
       if (response.ok) {
         // router.push("/thankyou");
         alert("Form submitted successfully");
+        window.location.reload();
       } else {
         throw new Error("Failed to send email");
       }
@@ -76,15 +72,7 @@ export default function Interest() {
         town and available at time of the game). Expected to run mid-October
         through mid-November.
       </p>
-      <button onClick={sendEmail}>Contact Organizer</button>{" "}
-      <button>
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
-          target="_blank"
-        >
-          Google Form
-        </a>
-      </button>
+      
       <form>
         <label >Name: 
         <input
