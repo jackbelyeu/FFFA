@@ -6,7 +6,7 @@ import soccerPic from "../../images/soccer.png";
 
 const SendEmailButton = () => {
   const sendEmail = () => {
-    const emailAddress = "varangantipr@gmail.com";
+    const emailAddress = "maltucker@gmail.com";
     const subject = "Express Interest in 2024 Season";
     const body = "I am interested in the 2024 season";
     window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
@@ -22,7 +22,7 @@ export default function LearnMore() {
       <br />
       <SendEmailButton />
       <center>
-      <Link href="/interest">Express Interest</Link>{" "}
+      <Link href="/interest">Express Interest for 2024</Link>{" "}
       <a
         href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
         target="_blank"

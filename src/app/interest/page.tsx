@@ -16,8 +16,6 @@ export default function Interest() {
 
   // const router = useRouter();
 
- 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { checked, value } = e.target;
     setInterested((prev) => ({
@@ -282,7 +280,7 @@ export default function Interest() {
               type="radio"
               id="grasskickers"
               name="team"
-              value="team6"
+              value="Grasskickers"
               onChange={(e) =>
                 setInterested({ ...interested, team: e.target.value })
               }

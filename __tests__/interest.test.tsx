@@ -59,7 +59,7 @@ test("renders without crashing", () => {
 });
 
 test("checkbox and radio inputs have correct attributes", () => {
-  // Checkbox inputs
+
   expect(screen.getByRole("checkbox", { name: "October 8th" })).toBeDefined();
   expect(screen.getByRole("checkbox", { name: "October 15th" })).toBeDefined();
   expect(screen.getByRole("checkbox", { name: "October 22nd" })).toBeDefined();
@@ -69,7 +69,7 @@ test("checkbox and radio inputs have correct attributes", () => {
   expect(screen.getByRole("checkbox", { name: "November 19th" })).toBeDefined();
   expect(screen.getByRole("checkbox", { name: "November 26th" })).toBeDefined();
 
-  // Radio inputs
+
   expect(screen.getByRole("radio", { name: "Chickens" })).toBeDefined();
   expect(screen.getByRole("radio", { name: "Hyenas" })).toBeDefined();
   expect(screen.getByRole("radio", { name: "Mosquitoes" })).toBeDefined();
@@ -91,30 +91,3 @@ test("component renders all elements properly", () => {
   expect(screen.getByText(/Express Your Interest for Season 2024!/i)).toBeDefined();
 });
 
-// test("Form Submission Test: User fills out all fields correctly and submits the form", async () => {
-//   // Render the component
-//   render(<Interest />);
-
-//   // Simulate user input for all required fields
-//   fireEvent.change(screen.getByRole("textbox", { name: "name" }), { target: { value: "John Doe" } });
-//   fireEvent.change(screen.getByRole("textbox", { name: "email" }), { target: { value: "john@example.com" } });
-//   fireEvent.change(screen.getByRole("textbox", { name: "phone" }), { target: { value: "1234567890" } });
-//   fireEvent.click(screen.getByLabelText("October 8th"));
-//   fireEvent.click(screen.getByLabelText("Chickens"));
-//   fireEvent.click(screen.getByLabelText("Forward"));
-//   fireEvent.click(screen.getByLabelText("Grass"));
-//   fireEvent.change(screen.getByRole("textbox", { name: "opinion" }), { target: { value: "This is my opinion." } });
-
-//   // Simulate form submission
-//   fireEvent.click(screen.getByRole("button", { name: "Submit" }));
-
-//   // Wait for form submission to complete
-//   await waitFor(() => {
-//     // Verify that the handleSubmit function is called (you might need to mock fetch requests)
-//     expect(window.alert).toHaveBeenCalledWith("Form submitted successfully");
-//     // Optionally, verify that the page reloads or the router navigates to the appropriate route upon successful submission
-//     // For example, you can check if a specific element is rendered after successful submission
-//     const thankYouMessage = screen.queryByText("Thank you for submitting the form!");
-//     expect(thankYouMessage).toBeTruthy();
-//   });
-// });
