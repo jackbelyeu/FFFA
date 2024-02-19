@@ -8,15 +8,18 @@
   margin: 0 auto;
   height: auto;
 }
+
 .learnmore h1,
 .learnmore p {
   text-align: center;
   margin-top: 0;
   margin-bottom: 20px;
 }
+
 .learnmore button {
   display: block;
   margin: 0 auto;
+  margin-bottom: 20px;
   padding: 10px 20px;
   font-size: 20px;
   color: black;
@@ -31,19 +34,20 @@
   background-color: darkgreen;
   color: white;
 }
+
 .learnmore a {
-  display: inline-block;
+  margin: 0 auto;
   padding: 10px 20px;
   font-size: 20px;
   color: black;
-  text-decoration: none;
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  border: none;
   border-radius: 5px;
+  background-color: rgb(0, 179, 255);
+  cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
 }
+
 .learnmore a:hover {
-  color: blue;
-  background-color: rgba(0, 221, 255, 0.8);
-  border-color: rgba(0, 0, 0, 0.5);
+  background-color: darkgreen;
+  color: white;
 }
