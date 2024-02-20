@@ -8,7 +8,7 @@ export default async function Page() {
 
     return (
       <div>
-        <h1>Hello</h1>
+        <h1>Flagrant Fowl Futbol Association</h1>
         <Link href="/dashboard">Go to Dashboard</Link>
         <h2>2023 Final Standings</h2>
         <table>
