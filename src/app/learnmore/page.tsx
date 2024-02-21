@@ -22,13 +22,14 @@ export default function LearnMore() {
       <br />
       <SendEmailButton />
       <center>
-      <Link href="/interest">Express Interest for 2024</Link>{" "}
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
-        target="_blank"
-      >
-        Google Form
-      </a>
+        <Link href="/interest">Express Interest for 2024</Link>
+        {" or "}
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
+          target="_blank"
+        >
+          Google Form
+        </a>
       </center>
     </div>
   );
