@@ -1,0 +1,71 @@
+.interest form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.interest form label {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.interest form input {
+    padding: 10px 20px;
+    border: 1px solid #858282;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+
+.interest form input:focus {
+    outline: none;
+    border: 1px solid green;
+    background-color: rgb(240, 250, 255);
+}
+
+.interest form input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    background-color: green;
+    cursor: pointer;
+}
+
+
+.interest button {
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgb(0, 179, 255);
+    cursor: pointer;
+}
+
+.interest form button:hover {
+    background-color: darkgreen;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.interest form button:disabled {
+    background-color: red;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: not-allowed;
+}

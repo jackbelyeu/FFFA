@@ -10,6 +10,7 @@ export default async function Page() {
       <div>
         <h1>Flagrant Fowl Futbol Association</h1>
         <Link href="/dashboard">Go to Dashboard</Link>
+        <Link href="/learnmore">Learn More</Link>
         <h2>2023 Final Standings</h2>
         <table>
           <thead>

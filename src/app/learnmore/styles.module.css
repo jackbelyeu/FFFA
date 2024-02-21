@@ -1,0 +1,53 @@
+.learnmore {
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+  background-color: rgba(0, 221, 255, 0.638);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  height: auto;
+}
+
+.learnmore h1,
+.learnmore p {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.learnmore button {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 20px;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 179, 255);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learnmore button:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
+.learnmore a {
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 20px;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 179, 255);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learnmore a:hover {
+  background-color: darkgreen;
+  color: white;
+}
