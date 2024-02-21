@@ -2,7 +2,6 @@
   width: 90%;
   max-width: 800px;
   padding: 20px;
-  background-color: rgba(0, 221, 255, 0.638);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
@@ -22,10 +21,11 @@
   margin-bottom: 20px;
   padding: 10px 20px;
   font-size: 20px;
-  color: black;
+  color: white;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
-  background-color: rgb(0, 179, 255);
+  background-color: #009879;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -39,10 +39,11 @@
   margin: 0 auto;
   padding: 10px 20px;
   font-size: 20px;
-  color: black;
+  font-weight: bold;
+  color: white;
   border: none;
   border-radius: 5px;
-  background-color: rgb(0, 179, 255);
+  background-color: #009879;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -50,4 +51,12 @@
 .learnmore a:hover {
   background-color: darkgreen;
   color: white;
+}
+
+.learnmore img {
+  width: 100%;
+  height: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
