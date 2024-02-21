@@ -1,13 +1,3 @@
-.learnmore {
-  width: 90%;
-  max-width: 800px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  height: auto;
-}
-
 .learnmore h1,
 .learnmore p {
   text-align: center;
@@ -27,7 +17,7 @@
   border-radius: 5px;
   background-color: #009879;
   cursor: pointer;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 }
 
 .learnmore button:hover {
@@ -56,7 +46,6 @@
 .learnmore img {
   width: 100%;
   height: 100%;
-  height: auto;
   border-radius: 10px;
   margin-bottom: 20px;
 }
