@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation"; // Uncomment this line if you want to use the router
 
 export default function Interest() {
   const [interested, setInterested] = useState({
@@ -14,7 +14,7 @@ export default function Interest() {
     opinion: "",
   });
 
-  // const router = useRouter();
+  // const router = useRouter();  // Uncomment this line if you want to use the router
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { checked, value } = e.target;
@@ -38,7 +38,7 @@ export default function Interest() {
       });
 
       if (response.ok) {
-        // router.push("/thankyou");
+        // router.push("/thankyou"); // Uncomment this line if you want to use the router
         alert("Form submitted successfully");
         window.location.reload();
       } else {
@@ -61,7 +61,7 @@ export default function Interest() {
 
   return (
     <div>
-      <h1>Express  Your Interest for Season 2024!</h1>
+      <h1>Express Your Interest for Season 2024!</h1>
       <p>
         The role of this form is to collect info on how many people would like
         to play in a randomized league, such that we can generate new totally
@@ -70,356 +70,367 @@ export default function Interest() {
         town and available at time of the game). Expected to run mid-October
         through mid-November.
       </p>
-      
+
       <form>
-        <label >Name: 
-        <input
-          type="text"
-          name="name"
-          onChange={(e) =>
-            setInterested({ ...interested, name: e.target.value })
-          }
-        />
-        {interested.name === "" && <span style={{color: "red"}}> *</span>}
-        </label>
-        <br />
-        <label>Email:
-        <input
-          type="email"
-          name="email"
-          onChange={(e) =>
-            setInterested({ ...interested, email: e.target.value })
-          }
-        />
-        {interested.email === "" && <span style={{color: "red"}} >*</span>}
-        </label>
-        <br />
-        <label>Phone:
-        <input
-          type="tel"
-          name="phone"
-          onChange={(e) =>
-            setInterested({ ...interested, phone: e.target.value })
-          }
-        />
-        {interested.phone === "" && <span style={{color: "red"}}> *</span>}
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            onChange={(e) =>
+              setInterested({ ...interested, name: e.target.value })
+            }
+          />
+          {interested.name === "" && <span style={{ color: "red" }}> *</span>}
         </label>
         <br />
         <label>
-          Mark your Sunday afternoon availability <small>(Select at least one Sunday)</small> :
-          {interested.sunday.length < 1 && <span style={{color: "red"}}> *</span>}
+          Email:
+          <input
+            type="email"
+            name="email"
+            onChange={(e) =>
+              setInterested({ ...interested, email: e.target.value })
+            }
+          />
+          {interested.email === "" && <span style={{ color: "red" }}>*</span>}
         </label>
-        
-        
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="October 8th"
-              onChange={handleChange}
-            />{" "}
-            October 8th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="October 15th"
-              onChange={handleChange}
-            />{" "}
-            October 15th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="October 22nd"
-              onChange={handleChange}
-            />{" "}
-            October 22nd
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="October 29th"
-              onChange={handleChange}
-            />{" "}
-            October 29th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="November 5th"
-              onChange={handleChange}
-            />{" "}
-            November 5th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="November 12th"
-              onChange={handleChange}
-            />{" "}
-            November 12th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="November 19th"
-              onChange={handleChange}
-            />{" "}
-            November 19th
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              id="availability"
-              name="sunday"
-              value="November 26th"
-              onChange={handleChange}
-            />{" "}
-            November 26th
-          </label>
+        <br />
+        <label>
+          Phone:
+          <input
+            type="tel"
+            name="phone"
+            onChange={(e) =>
+              setInterested({ ...interested, phone: e.target.value })
+            }
+          />
+          {interested.phone === "" && <span style={{ color: "red" }}> *</span>}
+        </label>
+        <br />
+        <label>
+          Mark your Sunday afternoon availability{" "}
+          <small>(Select at least one Sunday)</small> :
+          {interested.sunday.length < 1 && (
+            <span style={{ color: "red" }}> *</span>
+          )}
+        </label>
+
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="October 8th"
+            onChange={handleChange}
+          />{" "}
+          October 8th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="October 15th"
+            onChange={handleChange}
+          />{" "}
+          October 15th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="October 22nd"
+            onChange={handleChange}
+          />{" "}
+          October 22nd
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="October 29th"
+            onChange={handleChange}
+          />{" "}
+          October 29th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="November 5th"
+            onChange={handleChange}
+          />{" "}
+          November 5th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="November 12th"
+            onChange={handleChange}
+          />{" "}
+          November 12th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="November 19th"
+            onChange={handleChange}
+          />{" "}
+          November 19th
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            id="availability"
+            name="sunday"
+            value="November 26th"
+            onChange={handleChange}
+          />{" "}
+          November 26th
+        </label>
         <br />
         <label>
           Which team are you interested in?
-          {interested.team === "" && <span style={{color: "red"}}> *</span>}
+          {interested.team === "" && <span style={{ color: "red" }}> *</span>}
         </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="chickens"
-              name="team"
-              value="Chickens"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Chickens
-          </label>
-          <br />
-          <label >
-            <input
-              type="radio"
-              id="hyenas"
-              name="team"
-              value="Hyenas"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Hyenas
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="mosquitoes"
-              name="team"
-              value="Mosquitoes"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Mosquitoes
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="emus"
-              name="team"
-              value="Emus"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Emus
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="mockingbirds"
-              name="team"
-              value="Mockingbirds"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Mockingbirds
-          </label>
-          <br />
-          <label >
-            <input
-              type="radio"
-              id="grasskickers"
-              name="team"
-              value="Grasskickers"
-              onChange={(e) =>
-                setInterested({ ...interested, team: e.target.value })
-              }
-              required
-            />{" "}
-            Grasskickers
-          </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="chickens"
+            name="team"
+            value="Chickens"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Chickens
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="hyenas"
+            name="team"
+            value="Hyenas"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Hyenas
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="mosquitoes"
+            name="team"
+            value="Mosquitoes"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Mosquitoes
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="emus"
+            name="team"
+            value="Emus"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Emus
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="mockingbirds"
+            name="team"
+            value="Mockingbirds"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Mockingbirds
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="grasskickers"
+            name="team"
+            value="Grasskickers"
+            onChange={(e) =>
+              setInterested({ ...interested, team: e.target.value })
+            }
+            required
+          />{" "}
+          Grasskickers
+        </label>
         <br />
         <label>
           What is your preferred position??
-          {interested.position === "" && <span style={{color: "red"}}> *</span>}
+          {interested.position === "" && (
+            <span style={{ color: "red" }}> *</span>
+          )}
         </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="forward"
-              name="position"
-              value="Forward"
-              onChange={(e) =>
-                setInterested({ ...interested, position: e.target.value })
-              }
-              required
-            />{" "}
-            Forward
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="midfielder"
-              name="position"
-              value="Midfielder"
-              onChange={(e) =>
-                setInterested({ ...interested, position: e.target.value })
-              }
-              required
-            />{" "}
-            Midfielder
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="defender"
-              name="position"
-              value="Defender"
-              onChange={(e) =>
-                setInterested({ ...interested, position: e.target.value })
-              }
-              required
-            />{" "}
-            Defender
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="goalkeeper"
-              name="position"
-              value="Goalkeeper"
-              onChange={(e) =>
-                setInterested({ ...interested, position: e.target.value })
-              }
-              required
-            />{" "}
-            Goalkeeper
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="Too many to Specify"
-              name="position"
-              value="Too Many to Specify"
-              onChange={(e) =>
-                setInterested({ ...interested, position: e.target.value })
-              }
-              required
-            />{" "}
-            Too Many to Specify
-          </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="forward"
+            name="position"
+            value="Forward"
+            onChange={(e) =>
+              setInterested({ ...interested, position: e.target.value })
+            }
+            required
+          />{" "}
+          Forward
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="midfielder"
+            name="position"
+            value="Midfielder"
+            onChange={(e) =>
+              setInterested({ ...interested, position: e.target.value })
+            }
+            required
+          />{" "}
+          Midfielder
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="defender"
+            name="position"
+            value="Defender"
+            onChange={(e) =>
+              setInterested({ ...interested, position: e.target.value })
+            }
+            required
+          />{" "}
+          Defender
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="goalkeeper"
+            name="position"
+            value="Goalkeeper"
+            onChange={(e) =>
+              setInterested({ ...interested, position: e.target.value })
+            }
+            required
+          />{" "}
+          Goalkeeper
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="Too many to Specify"
+            name="position"
+            value="Too Many to Specify"
+            onChange={(e) =>
+              setInterested({ ...interested, position: e.target.value })
+            }
+            required
+          />{" "}
+          Too Many to Specify
+        </label>
         <br />
         <label>
           What kind of Field you prefer to play on ?
-          {interested.field === "" && <span style={{color: "red"}}> *</span>}
+          {interested.field === "" && <span style={{ color: "red" }}> *</span>}
         </label>
-          <br />
-          <label>
-   
-            <input
-              type="radio"
-              id="grass"
-              name="field"
-              value="Grass"
-              onChange={(e) =>
-                setInterested({ ...interested, field: e.target.value })
-              }
-              required
-            />{" "}
-                   Grass
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="turf"
-              name="field"
-              value="Turf"
-              onChange={(e) =>
-                setInterested({ ...interested, field: e.target.value })
-              }
-              required
-              />{" "}
-              Turf
-          </label>
-          <br />
-          <label>
-            <input
-              type="radio"
-              id="nopref"
-              name="field"
-              value="No Preference"
-              onChange={(e) =>
-                setInterested({ ...interested, field: e.target.value })
-              }
-              required
-            />{" "}
-            No Preference
-          </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="grass"
+            name="field"
+            value="Grass"
+            onChange={(e) =>
+              setInterested({ ...interested, field: e.target.value })
+            }
+            required
+          />{" "}
+          Grass
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="turf"
+            name="field"
+            value="Turf"
+            onChange={(e) =>
+              setInterested({ ...interested, field: e.target.value })
+            }
+            required
+          />{" "}
+          Turf
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            id="nopref"
+            name="field"
+            value="No Preference"
+            onChange={(e) =>
+              setInterested({ ...interested, field: e.target.value })
+            }
+            required
+          />{" "}
+          No Preference
+        </label>
         <br />
         <label>
           A space for your opinion
           <br />
+          <br />
           <textarea
             style={{
+              paddingLeft: "10px",
               width: "100%",
               height: "100px",
-              backgroundColor: "lightgray",
+              borderRadius: "5px",
+              color: "black",
+              fontSize: "20px",
+              fontFamily: "Arial",
             }}
             onChange={(e) =>
               setInterested({ ...interested, opinion: e.target.value })

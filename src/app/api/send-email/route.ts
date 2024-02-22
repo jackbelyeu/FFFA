@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend =new Resend("Resend Key");
+const resend =new Resend("Resend Key"); // Replace with your Resend Key(https://resend.dev/)
 
 export async function POST(request: NextRequest){
     try {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest){
         const{name,email,phone,sunday,team,position,field,opinion} = reqBody;
         console.log(reqBody);
         await resend.emails.send({
-            to: 'your_email',
+            to: 'your_email', // Replace with the email or domain name registered with Resend(https://resend.dev/)
             from: 'onboarding@resend.dev',
             subject:"Interest in joining the Season ",
             html:`

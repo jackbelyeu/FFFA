@@ -18,7 +18,7 @@ export default function LearnMore() {
     <div>
       <h1>Hello, Learn More Page!</h1>
       <p>Find out more about the 2023 season.</p>
-      <Image src={soccerPic} alt="Soccer" width={600} height={500} />
+      <Image src={soccerPic} alt="Soccer" width={800} height={600} />
       <br />
       <SendEmailButton />
       <center>

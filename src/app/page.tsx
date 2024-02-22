@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { sql } from "@vercel/postgres";
+import Image from "next/image";
 
 export default async function Page() {
   try {
@@ -10,6 +11,7 @@ export default async function Page() {
       <div>
         <h1>Flagrant Fowl Futbol Association</h1>
         <Link href="/dashboard">Go to Dashboard</Link>
+        {" "}
         <Link href="/learnmore">Learn More</Link>
         <h2>2023 Final Standings</h2>
         <table>
@@ -29,9 +31,11 @@ export default async function Page() {
               <tr key={index}>
                 <td>{row.team}</td>
                 <td>
-                  <img
+                  <Image
                     src={`/logos/${row.team}.jpeg`}
                     alt={`Logo of ${row.team}`}
+                    width={50}
+                    height={50}
                   />
                 </td>
                 <td>{row.wins}</td>
