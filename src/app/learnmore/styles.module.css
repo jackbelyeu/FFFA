@@ -1,0 +1,51 @@
+.learnmore h1,
+.learnmore p {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.learnmore button {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #009879;
+  cursor: pointer;
+  /* transition: all 0.3s ease; */
+}
+
+.learnmore button:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
+.learnmore a {
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-color: #009879;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learnmore a:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
+.learnmore img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
