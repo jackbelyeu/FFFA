@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import RsvpDropdown from "./RsvpDropdown";
-import { fixedTeams } from "./constants";
+import { fixedTeams, fixedHyenas } from "./constants";
 
 interface RsvpPageProps {
   params: { team: string };
@@ -15,20 +15,56 @@ interface RsvpState {
 
 const RsvpPage: React.FC<RsvpPageProps> = ({ params }) => {
   const [rsvp, setRsvp] = React.useState<RsvpState>({
-    John: {
+    MattPhilip: {
       oct10: "ifneeded",
       oct11: "ifneeded",
       oct12: "ifneeded",
       oct13: "ifneeded",
     },
-    Mark: {
+    BaileyPreib: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    MollyDahlquist: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    PaulMcCaughey: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    JordanMcCain: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    JoshJulian: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    MattLang: {
+      oct10: "ifneeded",
+      oct11: "ifneeded",
+      oct12: "ifneeded",
+      oct13: "ifneeded",
+    },
+    TimDugan: {
       oct10: "ifneeded",
       oct11: "ifneeded",
       oct12: "ifneeded",
       oct13: "ifneeded",
     },
   });
-console.log(rsvp)
+  console.log(rsvp);
   const isValidTeam = fixedTeams.includes(params.team);
 
   const handleRsvpChange = (

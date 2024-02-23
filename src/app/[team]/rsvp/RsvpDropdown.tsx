@@ -1,4 +1,3 @@
-
 interface RsvpDropdownProps {
   value: string;
   onChange: (value: string) => void;
@@ -6,10 +5,11 @@ interface RsvpDropdownProps {
 const RsvpDropdown: React.FC<RsvpDropdownProps> = ({ value, onChange }) => {
   return (
     <select value={value} onChange={(e) => onChange(e.target.value)}>
-      <option value="yes">✅</option>
-      <option value="no">❌</option>
-      <option value="ifneeded">☑️</option>
-      <option value="pending">❓</option>
+      <option value="none">None</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="ifneeded">If Needed</option>
+      <option value="pending">Pending</option>
     </select>
   );
 };

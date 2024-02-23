@@ -7,4 +7,28 @@ const fixedTeams = [
   "mockingbirds",
 ];
 
-export { fixedTeams };
+const fixedHyenas = [
+  "MattPhilip",
+  "BaileyPreib",
+  "MollyDahlquist",
+  "PaulMcCaughey",
+  "JordanMcCain",
+  "JoshJulian",
+  "MattLang",
+  "TimDugan",
+];
+
+const fixedMosquitoes = [
+  "ChristianRalph",
+  "GretchenHaughey",
+  "SavannahJefferis-Henriques",
+  "AaronJuedemann",
+  "RafaelFeliciano",
+  "KentLin",
+  "MarkTucker",
+  "TrevorMacDougall"
+];
+
+
+
+export { fixedTeams, fixedHyenas };
