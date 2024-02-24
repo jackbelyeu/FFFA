@@ -7,16 +7,11 @@ test("LearnMore", () => {
   expect(
     screen.getByRole("heading", { level: 1, name: "Hello, Learn More Page!" })
   ).toBeDefined();
+  expect(screen.getByRole("img")).toBeDefined();
   expect(
-    screen.getByRole("img")
-  ).toBeDefined();
-  expect(
-    screen.getByRole("link",{name:"Express Interest"})
+    screen.getByRole("link", { name: "Express Interest for 2024" })
   ).toBeDefined();
   expect(
     screen.getByRole("button", { name: "Contact Organizer" })
   ).toBeDefined();
 });
-
-
-
