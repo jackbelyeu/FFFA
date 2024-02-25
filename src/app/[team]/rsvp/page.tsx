@@ -11,7 +11,7 @@ const validTeams = [
   "emus",
   "mockingbirds",
   "chickens",
-  "mosquitos",
+  "mosquitoes",
   "grasskickers",
   "hyenas",
 ];
@@ -85,7 +85,6 @@ export default function RSVP({ params }: RSVPProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
         const response = await fetch(`/api/${params.team}/rsvp`);
         const data = await response.json();
         const rows = data.rows;
