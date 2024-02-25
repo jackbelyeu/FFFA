@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { sql } from "@vercel/postgres";
 
+
 interface Player {
   id: number;
   player_name: string;
