@@ -35,7 +35,7 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch("/api/teams");
+        const response = await fetch("/api/paceychickens");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -105,7 +105,7 @@ const Page: React.FC = () => {
 
   return (
     <div>
-      <h1>Team Mosquitoes</h1>
+      <h1>Team Pacey Chickens</h1>
       <p>State your availability for the next Match</p>
       <form onSubmit={handleSubmit}>
         <table>

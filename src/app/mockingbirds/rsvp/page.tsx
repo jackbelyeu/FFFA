@@ -35,7 +35,7 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch("/api/teams");
+        const response = await fetch("/api/mockingbirds");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -81,7 +81,7 @@ const Page: React.FC = () => {
 
     // Assuming your API can handle an array of updates
     try {
-      const response = await fetch("/api/update-status", {
+      const response = await fetch("/api/mockingbirds", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const Page: React.FC = () => {
 
   return (
     <div>
-      <h1>Team Mosquitoes</h1>
+      <h1>Team Mocking Birds</h1>
       <p>State your availability for the next Match</p>
       <form onSubmit={handleSubmit}>
         <table>
