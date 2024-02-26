@@ -91,7 +91,9 @@ export default function RSVP({ params }: RSVPProps) {
         setLoading(true);
         const response = await fetch(`/api/${params.team}/rsvp`);
         const data = await response.json();
+        console.log(data)
         const rows = data.rows;
+        console.log(typeof rows);
         setRsvpData(rows);
         console.log(rows);
       } catch (error) {
@@ -114,7 +116,13 @@ export default function RSVP({ params }: RSVPProps) {
   const validTeamContent = (
     <main>
       <h1>RSVP FOR {params.team.toUpperCase()}</h1>
-      <table>
+      <table
+      style={
+        {
+          marginLeft: "-25%",
+        }
+      }
+      >
         <thead>
           <tr>
             <th

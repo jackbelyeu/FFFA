@@ -9,7 +9,7 @@ export async function GET(
    SELECT * FROM risers_rsvp where player_team = ${params.team}
    ORDER BY id ASC;
   `;
-
+  console.log(result);
   return NextResponse.json(result);
 }
 
