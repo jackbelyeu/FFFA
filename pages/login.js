@@ -1,4 +1,3 @@
-// pages/login.js
 import { useState } from 'react';
 import Router from 'next/router';
 
@@ -8,12 +7,25 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple hardcoded check
-    if (username === 'admin' && password === 'password') {
-      // Redirect to the protected page
-      Router.push('/protectedPage');
-    } else {
-      alert('Invalid credentials');
+    try {
+      // Perform login request to your server
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      
+      if (response.ok) {
+        // Redirect to the protected page upon successful login
+        Router.push('/test2');
+      } else {
+        // Handle authentication failure (e.g., show error message)
+        alert('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
     }
   };
 

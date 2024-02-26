@@ -14,9 +14,9 @@ export default async function updatePlayerAvailability(req, res) {
     console.log(`${playerId}`)
     // Update the player availability in the database
     await sql`
-      UPDATE player_availability
-      SET availability = ${availability}
-      WHERE id = ${playerId} 
+      UPDATE grasskickers
+      SET status = ${availability}
+      WHERE playerid = ${playerId} 
     `;
 
     // Send a success response
