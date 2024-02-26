@@ -1,22 +1,19 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   const { searchParams } = new URL(request.url);
   const team = searchParams.get("team");
   const year = searchParams.get("year");
-  const W = searchParams.get("W");
-  const D = searchParams.get("D");
-  const L = searchParams.get("L");
-  const GD = searchParams.get("GD");
-  const Logo_path = searchParams.get("Logo_path");
+  const W = searchParams.get("W") || "0"; // Default value is "0"
+  const D = searchParams.get("D") || "0"; // Default value is "0"
+  const L = searchParams.get("L") || "0"; // Default value is "0"
+  const GD = searchParams.get("GD") || "0"; // Default value is "0"
+  const Logo_path = searchParams.get("Logo_path") || ""; // Default value is ""
 
   try {
-    if (!team || !year || !W || !D || !L || !GD)
-      throw new Error("All fields are required");
-
     // Calculate Points
-    const Points = parseInt(W) * 3 + 1 * parseInt(D);
+    const Points = parseInt(W) * 3 + parseInt(D); // No need to multiply D by 1
 
     // Check if the team already exists for the specified year
     const existingTeam =
