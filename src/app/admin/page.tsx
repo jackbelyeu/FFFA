@@ -54,8 +54,10 @@ export default function Admin() {
       setD("");
       setL("");
       setGD("");
+      alert("Table Updated successfully!");
     } catch (error) {
       console.error("Error updating football standings:", error);
+      alert("Table Update unsuccessfull!");
       // Handle error state or display an alert to the user
     }
   };
