@@ -91,11 +91,8 @@ export default function RSVP({ params }: RSVPProps) {
         setLoading(true);
         const response = await fetch(`/api/${params.team}/rsvp`);
         const data = await response.json();
-        console.log(data)
         const rows = data.rows;
-        console.log(typeof rows);
         setRsvpData(rows);
-        console.log(rows);
       } catch (error) {
         console.error("Error fetching RSVP data:", error);
       } finally {

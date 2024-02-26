@@ -11,8 +11,6 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  /* margin:  0; */
-  /* margin-left: -25%; */
   font-size: 0.9em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-width: 400px;
