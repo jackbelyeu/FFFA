@@ -1,19 +1,18 @@
+// Note that 'sql' must be properly configured to work with your database.
 import { sql } from "@vercel/postgres";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const PlayerName = searchParams.get("PlayerName");
-  const Status = searchParams.get("Status");
-
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  const { playerId, date, status } = req.body;
   try {
-    if (!PlayerName) throw new Error("Player names required");
-    await sql`INSERT INTO Mockingbirds
-    (PlayerName ) VALUES (${PlayerName});`;
+    await sql`
+      UPDATE Mosquitoes 
+      SET status = ${status}, date = ${date} 
+      WHERE playerid = ${playerId};
+    `;
+    res.status(200).json({ message: "Status updated successfully" });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("Error updating status:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-
-  const pets = await sql`SELECT * FROM Mockingbirds;`;
-  return NextResponse.json({ pets }, { status: 200 });
 }
