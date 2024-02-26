@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
+import people from "/src/images/people.png";
 interface RSVPProps {
   params: {
     team: string;
@@ -30,6 +31,7 @@ interface Row {
 
 export default function RSVP({ params }: RSVPProps) {
   const [rsvpData, setRsvpData] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(true);
   const handleChange = async (event: any, row: Row) => {
     await fetch(`/api/${params.team}/rsvp`, {
       method: "POST",
@@ -80,68 +82,224 @@ export default function RSVP({ params }: RSVPProps) {
         )?.value,
       }),
     });
+    window.location.reload();
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`/api/${params.team}/rsvp`);
         const data = await response.json();
         const rows = data.rows;
         setRsvpData(rows);
+        console.log(rows);
       } catch (error) {
         console.error("Error fetching RSVP data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [params.team]);
 
+  if (loading) {
+    return (
+      <main>
+        <h1>... Updating Give me a Second..</h1>
+      </main>
+    );
+  }
   const validTeamContent = (
     <main>
       <h1>RSVP FOR {params.team.toUpperCase()}</h1>
       <table>
         <thead>
           <tr>
-            <th>Player</th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              Player
+            </th>
+            <th
+              style={{
+                textAlign: "center",
+
+                fontWeight: "bold",
+              }}
+            >
               Oct 8
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.oct_8 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Oct 15
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.oct_15 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Oct 22
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.oct_22 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Oct 29
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.oct_29 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Nov 5
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.nov_5 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Nov 12
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.nov_12 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Nov 19
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.nov_19 === "YES").length}
             </th>
-            <th>
+            <th
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Nov 26
               <br />
+              <Image
+                src={people}
+                alt="correct"
+                width={20}
+                height={20}
+                style={{
+                  display: "flex",
+                  margin: "auto",
+                  marginBottom: "-19px",
+                  marginRight: "10px",
+                }}
+              />
               {rsvpData.filter((row) => row.nov_26 === "YES").length}
             </th>
           </tr>
@@ -149,7 +307,9 @@ export default function RSVP({ params }: RSVPProps) {
         <tbody>
           {rsvpData.map((row) => (
             <tr key={row.player_name}>
-              <td>{row.player_name}</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                {row.player_name}
+              </td>
               <td>
                 <select
                   defaultValue={row.oct_8}
@@ -180,8 +340,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`oct_22_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
@@ -192,8 +352,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`oct_29_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
@@ -204,8 +364,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`nov_5_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
@@ -216,8 +376,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`nov_12_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
@@ -228,8 +388,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`nov_19_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
@@ -240,8 +400,8 @@ export default function RSVP({ params }: RSVPProps) {
                   id={`nov_26_${row.player_name}`}
                   onChange={(event) => handleChange(event, row)}
                 >
-                  <option value="YES">YES</option>
-                  <option value="NO">NO</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                   <option value="ifneeded">If Needed</option>
                   <option value="pending">Pending</option>
                 </select>
