@@ -12,7 +12,7 @@ export default async function Page() {
         <h1>Flagrant Fowl Futbol Association</h1>
         <Link href="/dashboard">Go to Dashboard</Link>{" "}
         <Link href="/learnmore">Learn More</Link>{" "}
-        <Link href="/admin">Admin</Link>
+        <Link href="/organizer_login">Admin</Link>
         <h2>2023 Final Standings</h2>
         <table>
           <thead>
