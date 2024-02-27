@@ -13,5 +13,8 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "errorLens.delay": 1000,
   "vitest.enable": true,
-  "vitest.commandLine": "npx vitest --watch"
+  "vitest.commandLine": "npx vitest --watch",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
