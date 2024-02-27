@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import people from "/src/images/people.png";
+import people from "/src/images/people.jpeg";
 interface RSVPProps {
   params: {
     team: string;
@@ -114,11 +114,9 @@ export default function RSVP({ params }: RSVPProps) {
     <main>
       <h1>RSVP FOR {params.team.toUpperCase()}</h1>
       <table
-      style={
-        {
+        style={{
           marginLeft: "-25%",
-        }
-      }
+        }}
       >
         <thead>
           <tr>
@@ -147,8 +145,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.oct_8 === "YES").length}
@@ -169,8 +167,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.oct_15 === "YES").length}
@@ -191,8 +189,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.oct_22 === "YES").length}
@@ -213,8 +211,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.oct_29 === "YES").length}
@@ -235,8 +233,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                  marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.nov_5 === "YES").length}
@@ -257,8 +255,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.nov_12 === "YES").length}
@@ -279,8 +277,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.nov_19 === "YES").length}
@@ -301,8 +299,8 @@ export default function RSVP({ params }: RSVPProps) {
                 style={{
                   display: "flex",
                   margin: "auto",
-                  marginBottom: "-19px",
-                  marginRight: "10px",
+                marginBottom: "-20px",
+                  marginLeft: "13px",
                 }}
               />
               {rsvpData.filter((row) => row.nov_26 === "YES").length}
