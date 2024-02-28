@@ -2,14 +2,19 @@ import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const requestBody = await request.json(); // Parse JSON from request body
+  // const { team, year, W, D, L, GD, Logo_path } = requestBody; // Destructure properties from the parsed JSON
+  console.log("+-", requestBody);
+
+  console.log("request======>", requestBody.team);
   const { searchParams } = new URL(request.url);
-  const team = searchParams.get("team");
-  const year = searchParams.get("year");
-  const W = searchParams.get("W") || "0"; // Default value is "0"
-  const D = searchParams.get("D") || "0"; // Default value is "0"
-  const L = searchParams.get("L") || "0"; // Default value is "0"
-  const GD = searchParams.get("GD") || "0"; // Default value is "0"
-  const Logo_path = searchParams.get("Logo_path") || ""; // Default value is ""
+  const team = requestBody.team || "NA";
+  const year = requestBody.year || "NA";
+  const W = requestBody.w || "0"; // Default value is "0"
+  const D = requestBody.d || "0"; // Default value is "0"
+  const L = requestBody.l || "0"; // Default value is "0"
+  const GD = requestBody.gd || "0"; // Default value is "0"
+  const Logo_path = requestBody.Logo_path || ""; // Default value is ""
 
   try {
     // Calculate Points

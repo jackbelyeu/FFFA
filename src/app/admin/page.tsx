@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import "./styles.css"; // Import the CSS file
 
 export default function Admin() {
   const [year, setYear] = useState("");
@@ -8,6 +9,8 @@ export default function Admin() {
   const [d, setD] = useState("");
   const [l, setL] = useState("");
   const [gd, setGD] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -23,6 +26,8 @@ export default function Admin() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
 
     try {
       const response = await fetch("/api/edit-table", {
@@ -40,14 +45,11 @@ export default function Admin() {
         }),
       });
 
-      console.log("API called successfully"); // Log statement to confirm the API call
-
       if (!response.ok) {
         throw new Error("Failed to update football standings");
       }
 
-      console.log("Football standings updated successfully");
-      // Resetting the form after successful submission
+      setSuccessMessage("Football standings updated successfully");
       setYear("");
       setTeam("");
       setW("");
@@ -55,13 +57,13 @@ export default function Admin() {
       setL("");
       setGD("");
     } catch (error) {
+      setErrorMessage("Error updating football standings");
       console.error("Error updating football standings:", error);
-      // Handle error state or display an alert to the user
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Welcome Admin</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -73,7 +75,6 @@ export default function Admin() {
             onChange={handleInputChange}
           />
         </label>
-        <br />
         <label>
           Team:
           <input
@@ -83,22 +84,18 @@ export default function Admin() {
             onChange={handleInputChange}
           />
         </label>
-        <br />
         <label>
           W:
           <input type="text" name="w" value={w} onChange={handleInputChange} />
         </label>
-        <br />
         <label>
           D:
           <input type="text" name="d" value={d} onChange={handleInputChange} />
         </label>
-        <br />
         <label>
           L:
           <input type="text" name="l" value={l} onChange={handleInputChange} />
         </label>
-        <br />
         <label>
           GD:
           <input
@@ -108,8 +105,11 @@ export default function Admin() {
             onChange={handleInputChange}
           />
         </label>
-        <br />
-        <button type="submit">Submit </button>
+        <button type="submit">Submit</button>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {successMessage && (
+          <div className="success-message">{successMessage}</div>
+        )}
       </form>
     </div>
   );
