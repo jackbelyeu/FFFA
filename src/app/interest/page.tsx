@@ -37,13 +37,11 @@ export default function Interest() {
         body: JSON.stringify(interested),
       });
 
-
-      if (response.ok) {
+      if (sendEmailResponse.ok) {
         // router.push("/thankyou"); // Uncomment this line if you want to use the router
         alert("Form submitted successfully");
         window.location.reload();
       } else {
-
         throw new Error("Failed to send email");
       }
       alert("Form submitted successfully");
