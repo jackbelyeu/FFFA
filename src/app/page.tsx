@@ -13,7 +13,7 @@ export default async function Page() {
         <Link href="/dashboard">Go to Dashboard</Link>
         {" "}
         <Link href="/learnmore">Learn More</Link>
-        <Link href="/test2">Test</Link>
+        <Link href="/login">Login</Link>
         <h2>2023 Final Standings</h2>
         <table>
           <thead>

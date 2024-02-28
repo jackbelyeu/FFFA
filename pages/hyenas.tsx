@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { sql } from "@vercel/postgres";
+import "../styles/style.css"; 
 
 interface Player {
   playerid: number;
@@ -62,7 +63,7 @@ export default function Test2({ initialData }: Props) {
       {loggedIn && (
         <>
           <h1>Player Availability</h1>
-          {/* Navigation links */}
+          <img style={{ width: '10%', height: '10%', objectFit: 'cover' }} src={"logos/Hyenas.jpeg"} alt="" />
           <h2>Player Availability for Games</h2>
           <table>
             <thead>
@@ -99,7 +100,7 @@ export default function Test2({ initialData }: Props) {
 
 export async function getServerSideProps() {
   try {
-    const { rows } = await sql`select * from grasskickers;`;
+    const { rows } = await sql`select * from hyenas;`;
     const formattedData = rows.map((row) => ({
       ...row,
       // game_date: row.date.toISOString(),
