@@ -10,21 +10,9 @@ export default async function Page() {
     return (
       <div>
         <h1>Flagrant Fowl Futbol Association</h1>
-        <Link
-          style={{ color: "yellow", marginRight: "30px" }}
-          href="/dashboard"
-        >
-          Go to Dashboard
-        </Link>{" "}
-        <Link
-          style={{ color: "yellow", marginRight: "30px" }}
-          href="/learnmore"
-        >
-          Learn More
-        </Link>{" "}
-        <Link style={{ color: "yellow" }} href="/organizer_login">
-          Admin
-        </Link>
+        <Link href="/dashboard">Go to Dashboard</Link>
+        <Link href="/learnmore">Learn More</Link>{" "}
+        <Link href="/organizer_login">Admin</Link>
         <h2>2023 Final Standings</h2>
         <table>
           <thead>

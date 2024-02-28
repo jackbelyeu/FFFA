@@ -13,6 +13,7 @@ const LoginPage: React.FC = () => {
     if (username === "admin" && password === "password") {
       // Successful login
       router.push("/admin");
+      alert("Login successful!");
     } else {
       // Failed login
       setErrorMessage("Invalid username or password");
