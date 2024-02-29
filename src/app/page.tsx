@@ -43,6 +43,8 @@ export default function Page() {
       <h1>Flagrant Fowl Futbol Association</h1>
       <Link href="/dashboard">Go to Dashboard</Link> <br />
       <Link href="/learnmore">Learn More</Link>
+      <br />
+      <Link href="/Schedule"> Match Schedule</Link>
       <h2>Final Standings</h2>
       <h3>Points Table</h3>
       <select onChange={handleChange}>
