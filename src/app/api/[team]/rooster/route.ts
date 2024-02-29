@@ -14,29 +14,14 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { team: string; params:any }
+  { params }: { team: string; params: any }
 ) {
-  const {
-    player_name,
-    oct_8,
-    oct_15,
-    oct_22,
-    oct_29,
-    nov_5,
-    nov_12,
-    nov_19,
-    nov_26,
-  } = await request.json();
+  const { player_name, player_commitment, player_position } =
+    await request.json();
   const result = await sql`
    UPDATE risers_rsvp
-    SET oct_8 = ${oct_8},
-        oct_15 = ${oct_15},
-        oct_22 = ${oct_22},
-        oct_29 = ${oct_29},
-        nov_5 = ${nov_5},
-        nov_12 = ${nov_12},
-        nov_19 = ${nov_19},
-        nov_26 = ${nov_26}
+    SET player_commitment = ${player_commitment},
+        player_position = ${player_position},
     WHERE player_name = ${player_name} AND player_team = ${params.team};
   `;
   return NextResponse.json(result);

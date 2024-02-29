@@ -6,8 +6,8 @@ export async function GET(request: Request) {
     // All tables in the database
     const result = await sql`
       SELECT * from RISERS_RSVP
-      where player_team="hyenas"
-      ;`;
+      where player_name = 'Matt Philip' and player_team = 'hyenas'; 
+    `;
 
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {

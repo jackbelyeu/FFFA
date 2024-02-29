@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
-interface RSVPProps {
+interface RoosterProps {
   params: {
     team: string;
   };
@@ -20,23 +20,17 @@ const validTeams = [
 
 interface Row {
   player_name: string;
-  oct_8: string;
-  oct_15: string;
-  oct_22: string;
-  oct_29: string;
-  nov_5: string;
-  nov_12: string;
-  nov_19: string;
-  nov_26: string;
+  player_commitment: string;
+  
 }
 
-const fetchData = async (team: string, setRsvpData: any, setLoading: any) => {
+const fetchData = async (team: string, setRoosterData: any, setLoading: any) => {
   try {
     setLoading(true);
-    const response = await fetch(`/api/${team}/rsvp`);
+    const response = await fetch(`/api/${team}/rooster`);
     const data = await response.json();
     const rows = data.rows;
-    setRsvpData(rows);
+    setRoosterData(rows);
   } catch (error) {
     console.error("Error fetching RSVP data:", error);
   } finally {
@@ -44,18 +38,18 @@ const fetchData = async (team: string, setRsvpData: any, setLoading: any) => {
   }
 };
 
-export default function RSVP({ params }: RSVPProps) {
-  const [rsvpData, setRsvpData] = useState<Row[]>([]);
+export default function Rooster({ params }: RoosterProps) {
+  const [roosterData, setRoosterData] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData(params.team, setRsvpData, setLoading);
+    fetchData(params.team, setRoosterData, setLoading);
   }, [params.team]);
 
   return loading ? (
     <LoadingMessage />
   ) : validTeams.includes(params.team) ? (
-    <ValidTeamContent params={params} rsvpData={rsvpData} />
+    <ValidTeamContent params={params} roosterData={roosterData} />
   ) : (
     <InvalidTeamContent params={params} />
   );
@@ -69,16 +63,16 @@ const LoadingMessage = () => (
 
 const ValidTeamContent = ({
   params,
-  rsvpData,
+  roosterData,
 }: {
   params: { team: string };
-  rsvpData: Row[];
+  roosterData: Row[];
 }) => (
   <main>
     <h1>ROOSTER FOR {params.team.toUpperCase()}</h1>
     <TeamLogo team={params.team} />
     <br />
-    <PlayerTable params={params} rsvpData={rsvpData} />
+    <PlayerTable params={params} roosterData={roosterData}/>
   </main>
 );
 
@@ -106,14 +100,14 @@ const TeamLogo = ({ team }: { team: string }) => (
 );
 const PlayerTable = ({
   params,
-  rsvpData,
+  roosterData,
 }: {
   params: { team: string };
-  rsvpData: Row[];
+  roosterData: Row[];
 }) => (
   <center>
     <div className={styles.cardContainer}>
-      {rsvpData.map((row) => (
+      {roosterData.map((row) => (
         <Card
           key={row.player_name}
           player_name={row.player_name}
@@ -131,6 +125,11 @@ const PlayerTable = ({
         width: "150px",
         height: "50px",
       }}
+      onClick={
+        () => {
+          console.log("Add Player");
+      }
+      }
     >
       Add Player
     </button>
@@ -142,6 +141,11 @@ const PlayerTable = ({
         width: "150px",
         height: "50px",
       }}
+      onClick={
+        () => {
+          console.log("Remove Player");
+      }
+      }
     >
       Remove Player
     </button>

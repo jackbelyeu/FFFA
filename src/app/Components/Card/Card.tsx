@@ -1,5 +1,3 @@
-// Card.tsx
-
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./Card.module.css";
@@ -18,14 +16,42 @@ const Card = ({
   const [commitment, setCommitment] = useState(player_commitment);
   const [position, setPosition] = useState(player_position);
 
-  const handleCommitmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCommitment(e.target.value);
-    console.log(e.target.value);
+  const handleCommitmentChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newCommitment = e.target.value;
+    setCommitment(newCommitment);
+    console.log(newCommitment);
+    await updatePlayerData({ player_commitment: newCommitment });
   };
 
-  const handlePositionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPosition(e.target.value);
-    console.log(e.target.value);
+  const handlePositionChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newPosition = e.target.value;
+    setPosition(newPosition);
+    console.log(newPosition);
+    await updatePlayerData({ player_position: newPosition });
+  };
+
+  const updatePlayerData = async (data: {
+    player_commitment?: string;
+    player_position?: string;
+  }) => {
+    try {
+      const response = await fetch(`/api/${player_team}/rooster`, {
+        method: "POST",
+        body: JSON.stringify({
+          player_name,
+          ...data,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update player data");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -38,19 +64,18 @@ const Card = ({
         className={styles.logo}
       />
       <h2>{player_name}</h2>
-      <p>Commitment: {player_commitment}</p>
-      <select value={player_commitment} onChange={handleCommitmentChange}>
-        <option value="fulltime">Full Time</option>
-        <option value="parttime">Part Time</option>
+      <p>Commitment: {commitment}</p>
+      <select value={commitment} onChange={handleCommitmentChange}>
+        <option value="Full time">Full Time</option>
+        <option value="Part time">Part Time</option>
       </select>
-      <p>Position: {player_position}</p>
-      <select value={player_position} onChange={handlePositionChange}>
-        <option value="goalkeeper">Goalkeeper</option>
-        <option value="defender">Defender</option>
-        <option value="midfielder">Midfielder</option>
-        <option value="forward">Forward</option>
+      <p>Position: {position}</p>
+      <select value={position} onChange={handlePositionChange}>
+        <option value="Goal Keeper">Goalkeeper</option>
+        <option value="Defender">Defender</option>
+        <option value="Midfielder">Midfielder</option>
+        <option value="Forward">Forward</option>
       </select>
-      <br />
     </div>
   );
 };
