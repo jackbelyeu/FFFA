@@ -18,10 +18,10 @@ const validTeams = [
   "hyenas",
 ];
 
-interface Row {
+interface CardProps {
   player_name: string;
   player_commitment: string;
-  
+  player_position: string;
 }
 
 const fetchData = async (team: string, setRoosterData: any, setLoading: any) => {
@@ -30,6 +30,7 @@ const fetchData = async (team: string, setRoosterData: any, setLoading: any) => 
     const response = await fetch(`/api/${team}/rooster`);
     const data = await response.json();
     const rows = data.rows;
+    console.log(rows);
     setRoosterData(rows);
   } catch (error) {
     console.error("Error fetching RSVP data:", error);
@@ -39,7 +40,7 @@ const fetchData = async (team: string, setRoosterData: any, setLoading: any) => 
 };
 
 export default function Rooster({ params }: RoosterProps) {
-  const [roosterData, setRoosterData] = useState<Row[]>([]);
+  const [roosterData, setRoosterData] = useState<CardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -66,13 +67,13 @@ const ValidTeamContent = ({
   roosterData,
 }: {
   params: { team: string };
-  roosterData: Row[];
+  roosterData: CardProps[];
 }) => (
   <main>
     <h1>ROOSTER FOR {params.team.toUpperCase()}</h1>
     <TeamLogo team={params.team} />
     <br />
-    <PlayerTable params={params} roosterData={roosterData}/>
+    <PlayerCards params={params} roosterData={roosterData}/>
   </main>
 );
 
@@ -98,12 +99,12 @@ const TeamLogo = ({ team }: { team: string }) => (
     }}
   />
 );
-const PlayerTable = ({
+const PlayerCards = ({
   params,
   roosterData,
 }: {
   params: { team: string };
-  roosterData: Row[];
+  roosterData: CardProps[];
 }) => (
   <center>
     <div className={styles.cardContainer}>

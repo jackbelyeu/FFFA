@@ -18,10 +18,11 @@ export async function POST(
 ) {
   const { player_name, player_commitment, player_position } =
     await request.json();
+  console.log(player_name, player_commitment, player_position);
   const result = await sql`
-   UPDATE risers_rsvp
-    SET player_commitment = ${player_commitment},
-        player_position = ${player_position},
+    UPDATE risers_rsvp
+    SET commitment = ${player_commitment},
+        position = ${player_position}
     WHERE player_name = ${player_name} AND player_team = ${params.team};
   `;
   return NextResponse.json(result);
