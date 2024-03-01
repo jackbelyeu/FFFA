@@ -20,8 +20,8 @@ const validTeams = [
 
 interface CardProps {
   player_name: string;
-  player_commitment: string;
-  player_position: string;
+  commitment: string;
+  position: string;
 }
 
 const fetchData = async (team: string, setRoosterData: any, setLoading: any) => {
@@ -30,7 +30,6 @@ const fetchData = async (team: string, setRoosterData: any, setLoading: any) => 
     const response = await fetch(`/api/${team}/rooster`);
     const data = await response.json();
     const rows = data.rows;
-    console.log(rows);
     setRoosterData(rows);
   } catch (error) {
     console.error("Error fetching RSVP data:", error);
@@ -112,8 +111,8 @@ const PlayerCards = ({
         <Card
           key={row.player_name}
           player_name={row.player_name}
-          player_commitment="Full Time"
-          player_position="Mid Fielder"
+          commitment={row.commitment}
+          position={row.position}
           player_team={params.team}
         />
       ))}

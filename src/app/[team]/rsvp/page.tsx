@@ -82,7 +82,6 @@ export default function RSVP({ params }: RSVPProps) {
         )?.value,
       }),
     });
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -106,7 +105,7 @@ export default function RSVP({ params }: RSVPProps) {
   if (loading) {
     return (
       <main>
-        <h1>... Updating Give me a Second..</h1>
+        <h1>... Updating Give me a Second ...</h1>
       </main>
     );
   }
