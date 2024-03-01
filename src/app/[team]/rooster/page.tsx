@@ -32,7 +32,7 @@ const fetchData = async (team: string, setRoosterData: any, setLoading: any) => 
     const rows = data.rows;
     setRoosterData(rows);
   } catch (error) {
-    console.error("Error fetching RSVP data:", error);
+    console.error("Error fetching Rooster data:", error);
   } finally {
     setLoading(false);
   }
@@ -79,7 +79,7 @@ const ValidTeamContent = ({
 const InvalidTeamContent = ({ params }: { params: { team: string } }) => (
   <main>
     <h1>Invalid Team</h1>
-    <p>Sorry 🙃, No RSVP for {params.team.toUpperCase()} </p>
+    <p>Sorry 🙃, No Rooster for {params.team.toUpperCase()} </p>
     We will be adding more teams soon.
     <h1>😊</h1>
   </main>
