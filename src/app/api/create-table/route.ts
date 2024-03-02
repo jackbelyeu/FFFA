@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     // All tables in the database
     const result = await sql`
       SELECT * from RISERS_RSVP
-      where player_team = 'hyenas'
+      where player_team = 'mosquitoes'
       ; 
     `;
 

@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
+import { sql } from "@vercel/postgres";
+
 interface RoosterProps {
   params: {
     team: string;
@@ -24,7 +26,11 @@ interface CardProps {
   position: string;
 }
 
-const fetchData = async (team: string, setRoosterData: any, setLoading: any) => {
+const fetchData = async (
+  team: string,
+  setRoosterData: any,
+  setLoading: any
+) => {
   try {
     setLoading(true);
     const response = await fetch(`/api/${team}/rooster`);
@@ -72,7 +78,7 @@ const ValidTeamContent = ({
     <h1>ROOSTER FOR {params.team.toUpperCase()}</h1>
     <TeamLogo team={params.team} />
     <br />
-    <PlayerCards params={params} roosterData={roosterData}/>
+    <PlayerCards params={params} roosterData={roosterData} />
   </main>
 );
 
@@ -98,56 +104,129 @@ const TeamLogo = ({ team }: { team: string }) => (
     }}
   />
 );
+
 const PlayerCards = ({
   params,
   roosterData,
 }: {
   params: { team: string };
   roosterData: CardProps[];
-}) => (
-  <center>
-    <div className={styles.cardContainer}>
-      {roosterData.map((row) => (
-        <Card
-          key={row.player_name}
-          player_name={row.player_name}
-          commitment={row.commitment}
-          position={row.position}
-          player_team={params.team}
+}) => {
+  const [newPlayerName, setNewPlayerName] = useState("");
+  const [commitmentLevel, setCommitmentLevel] = useState("Full time");
+  const [position, setPosition] = useState("Goalkeeper");
+  const [removePlayerName, setRemovePlayerName] = useState("");
+
+  const handleAddPlayer = async () => {
+    try {
+      const response = await fetch(`/api/${params.team}/addnewplayer`, {
+        method: "POST",
+        body: JSON.stringify({
+          player_name: newPlayerName,
+          commitment: commitmentLevel,
+          position: position,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to add player");
+      }
+    } catch (error) {
+      console.error(`Error adding player ${newPlayerName}:`, error);
+    }
+    window.location.reload();
+  };
+
+  const handleRemovePlayer = async () => {
+    try {
+      const response = await fetch(`/api/${params.team}/removeplayer`, {
+        method: "POST",
+        body: JSON.stringify({ player_name: removePlayerName }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to remove player");
+      }
+    } catch (error) {
+      console.error(`Error removing player ${removePlayerName}:`, error);
+    }
+    window.location.reload();
+  };
+
+  return (
+    <center>
+      <div className={styles.cardContainer}>
+        {roosterData.map((row) => (
+          <Card
+            key={row.player_name}
+            player_name={row.player_name}
+            commitment={row.commitment}
+            position={row.position}
+            player_team={params.team}
+          />
+        ))}
+      </div>
+      <div id="addplayer">
+        <label>Player Name :</label>
+        <br />
+        <input
+          type="text"
+          value={newPlayerName}
+          onChange={(e) => setNewPlayerName(e.target.value)}
         />
-      ))}
-    </div>
-    <button
-      style={{
-        margin: "10px",
-        backgroundColor: "green",
-        color: "white",
-        width: "150px",
-        height: "50px",
-      }}
-      onClick={
-        () => {
-          console.log("Add Player");
-      }
-      }
-    >
-      Add Player
-    </button>
-    <button
-      style={{
-        margin: "10px",
-        backgroundColor: "red",
-        color: "white",
-        width: "150px",
-        height: "50px",
-      }}
-      onClick={
-        () => {
-          console.log("Remove Player");
-      }
-      }
-    >
-      Remove Player
-    </button>
-  </center>
-);
+        <br />
+        <select
+          value={commitmentLevel}
+          onChange={(e) => setCommitmentLevel(e.target.value)}
+        >
+          <option value="Full time">Full Time</option>
+          <option value="Part time">Part Time</option>
+        </select>
+        <br />
+        <select value={position} onChange={(e) => setPosition(e.target.value)}>
+          <option value="Goalkeeper">Goalkeeper</option>
+          <option value="Forward">Forward</option>
+          <option value="Midfielder">Midfielder</option>
+          <option value="Defender">Defender</option>
+        </select>
+        <br />
+        <button
+          style={{
+            margin: "10px",
+            backgroundColor: "green",
+            color: "white",
+            width: "150px",
+            height: "50px",
+          }}
+          onClick={handleAddPlayer}
+        >
+          Add Player
+        </button>
+      </div>
+      <div id="removeplayer">
+        <select
+          value={removePlayerName}
+          onChange={(e) => setRemovePlayerName(e.target.value)}
+        >
+          <option value="">Select Player to Remove</option>
+          {roosterData.map((row) => (
+            <option key={row.player_name} value={row.player_name}>
+              {row.player_name}
+            </option>
+          ))}
+        </select>
+        <br />
+        <button
+          style={{
+            margin: "10px",
+            backgroundColor: "red",
+            color: "white",
+            width: "150px",
+            height: "50px",
+          }}
+          onClick={handleRemovePlayer}
+        >
+          Remove Player
+        </button>
+      </div>
+    </center>
+  );
+};

@@ -82,6 +82,7 @@ export default function RSVP({ params }: RSVPProps) {
         )?.value,
       }),
     });
+    window.location.reload();
   };
 
   useEffect(() => {
