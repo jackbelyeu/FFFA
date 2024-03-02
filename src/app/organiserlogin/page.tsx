@@ -9,25 +9,6 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await fetch("/api/points", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     team: row.team,
-    //     wins: (document.getElementById(`wins_${row.team}`) as HTMLInputElement)
-    //       ?.value,
-    //     draws: (
-    //       document.getElementById(`draws_${row.team}`) as HTMLInputElement
-    //     )?.value,
-
-    
-    try {
-      router.push("/organiserTable");
-    } catch (error) {
-      console.error("Authentication error:", error);
-    }
   };
 
   return (
