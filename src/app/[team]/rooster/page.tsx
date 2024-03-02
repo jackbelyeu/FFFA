@@ -4,7 +4,6 @@ import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
 
-
 interface RoosterProps {
   params: {
     team: string;
@@ -19,7 +18,6 @@ const validTeams = [
   "grasskickers",
   "hyenas",
 ];
-
 interface CardProps {
   player_name: string;
   commitment: string;
@@ -118,25 +116,36 @@ const PlayerCards = ({
   const [removePlayerName, setRemovePlayerName] = useState("");
 
   const handleAddPlayer = async () => {
-    try {
-      const response = await fetch(`/api/${params.team}/addnewplayer`, {
-        method: "POST",
-        body: JSON.stringify({
-          player_name: newPlayerName,
-          commitment: commitmentLevel,
-          position: position,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to add player");
+    const confirmation = window.confirm(
+      "Are you sure you want to add this player?"
+    );
+    if (confirmation) {
+      try {
+        const response = await fetch(`/api/${params.team}/addnewplayer`, {
+          method: "POST",
+          body: JSON.stringify({
+            player_name: newPlayerName,
+            commitment: commitmentLevel,
+            position: position,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to add player");
+        }
+      } catch (error) {
+        console.error(`Error adding player ${newPlayerName}:`, error);
       }
-    } catch (error) {
-      console.error(`Error adding player ${newPlayerName}:`, error);
+      window.location.reload();
     }
-    window.location.reload();
   };
 
   const handleRemovePlayer = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to remove this player?"
+    );
+    if (!confirmation) {
+      return;
+    }
     try {
       const response = await fetch(`/api/${params.team}/removeplayer`, {
         method: "POST",
@@ -164,68 +173,74 @@ const PlayerCards = ({
           />
         ))}
       </div>
-      <div id="addplayer">
-        <label>Player Name :</label>
-        <br />
-        <input
-          type="text"
-          value={newPlayerName}
-          onChange={(e) => setNewPlayerName(e.target.value)}
-        />
-        <br />
-        <select
-          value={commitmentLevel}
-          onChange={(e) => setCommitmentLevel(e.target.value)}
-        >
-          <option value="Full time">Full Time</option>
-          <option value="Part time">Part Time</option>
-        </select>
-        <br />
-        <select value={position} onChange={(e) => setPosition(e.target.value)}>
-          <option value="Goalkeeper">Goalkeeper</option>
-          <option value="Forward">Forward</option>
-          <option value="Midfielder">Midfielder</option>
-          <option value="Defender">Defender</option>
-        </select>
-        <br />
-        <button
-          style={{
-            margin: "10px",
-            backgroundColor: "green",
-            color: "white",
-            width: "150px",
-            height: "50px",
-          }}
-          onClick={handleAddPlayer}
-        >
-          Add Player
-        </button>
-      </div>
-      <div id="removeplayer">
-        <select
-          value={removePlayerName}
-          onChange={(e) => setRemovePlayerName(e.target.value)}
-        >
-          <option value="">Select Player to Remove</option>
-          {roosterData.map((row) => (
-            <option key={row.player_name} value={row.player_name}>
-              {row.player_name}
-            </option>
-          ))}
-        </select>
-        <br />
-        <button
-          style={{
-            margin: "10px",
-            backgroundColor: "red",
-            color: "white",
-            width: "150px",
-            height: "50px",
-          }}
-          onClick={handleRemovePlayer}
-        >
-          Remove Player
-        </button>
+      <div className={styles.cardContainer}>
+        <div className={styles.addPlayer}>
+          <label>Player Name :</label>
+          <input
+            type="text"
+            value={newPlayerName}
+            onChange={(e) => setNewPlayerName(e.target.value)}
+          />
+          <br />
+          <label>Commitment :</label>
+          <select
+            value={commitmentLevel}
+            onChange={(e) => setCommitmentLevel(e.target.value)}
+          >
+            <option value="Full time">Full Time</option>
+            <option value="Part time">Part Time</option>
+          </select>
+          <br />
+          <label>Position :</label>
+          <select
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          >
+            <option value="Goalkeeper">Goalkeeper</option>
+            <option value="Forward">Forward</option>
+            <option value="Midfielder">Midfielder</option>
+            <option value="Defender">Defender</option>
+          </select>
+          <br />
+          <button
+            style={{
+              margin: "10px",
+              backgroundColor: "green",
+              color: "white",
+              width: "150px",
+              height: "50px",
+            }}
+            onClick={handleAddPlayer}
+          >
+            Add Player
+          </button>
+        </div>
+        <div className={styles.removePlayer}>
+          <select
+            value={removePlayerName}
+            onChange={(e) => setRemovePlayerName(e.target.value)}
+          >
+            <option value="">Select Player to Remove</option>
+            {roosterData.map((row) => (
+              <option key={row.player_name} value={row.player_name}>
+                {row.player_name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <button
+            style={{
+              margin: "10px",
+              backgroundColor: "red",
+              color: "white",
+              width: "150px",
+              height: "50px",
+            }}
+            onClick={handleRemovePlayer}
+          >
+            Remove Player
+          </button>
+        </div>
       </div>
     </center>
   );
