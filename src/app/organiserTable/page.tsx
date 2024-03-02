@@ -136,7 +136,7 @@ export default function Page() {
           ))}
           {filteredPointsData.length === 0 && (
             <tr>
-              <td colSpan={7}>Please Select a year to get the Points</td>
+              <td colSpan={8}>Please Select a year to get the Points</td>
             </tr>
           )}
         </tbody>
