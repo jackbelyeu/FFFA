@@ -11,7 +11,7 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 25px 0;
+  border: 1px solid black;
   font-size: 0.9em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-width: 400px;
@@ -21,7 +21,7 @@ table {
 th {
   background-color: #009879;
   color: #ffffff;
-  text-align: left;
+  text-align: center;
   padding: 12px 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -54,8 +54,4 @@ img {
     display: block;
     overflow-x: auto;
   }
-}
-
-#link {
-  color: white;
 }
