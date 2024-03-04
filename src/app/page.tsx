@@ -101,8 +101,6 @@
 //   }
 // }
 
-
-
 "use client";
 
 import Image from "next/image";
@@ -147,6 +145,9 @@ export default function Page() {
       </Link>{" "}
       <Link href="/learnmore" style={linkStyle}>
         Learn More
+      </Link>{" "}
+      <Link href="/organizer_login" style={linkStyle}>
+        Admin
       </Link>
       <h2>2023 Final Standings</h2>
       <SortableTable
