@@ -200,6 +200,7 @@ const PlayerCards = ({
       </div>
       <div className={styles.cardContainer}>
         <div className={styles.addPlayer}>
+          <h1>Add Player to {params.team}</h1>
           <label>Player Name :</label>
           <input
             type="text"
@@ -257,6 +258,7 @@ const PlayerCards = ({
           </button>
         </div>
         <div className={styles.removePlayer}>
+          <h1>Remove Player from {params.team}</h1>
           <select
             value={removePlayerName}
             onChange={(e) => setRemovePlayerName(e.target.value)}
