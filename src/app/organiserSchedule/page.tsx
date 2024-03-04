@@ -129,9 +129,12 @@ const SchedulePage: React.FC = () => {
         >
           <label>Home Team:</label>
           <select id="homeTeam">
-            <option>Mosquitoes1</option>
-            <option>Mosquitoes2</option>
-            <option>Mosquitoes3</option>
+            <option>Mosquitoes</option>
+            <option>PCFC</option>
+            <option>Mockingbirds</option>
+            <option>Emus</option>
+            <option>Hyenas</option>
+            <option>Grasskickers</option>
           </select>
         </div>
         <div
@@ -143,9 +146,12 @@ const SchedulePage: React.FC = () => {
         >
           <label>Away Team:</label>
           <select id="awayTeam">
-            <option>Mosquitoes4</option>
-            <option>Mosquitoes5</option>
-            <option>Mosquitoes6</option>
+          <option>Mosquitoes</option>
+            <option>PCFC</option>
+            <option>Mockingbirds</option>
+            <option>Emus</option>
+            <option>Hyenas</option>
+            <option>Grasskickers</option>
           </select>
         </div>
         <div
@@ -241,19 +247,21 @@ const SchedulePage: React.FC = () => {
                       <label>Date: </label>
                       <input
                         defaultValue={match.date}
+                        placeholder="Date"
                         id={`date_${match.matchDay}`}
                         type="date"
                       />
                       <br />
                       <label>Time: </label>
                       <input
+                      placeholder="Time"
                         defaultValue={match.time}
                         id={`time_${match.matchDay}`}
                         type="time"
                       />
                       <br />
                       <label>Location :</label>
-                      <input type="text" id="location" value={match.location} />
+                      <input placeholder="Location" type="text" id="location" value={match.location} />
                     </td>
                   </tr>
                 ))}
