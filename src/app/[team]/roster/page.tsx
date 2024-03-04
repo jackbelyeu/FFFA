@@ -5,7 +5,6 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import Link from "next/link";
 
-
 interface RosterProps {
   params: {
     team: string;
@@ -27,11 +26,7 @@ interface CardProps {
   previous_club: string;
 }
 
-const fetchData = async (
-  team: string,
-  setRosterData: any,
-  setLoading: any
-) => {
+const fetchData = async (team: string, setRosterData: any, setLoading: any) => {
   try {
     setLoading(true);
     const response = await fetch(`/api/${team}/roster`);
@@ -45,7 +40,7 @@ const fetchData = async (
   }
 };
 
-export default  function Roster({ params }: RosterProps) {
+export default function Roster({ params }: RosterProps) {
   const [rosterData, setRosterData] = useState<CardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -78,7 +73,19 @@ const ValidTeamContent = ({
   <main>
     <h1>ROSTER FOR {params.team.toUpperCase()}</h1>
     <li>
-      <Link href="/api/auth/signout">Sign Out</Link>
+      <Link
+        href="/api/auth/signout"
+        style={{
+          textDecoration: "none",
+          color: "white",
+          backgroundColor: "#009879",
+          padding: "10px",
+          borderRadius: "5px",
+          fontWeight: "bold",
+        }}
+      >
+        Sign Out
+      </Link>
     </li>
     <br />
     <TeamLogo team={params.team} />

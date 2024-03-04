@@ -23,12 +23,11 @@ export const options: NextAuthOptions = {
         },
       },
       authorize: async (credentials) => {
-        // Retrieve the user from your database
         const user = {
           id: "1",
-          name: "J Smith",
-          email: "jsmith@gmail.com",
-          password: "password",
+          name: "Organizer",
+          email: "organizer@gmail.com",
+          password: "organizer1234",
         };
         if (
           credentials?.email === user.email &&
