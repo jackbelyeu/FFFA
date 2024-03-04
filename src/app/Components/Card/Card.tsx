@@ -7,19 +7,22 @@ const Card = ({
   commitment,
   position,
   player_team,
+  previous_club,
 }: {
   player_name: string;
   commitment: string;
   position: string;
   player_team: string;
+  previous_club: string;
 }) => {
   const [localCommitment, setLocalCommitment] = useState(commitment);
   const [localPosition, setLocalPosition] = useState(position);
+  const [localPreviousClub, setLocalPreviousClub] = useState(previous_club);
 
   useEffect(() => {
     const getPlayerData = async () => {
       try {
-        const response = await fetch(`/api/${player_team}/rooster`);
+        const response = await fetch(`/api/${player_team}/roster`);
         if (!response.ok) {
           throw new Error("Failed to fetch player data");
         }
@@ -33,12 +36,13 @@ const Card = ({
         }
         setLocalCommitment(playerData.commitment);
         setLocalPosition(playerData.position);
+        setLocalPreviousClub(playerData.previous_club);
       } catch (error) {
         console.error(error);
       }
     };
     getPlayerData();
-  }, [player_name, player_team]);
+  }, [player_name, player_team,previous_club]);
 
   const handleCommitmentChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -50,7 +54,6 @@ const Card = ({
       position: localPosition,
     });
   };
-
   const handlePositionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -59,15 +62,29 @@ const Card = ({
     await updatePlayerData({
       commitment: localCommitment,
       position: newPosition,
+      previous_club: localPreviousClub,
     });
   };
+  const handlePreviousClubChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newPreviousClub = e.target.value;
+    setLocalPreviousClub(newPreviousClub);
+    await updatePlayerData({
+      previous_club: newPreviousClub,
+      commitment: localCommitment,
+      position: localPosition,
+    });
+  };
+  
 
   const updatePlayerData = async (data: {
     commitment?: string;
     position?: string;
+    previous_club?: string;
   }) => {
     try {
-      const response = await fetch(`/api/${player_team}/rooster`, {
+      const response = await fetch(`/api/${player_team}/roster`, {
         method: "POST",
         body: JSON.stringify({
           player_name,
@@ -112,6 +129,21 @@ const Card = ({
         <option value="Midfielder">Midfielder</option>
         <option value="Forward">Forward</option>
       </select>
+      <p>Previous Club: {localPreviousClub}</p>
+      <select
+        value={localPreviousClub}
+        onChange={handlePreviousClubChange}
+        id={`previous_club-${player_name}`}
+      >
+         <option value="Mosquitoes">Mosquitoes</option>
+            <option value="Hyenas">Hyenas</option>
+            <option value="Chickens">Chickens</option>
+            <option value="Grasskickeers ">Grasskickers</option>
+            <option value="Mockingbirds">Mockingbirds</option>
+            <option value="Emus">Emus</option>
+        
+      </select>
+
     </div>
   );
 };

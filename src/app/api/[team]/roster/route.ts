@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
+import nextAuthMiddleware from "next-auth/middleware";
 
 export async function GET(
   request: Request,
@@ -13,7 +14,7 @@ export async function GET(
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error fetching RSVP data:", error);
-    return NextResponse.error(); 
+    return NextResponse.error();
   }
 }
 
@@ -23,16 +24,18 @@ export async function POST(
 ) {
   try {
     const body = await request.json();
-    const { player_name, commitment, position } = body;
+    const { player_name, commitment, position, previous_club } = body;
     const result = await sql`
       UPDATE risers_rsvp
       SET commitment = ${commitment},
-          position = ${position}
+          position = ${position},
+          previous_club = ${previous_club}
+          
       WHERE player_name = ${player_name} AND player_team = ${params.team};
     `;
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error updating player data:", error);
-    return NextResponse.error(); 
+    return NextResponse.error();
   }
 }

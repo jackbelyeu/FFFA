@@ -7,9 +7,28 @@ export async function POST(
 ) {
   try {
     const body = await request.json();  
-    const { player_name, commitment, position } = body;
+    const { player_name, commitment, position,previous_club } = body;
+    console.log(previous_club)
+    const existingRecord = await sql`
+      SELECT * FROM RISERS_RSVP
+      WHERE player_name = ${player_name}
+      AND player_team = ${params.team}
+    `;
+    
+    if (existingRecord && existingRecord.rowCount > 0) {
+      const result = await sql`
+        UPDATE RISERS_RSVP
+        SET commitment = ${commitment},
+        position = ${position},
+        previous_club = ${previous_club}
+        WHERE player_name = ${player_name}
+        AND player_team = ${params.team}
+      `;
+      return NextResponse.json(result);
+    }
+    
     const result = await sql`
-    INSERT INTO RISERS_RSVP(
+      INSERT INTO RISERS_RSVP(
         player_name, 
         player_team, 
         oct_8, 
@@ -21,9 +40,10 @@ export async function POST(
         nov_19, 
         nov_26, 
         commitment, 
-        position
-    )
-    VALUES(
+        position,
+        previous_club
+      )
+      VALUES(
         ${player_name},
         ${params.team},
         'NO',
@@ -35,10 +55,11 @@ export async function POST(
         'NO',
         'NO',
         ${commitment},
-        ${position}
-    )
-`;
-
+        ${position},
+        ${previous_club}
+      )
+    `;
+    
     return NextResponse.json(result);
   }
   catch (error) {

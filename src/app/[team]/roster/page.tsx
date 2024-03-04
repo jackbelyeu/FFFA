@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
+import Link from "next/link";
 
-interface RoosterProps {
+
+interface RosterProps {
   params: {
     team: string;
   };
@@ -22,38 +24,39 @@ interface CardProps {
   player_name: string;
   commitment: string;
   position: string;
+  previous_club: string;
 }
 
 const fetchData = async (
   team: string,
-  setRoosterData: any,
+  setRosterData: any,
   setLoading: any
 ) => {
   try {
     setLoading(true);
-    const response = await fetch(`/api/${team}/rooster`);
+    const response = await fetch(`/api/${team}/roster`);
     const data = await response.json();
     const rows = data.rows;
-    setRoosterData(rows);
+    setRosterData(rows);
   } catch (error) {
-    console.error("Error fetching Rooster data:", error);
+    console.error("Error fetching Roster data:", error);
   } finally {
     setLoading(false);
   }
 };
 
-export default function Rooster({ params }: RoosterProps) {
-  const [roosterData, setRoosterData] = useState<CardProps[]>([]);
+export default  function Roster({ params }: RosterProps) {
+  const [rosterData, setRosterData] = useState<CardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData(params.team, setRoosterData, setLoading);
+    fetchData(params.team, setRosterData, setLoading);
   }, [params.team]);
 
   return loading ? (
     <LoadingMessage />
   ) : validTeams.includes(params.team) ? (
-    <ValidTeamContent params={params} roosterData={roosterData} />
+    <ValidTeamContent params={params} rosterData={rosterData} />
   ) : (
     <InvalidTeamContent params={params} />
   );
@@ -67,23 +70,27 @@ const LoadingMessage = () => (
 
 const ValidTeamContent = ({
   params,
-  roosterData,
+  rosterData,
 }: {
   params: { team: string };
-  roosterData: CardProps[];
+  rosterData: CardProps[];
 }) => (
   <main>
-    <h1>ROOSTER FOR {params.team.toUpperCase()}</h1>
+    <h1>ROSTER FOR {params.team.toUpperCase()}</h1>
+    <li>
+      <Link href="/api/auth/signout">Sign Out</Link>
+    </li>
+    <br />
     <TeamLogo team={params.team} />
     <br />
-    <PlayerCards params={params} roosterData={roosterData} />
+    <PlayerCards params={params} rosterData={rosterData} />
   </main>
 );
 
 const InvalidTeamContent = ({ params }: { params: { team: string } }) => (
   <main>
     <h1>Invalid Team</h1>
-    <p>Sorry 🙃, No Rooster for {params.team.toUpperCase()} </p>
+    <p>Sorry 🙃, No Roster for {params.team.toUpperCase()} </p>
     We will be adding more teams soon.
     <h1>😊</h1>
   </main>
@@ -105,19 +112,24 @@ const TeamLogo = ({ team }: { team: string }) => (
 
 const PlayerCards = ({
   params,
-  roosterData,
+  rosterData,
 }: {
   params: { team: string };
-  roosterData: CardProps[];
+  rosterData: CardProps[];
 }) => {
   const [newPlayerName, setNewPlayerName] = useState("");
   const [commitmentLevel, setCommitmentLevel] = useState("Full time");
+  const [previous_club, setPreviousClub] = useState("Mosquitoes");
   const [position, setPosition] = useState("Goalkeeper");
   const [removePlayerName, setRemovePlayerName] = useState("");
 
   const handleAddPlayer = async () => {
+    if (!newPlayerName) {
+      alert("Please enter player name");
+      return;
+    }
     const confirmation = window.confirm(
-      "Are you sure you want to add this player?"
+      "Are you sure you want to add / update this player?"
     );
     if (confirmation) {
       try {
@@ -127,6 +139,7 @@ const PlayerCards = ({
             player_name: newPlayerName,
             commitment: commitmentLevel,
             position: position,
+            previous_club: previous_club,
           }),
         });
         if (!response.ok) {
@@ -140,6 +153,10 @@ const PlayerCards = ({
   };
 
   const handleRemovePlayer = async () => {
+    if (!removePlayerName) {
+      alert("Please select player to remove");
+      return;
+    }
     const confirmation = window.confirm(
       "Are you sure you want to remove this player?"
     );
@@ -163,13 +180,14 @@ const PlayerCards = ({
   return (
     <center>
       <div className={styles.cardContainer}>
-        {roosterData.map((row) => (
+        {rosterData.map((row) => (
           <Card
             key={row.player_name}
             player_name={row.player_name}
             commitment={row.commitment}
             position={row.position}
             player_team={params.team}
+            previous_club={row.previous_club}
           />
         ))}
       </div>
@@ -202,6 +220,19 @@ const PlayerCards = ({
             <option value="Defender">Defender</option>
           </select>
           <br />
+          <label>Previous Club :</label>
+          <select
+            value={previous_club}
+            onChange={(e) => setPreviousClub(e.target.value)}
+          >
+            <option value="Mosquitoes">Mosquitoes</option>
+            <option value="Hyenas">Hyenas</option>
+            <option value="Chickens">Chickens</option>
+            <option value="Grasskickeers ">Grasskickers</option>
+            <option value="Mockingbirds">Mockingbirds</option>
+            <option value="Emus">Emus</option>
+          </select>
+          <br />
           <button
             style={{
               margin: "10px",
@@ -209,6 +240,9 @@ const PlayerCards = ({
               color: "white",
               width: "150px",
               height: "50px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer",
             }}
             onClick={handleAddPlayer}
           >
@@ -221,7 +255,7 @@ const PlayerCards = ({
             onChange={(e) => setRemovePlayerName(e.target.value)}
           >
             <option value="">Select Player to Remove</option>
-            {roosterData.map((row) => (
+            {rosterData.map((row) => (
               <option key={row.player_name} value={row.player_name}>
                 {row.player_name}
               </option>
@@ -235,6 +269,9 @@ const PlayerCards = ({
               color: "white",
               width: "150px",
               height: "50px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer",
             }}
             onClick={handleRemovePlayer}
           >
