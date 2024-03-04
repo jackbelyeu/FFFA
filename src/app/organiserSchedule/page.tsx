@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { match } from "assert";
 
 interface Match {
   homeTeam: string;
@@ -10,6 +11,47 @@ interface Match {
   location: string;
   matchDay: number;
 }
+
+const handleChange = async (event: any) => {
+  await fetch(`/api/schedule-Table`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      homeTeam: (document.getElementById("homeTeam") as HTMLSelectElement)
+        ?.value,
+      awayTeam: (document.getElementById("awayTeam") as HTMLSelectElement)
+        ?.value,
+      date: (document.getElementById("date") as HTMLInputElement)?.value,
+      time: (document.getElementById("time") as HTMLInputElement)?.value,
+      location: (document.getElementById("location") as HTMLInputElement)
+        ?.value,
+      matchDay: (document.getElementById("matchDay") as HTMLInputElement)
+        ?.value,
+    }),
+  });
+};
+const handleUpdate = async (event: any) => {
+  await fetch(`/api/schedule-Table`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      homeTeam: (document.getElementById("homeTeam_id") as HTMLSelectElement)
+        ?.value,
+      awayTeam: (document.getElementById("awayTeam_id") as HTMLSelectElement)
+        ?.value,
+      date: (document.getElementById("date") as HTMLInputElement)?.value,
+      time: (document.getElementById("time") as HTMLInputElement)?.value,
+      location: (document.getElementById("location") as HTMLInputElement)
+        ?.value,
+      matchDay: (document.getElementById("matchDay") as HTMLInputElement)
+        ?.value,
+    }),
+  });
+};
 
 // TeamLogo component
 const TeamLogo: React.FC<{ teamName: string }> = ({ teamName }) => (
@@ -22,7 +64,6 @@ const TeamLogo: React.FC<{ teamName: string }> = ({ teamName }) => (
       width={25}
       height={25}
     />
-    <span style={{ marginLeft: "8px" }}>{teamName}</span>
   </p>
 );
 
@@ -67,31 +108,6 @@ const SchedulePage: React.FC = () => {
     new Set(scheduleData.map((match) => match.matchDay))
   );
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setNewMatch((prevMatch) => ({ ...prevMatch, [name]: value }));
-  };
-
-  const handleAddMatch = () => {
-    setScheduleData((prevSchedule) => [...prevSchedule, newMatch]);
-    setNewMatch({
-      homeTeam: "",
-      awayTeam: "",
-      date: "",
-      time: "",
-      location: "",
-      matchDay: 1,
-    });
-  };
-
-  const handleEditMatch = (index: number, field: string, value: string) => {
-    setScheduleData((prevSchedule) => {
-      const updatedSchedule = [...prevSchedule];
-      updatedSchedule[index] = { ...updatedSchedule[index], [field]: value };
-      return updatedSchedule;
-    });
-  };
-
   return (
     <div>
       <h1>Flagrant Fowl Futbol Association</h1>
@@ -112,12 +128,11 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Home Team:</label>
-          <input
-            type="text"
-            name="homeTeam"
-            value={newMatch.homeTeam}
-            onChange={handleInputChange}
-          />
+          <select id="homeTeam">
+            <option>Mosquitoes1</option>
+            <option>Mosquitoes2</option>
+            <option>Mosquitoes3</option>
+          </select>
         </div>
         <div
           style={{
@@ -127,12 +142,11 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Away Team:</label>
-          <input
-            type="text"
-            name="awayTeam"
-            value={newMatch.awayTeam}
-            onChange={handleInputChange}
-          />
+          <select id="awayTeam">
+            <option>Mosquitoes4</option>
+            <option>Mosquitoes5</option>
+            <option>Mosquitoes6</option>
+          </select>
         </div>
         <div
           style={{
@@ -142,12 +156,7 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Date:</label>
-          <input
-            type="text"
-            name="date"
-            value={newMatch.date}
-            onChange={handleInputChange}
-          />
+          <input id="date" type="text" name="date" />
         </div>
         <div
           style={{
@@ -157,12 +166,7 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Time:</label>
-          <input
-            type="text"
-            name="time"
-            value={newMatch.time}
-            onChange={handleInputChange}
-          />
+          <input id="time" type="text" name="time" />
         </div>
         <div
           style={{
@@ -172,12 +176,7 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Location:</label>
-          <input
-            type="text"
-            name="location"
-            value={newMatch.location}
-            onChange={handleInputChange}
-          />
+          <input id="location" type="text" name="location" />
         </div>
         <div
           style={{
@@ -187,14 +186,9 @@ const SchedulePage: React.FC = () => {
           }}
         >
           <label>Match Day:</label>
-          <input
-            type="number"
-            name="matchDay"
-            value={newMatch.matchDay}
-            onChange={handleInputChange}
-          />
+          <input id="matchDay" type="number" name="matchDay" />
         </div>
-        <button onClick={handleAddMatch}>Add Match</button>
+        <button onClick={handleChange}>Add Match</button>
       </div>
 
       <table style={{ width: "100%" }}>
@@ -202,7 +196,7 @@ const SchedulePage: React.FC = () => {
           <tr>
             <th style={{ textAlign: "center" }}>Match Teams</th>
             <th style={{ textAlign: "center" }}>Venue</th>
-            <th style={{ textAlign: "center" }}>Actions</th>
+            {/* <th style={{ textAlign: "center" }}>Actions</th> */}
           </tr>
         </thead>
         <tbody>
@@ -222,75 +216,44 @@ const SchedulePage: React.FC = () => {
                   <tr key={index}>
                     <td style={{ textAlign: "center" }}>
                       <TeamLogo teamName={match.homeTeam} />
+                      <select defaultValue={match.homeTeam} id="hometeam_id">
+                        <option value="Mosquitoes">Mosquitoes</option>
+                        <option value="Hyenas">Hyenas</option>
+                        <option value="Mockingbirds">Mockingbirds</option>
+                        <option value="PCFC">PCFC</option>
+                        <option value="Emus">Emus</option>
+                        <option value="Grasskickers">Grasskickers</option>
+                      </select>
                       <p>
                         <span> vs. </span>
                       </p>
                       <TeamLogo teamName={match.awayTeam} />
+                      <select defaultValue={match.awayTeam} id="awayteam_id">
+                        <option value="Mosquitoes">Mosquitoes</option>
+                        <option value="Hyenas">Hyenas</option>
+                        <option value="Mockingbirds">Mockingbirds</option>
+                        <option value="PCFC">PCFC</option>
+                        <option value="Emus">Emus</option>
+                        <option value="Grasskickers">Grasskickers</option>
+                      </select>
                     </td>
                     <td style={{ textAlign: "center" }}>
-                      <p>Date: {match.date}</p>
-                      <p>Time: {match.time}</p>
-                      <p>Location: {match.location}</p>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      <button
-                        onClick={() =>
-                          handleEditMatch(
-                            index,
-                            "homeTeam",
-                            prompt("Edit Home Team", match.homeTeam) ||
-                              match.homeTeam
-                          )
-                        }
-                      >
-                        Edit Home Team
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleEditMatch(
-                            index,
-                            "awayTeam",
-                            prompt("Edit Away Team", match.awayTeam) ||
-                              match.awayTeam
-                          )
-                        }
-                      >
-                        Edit Away Team
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleEditMatch(
-                            index,
-                            "date",
-                            prompt("Edit Date", match.date) || match.date
-                          )
-                        }
-                      >
-                        Edit Date
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleEditMatch(
-                            index,
-                            "time",
-                            prompt("Edit Time", match.time) || match.time
-                          )
-                        }
-                      >
-                        Edit Time
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleEditMatch(
-                            index,
-                            "location",
-                            prompt("Edit Location", match.location) ||
-                              match.location
-                          )
-                        }
-                      >
-                        Edit Location
-                      </button>
+                      <label>Date: </label>
+                      <input
+                        defaultValue={match.date}
+                        id={`date_${match.matchDay}`}
+                        type="date"
+                      />
+                      <br />
+                      <label>Time: </label>
+                      <input
+                        defaultValue={match.time}
+                        id={`time_${match.matchDay}`}
+                        type="time"
+                      />
+                      <br />
+                      <label>Location :</label>
+                      <input type="text" id="location" value={match.location} />
                     </td>
                   </tr>
                 ))}
@@ -298,6 +261,7 @@ const SchedulePage: React.FC = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={handleUpdate}>Add Match</button>
     </div>
   );
 };

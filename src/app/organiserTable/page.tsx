@@ -31,38 +31,18 @@ export default function Page() {
     fetchPointsData();
   }, []);
 
-  const handleChange = async (event: any, row: Row) => {
-    // console.log(row);
-    // await fetch("/api/points", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     team: row.team,
-    //     wins: (document.getElementById(`wins_${row.team}`) as HTMLInputElement)
-    //       ?.value,
-    //     draws: (
-    //       document.getElementById(`draws_${row.team}`) as HTMLInputElement
-    //     )?.value,
-    //     loses: (
-    //       document.getElementById(`loses_${row.team}`) as HTMLInputElement
-    //     )?.value,
-    //     goalsdifference: (
-    //       document.getElementById(
-    //         `goalsdifference_${row.team}`
-    //       ) as HTMLInputElement
-    //     )?.value,
-    //   }),
-    // });
-    console.log("Harita");
-  };
-
   const handleChange1 = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const year = parseInt(event.target.value);
 
     const filteredData = pointsData.filter((row) => row.year === year);
     setFilteredPointsData(filteredData);
+  };
+  const handleSubmit = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    try {
+    } catch {
+      console.log("error");
+    }
   };
 
   return (
@@ -106,7 +86,7 @@ export default function Page() {
                 <input
                   defaultValue={row.wins}
                   id={`wins_${row.team}`}
-                  onChange={(event) => handleChange(event, row)}
+                  //onChange={(event) => handleChange(event, row)}
                 ></input>
               </td>
               <td>
@@ -141,6 +121,7 @@ export default function Page() {
           )}
         </tbody>
       </table>
+      {/* <button onClick={handleSubmit}>Submit</button> */}
     </div>
   );
 }
