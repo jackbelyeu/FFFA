@@ -10,8 +10,15 @@ export default async function Page() {
     return (
       <div>
         <h1>Flagrant Fowl Futbol Association</h1>
-
-        <Link href="/2023">Go to 2023 Final Standing</Link>
+        <Link href="/2023">
+          <button className="button">Go to 2023 Final Standing</button>
+        </Link>
+        <Link href="/Sch" passHref>
+          <button className="button">Match Schedule</button>
+        </Link>{" "}
+        <Link href="/" passHref>
+          <button className="button">Go to Main Page</button>
+        </Link>{" "}
         <h2>2024 Final Standings</h2>
         <table>
           <thead>

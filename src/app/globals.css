@@ -8,10 +8,30 @@ body {
   text-align: center;
 }
 
+.button {
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #00b894;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #48c78e;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 25px 0;
+  border: 1px solid black;
   font-size: 0.9em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-width: 400px;
@@ -21,7 +41,7 @@ table {
 th {
   background-color: #009879;
   color: #ffffff;
-  text-align: left;
+  text-align: center;
   padding: 12px 15px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -46,11 +66,6 @@ tbody tr:hover {
 }
 
 img {
-<<<<<<< HEAD
-  width: 50px;
-  height: auto;
-=======
->>>>>>> upstream/main
   border-radius: 50%;
 }
 

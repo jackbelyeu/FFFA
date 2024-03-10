@@ -29,7 +29,7 @@ export default function Interest() {
   const handleSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/send-email", {
+      const sendEmailResponse = await fetch("/api/send-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,15 +37,17 @@ export default function Interest() {
         body: JSON.stringify(interested),
       });
 
-      if (response.ok) {
+      if (sendEmailResponse.ok) {
         // router.push("/thankyou"); // Uncomment this line if you want to use the router
         alert("Form submitted successfully");
         window.location.reload();
       } else {
         throw new Error("Failed to send email");
       }
+      alert("Form submitted successfully");
+      window.location.reload();
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Error:", error);
       alert("Failed to submit the form. Please try again later.");
     }
   };

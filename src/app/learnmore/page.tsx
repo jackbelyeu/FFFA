@@ -18,6 +18,12 @@ export default function LearnMore() {
     <div>
       <h1>Hello, Learn More Page!</h1>
       <p>Find out more about the 2023 season.</p>
+      <Link href="/Sch" passHref>
+        <button className="button">Match Schedule</button>
+      </Link>
+      <Link href="/" passHref>
+        <button className="button">Go to Main Page</button>
+      </Link>
       <Image src={soccerPic} alt="Soccer" width={800} height={600} />
       <br />
       <SendEmailButton />
