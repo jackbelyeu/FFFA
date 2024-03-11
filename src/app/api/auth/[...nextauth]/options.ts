@@ -1,13 +1,10 @@
+import { sql } from "@vercel/postgres";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import GoogleProvider from "next-auth/providers/google";
+import { QueryResultRow } from "@vercel/postgres";
 
 export const options: NextAuthOptions = {
   providers: [
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_CLIENT_ID as string,
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -23,18 +20,22 @@ export const options: NextAuthOptions = {
         },
       },
       authorize: async (credentials) => {
-        const user = {
-          id: "1",
-          name: "Organizer",
-          email: "organizer@gmail.com",
-          password: "organizer1234",
-        };
-        if (
-          credentials?.email === user.email &&
-          credentials?.password === user.password
-        ) {
-          return Promise.resolve(user);
-        } else {
+        try {
+          const { rows }: { rows: QueryResultRow } = await sql<QueryResultRow[]>`
+            SELECT * FROM auth WHERE email = ${credentials?.email} AND password = ${credentials?.password}
+          `;
+
+          if (rows.length > 0) {
+            return Promise.resolve({
+              id: rows.id,
+              name: rows.email,
+              password: rows.password,
+            });
+          } else {
+            return Promise.resolve(null);
+          }
+        } catch (error) {
+          console.error("Error authenticating user:", error);
           return Promise.resolve(null);
         }
       },
