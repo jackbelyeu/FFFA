@@ -196,7 +196,9 @@ export default function Match({
             ))}
           </select>
         ) : (
-          initialHomeTeam.toUpperCase()
+          <span className={homeScore > awayScore ? styles.winningTeam : ""}>
+          {initialHomeTeam.toUpperCase()}
+        </span>
         )}
       </p>
       <p>vs</p>
@@ -220,7 +222,9 @@ export default function Match({
               ))}
           </select>
         ) : (
-          initialAwayTeam.toUpperCase()
+          <span className={awayScore > homeScore ? styles.winningTeam : ""}>
+            {initialAwayTeam.toUpperCase()}
+          </span>
         )}
       </p>
       <p>

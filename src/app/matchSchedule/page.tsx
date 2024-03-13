@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import Match from "@/app/Components/scheduleCard/match";
 import styles from "./styles.module.css";
+import {signOut } from "next-auth/react";
 
 
 const MatchSchedule = () => {
@@ -23,6 +24,7 @@ const MatchSchedule = () => {
   }, []);
   return (
     <div>
+      <button className={styles.signOutButton} onClick={() => signOut()}>Sign Out</button>
       <h1>Match Schedule</h1>
       {rows.map((row: { match_id: string, home_team: string, away_team: string,time:string,  date:string, location:string }) => (
         <Match
