@@ -68,7 +68,16 @@ export default function Match({
     setEditing(true);
   };
   const handleSubmit = () => {
-    alert("Score Submitted");
+    fetch("/api/submitScore", {
+      method: "POST",
+      body: JSON.stringify({
+        match_id,
+        away_team,
+        home_team,
+        homeScore,
+        awayScore,
+      }),
+    });
   };
 
   const handleSave = async () => {
@@ -127,7 +136,7 @@ export default function Match({
 
   const handleHomeScoreIncrement = () => {
     setHomeScore(homeScore + 1);
-    fetch("/api/submitMatch", {
+    fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
         match_id,
@@ -139,7 +148,7 @@ export default function Match({
 
   const handleAwayScoreIncrement = () => {
     setAwayScore(awayScore + 1);
-    fetch("/api/submitMatch", {
+    fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
         match_id,
@@ -152,7 +161,7 @@ export default function Match({
     if (homeScore > 0) {
       setHomeScore(homeScore - 1);
     }
-    fetch("/api/submitMatch", {
+    fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
         match_id,
@@ -165,7 +174,7 @@ export default function Match({
     if (awayScore > 0) {
       setAwayScore(awayScore - 1);
     }
-    fetch("/api/submitMatch", {
+    fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
         match_id,

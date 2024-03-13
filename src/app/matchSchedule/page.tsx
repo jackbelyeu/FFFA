@@ -45,7 +45,10 @@ const MatchSchedule = () => {
         Sign Out
       </button>
       <h1>Match Schedule</h1>
-
+      {todayMatches.length < 1 &&
+        futureMatches.length < 1 &&
+        pastMatches.length < 1 && <h2>No matches scheduled</h2>}
+      {todayMatches.length == 0 && <h2>No Matches Today</h2>}
       {todayMatches.length > 0 && (
         <>
           <h2>Today&apos;s Matches</h2>
@@ -78,11 +81,6 @@ const MatchSchedule = () => {
             />
           ))}
         </>
-      )}
-      {pastMatches.length === 0 ? (
-        <h2>No past matches</h2>
-      ) : (
-        <h2>Past Matches</h2>
       )}
       {pastMatches.length > 0 && (
         <>
