@@ -1,0 +1,56 @@
+.cardContainer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cardContainer input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.cardContainer input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.cardContainer select {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.addPlayer {
+  border: 10px solid #ccc;
+  padding-left: 25%;
+  padding-right: 25%;
+  background-color: #009879;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.removePlayer {
+  border: 10px solid #ccc;
+  background-color: #009879;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.addRemove {
+  display: flex;
+  background-color: #1e293b;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -106,313 +106,327 @@ export default function RSVP({ params }: RSVPProps) {
   if (loading) {
     return (
       <main>
-        <h1>... Updating Give me a Second..</h1>
+        <h1>... Updating Give me a Second ...</h1>
       </main>
     );
   }
   const validTeamContent = (
     <main>
       <h1>RSVP FOR {params.team.toUpperCase()}</h1>
-      <table
+      <Image
+        src={`/logos/${params.team}.jpeg`}
+        alt="Team logo"
+        width={100}
+        height={100}
         style={{
-          marginLeft: "-25%",
+          display: "flex",
+          margin: "auto",
+          marginBottom: "-20px",
         }}
-      >
-        <thead>
-          <tr>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Player
-            </th>
-            <th
-              style={{
-                textAlign: "center",
+      />
+      <center>
+        <table
+          style={{
+            marginLeft: "-25%",
+            marginTop: "5%",
+          }}
+        >
+          <thead>
+            <tr>
+              <th
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                Player
+              </th>
+              <th
+                style={{
+                  textAlign: "center",
 
-                fontWeight: "bold",
-              }}
-            >
-              Oct 8
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
-                style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.oct_8 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Oct 15
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Oct 8
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.oct_8 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.oct_15 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Oct 22
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Oct 15
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.oct_15 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.oct_22 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Oct 29
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Oct 22
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.oct_22 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.oct_29 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Nov 5
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Oct 29
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.oct_29 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                  marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.nov_5 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Nov 12
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Nov 5
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.nov_5 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.nov_12 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Nov 19
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Nov 12
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.nov_12 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.nov_19 === "YES").length}
-            </th>
-            <th
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              Nov 26
-              <br />
-              <Image
-                src={people}
-                alt="correct"
-                width={20}
-                height={20}
+              >
+                Nov 19
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.nov_19 === "YES").length}
+              </th>
+              <th
                 style={{
-                  display: "flex",
-                  margin: "auto",
-                marginBottom: "-20px",
-                  marginLeft: "13px",
+                  textAlign: "center",
+                  fontWeight: "bold",
                 }}
-              />
-              {rsvpData.filter((row) => row.nov_26 === "YES").length}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rsvpData.map((row) => (
-            <tr key={row.player_name}>
-              <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                {row.player_name}
-              </td>
-              <td>
-                <select
-                  defaultValue={row.oct_8}
-                  id={`oct_8_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.oct_15}
-                  id={`oct_15_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.oct_22}
-                  id={`oct_22_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.oct_29}
-                  id={`oct_29_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.nov_5}
-                  id={`nov_5_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.nov_12}
-                  id={`nov_12_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.nov_19}
-                  id={`nov_19_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  defaultValue={row.nov_26}
-                  id={`nov_26_${row.player_name}`}
-                  onChange={(event) => handleChange(event, row)}
-                >
-                  <option value="YES">Yes</option>
-                  <option value="NO">No</option>
-                  <option value="ifneeded">If Needed</option>
-                  <option value="pending">Pending</option>
-                </select>
-              </td>
+              >
+                Nov 26
+                <br />
+                <Image
+                  src={people}
+                  alt="correct"
+                  width={20}
+                  height={20}
+                  style={{
+                    display: "flex",
+                    margin: "auto",
+                    marginBottom: "-20px",
+                    marginLeft: "13px",
+                  }}
+                />
+                {rsvpData.filter((row) => row.nov_26 === "YES").length}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rsvpData.map((row) => (
+              <tr key={row.player_name}>
+                <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                  {row.player_name}
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.oct_8}
+                    id={`oct_8_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.oct_15}
+                    id={`oct_15_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.oct_22}
+                    id={`oct_22_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.oct_29}
+                    id={`oct_29_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.nov_5}
+                    id={`nov_5_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.nov_12}
+                    id={`nov_12_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.nov_19}
+                    id={`nov_19_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    defaultValue={row.nov_26}
+                    id={`nov_26_${row.player_name}`}
+                    onChange={(event) => handleChange(event, row)}
+                  >
+                    <option value="YES">Yes</option>
+                    <option value="NO">No</option>
+                    <option value="If Needed">If Needed</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </center>
     </main>
   );
 
