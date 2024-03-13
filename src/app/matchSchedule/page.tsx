@@ -79,10 +79,13 @@ const MatchSchedule = () => {
           ))}
         </>
       )}
-
+      {pastMatches.length === 0 ? (
+        <h2>No past matches</h2>
+      ) : (
+        <h2>Past Matches</h2>
+      )}
       {pastMatches.length > 0 && (
         <>
-          <h2>Past Matches</h2>
           {pastMatches.map((row: any) => (
             <Match
               key={row.match_id}
