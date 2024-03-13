@@ -67,6 +67,9 @@ export default function Match({
   const handleEdit = () => {
     setEditing(true);
   };
+  const handleSubmit = () => {
+    alert("Score Submitted");
+  };
 
   const handleSave = async () => {
     try {
@@ -295,23 +298,25 @@ export default function Match({
         </button>
         <br />
         <span>
-        <button
-          className={styles.decrementButton}
-          onClick={handleAwayScoreDecrement}
-        >
-          -
-        </button>
-    
-        {away_team.toUpperCase()} : <big>{awayScore}</big>
- 
-        <button
-          className={styles.incrementButton}
-          onClick={handleAwayScoreIncrement}
-        >
-          +
-        </button>
+          <button
+            className={styles.decrementButton}
+            onClick={handleAwayScoreDecrement}
+          >
+            -
+          </button>
+          {away_team.toUpperCase()} : <big>{awayScore}</big>
+          <button
+            className={styles.incrementButton}
+            onClick={handleAwayScoreIncrement}
+          >
+            +
+          </button>
         </span>
         <br />
+        <button className={styles.cancelButton} onClick={handleSubmit}>
+          {" "}
+          Submit Score
+        </button>
       </div>
     </div>
   );

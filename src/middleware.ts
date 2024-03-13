@@ -1,5 +1,6 @@
-export {default} from "next-auth/middleware";
+export { default } from "next-auth/middleware";
 export const config = {
-  matcher: "/:team/roster",
+  matcher: ["/:team/roster", 
+  // "/matchSchedule"
+],
 };
-
