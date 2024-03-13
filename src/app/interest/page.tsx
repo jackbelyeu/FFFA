@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 // import { useRouter } from "next/navigation"; // Uncomment this line if you want to use the router
-
+import Link from "next/link";
 export default function Interest() {
   const [interested, setInterested] = useState({
     name: "",
@@ -63,6 +63,7 @@ export default function Interest() {
 
   return (
     <div>
+      <Link href="/Schedule"> Match Schedule</Link>
       <h1>Express Your Interest for Season 2024!</h1>
       <p>
         The role of this form is to collect info on how many people would like

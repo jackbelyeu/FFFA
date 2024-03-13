@@ -31,59 +31,28 @@ export default function Page() {
     fetchPointsData();
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange1 = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const year = parseInt(event.target.value);
 
     const filteredData = pointsData.filter((row) => row.year === year);
     setFilteredPointsData(filteredData);
   };
+  const handleSubmit = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault();
+    try {
+    } catch {
+      console.log("error");
+    }
+  };
 
   return (
     <div>
       <h1>Flagrant Fowl Futbol Association</h1>
-      <Link
-        href="/dashboard"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        Go to Dashboard
-      </Link>{" "}
-      <Link
-        href="/learnmore"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        Learn More
-      </Link>{" "}
-      <Link
-        href="/Schedule"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        {" "}
-        Match Schedule
-      </Link>
+      <Link href="/dashboard">Go to Dashboard</Link> <br />
+      <Link href="/learnmore">Learn More</Link>
       <h2>Final Standings</h2>
       <h3>Points Table</h3>
-      <select onChange={handleChange}>
+      <select onChange={handleChange1}>
         <option value="">Select Year</option>
         <option value="2024">2024</option>
         <option value="2023">2023</option>
@@ -113,10 +82,34 @@ export default function Page() {
                   height={50}
                 />
               </td>
-              <td>{row.wins}</td>
-              <td>{row.draws}</td>
-              <td>{row.loses}</td>
-              <td>{row.goalsdifference}</td>
+              <td>
+                <input
+                  defaultValue={row.wins}
+                  id={`wins_${row.team}`}
+                  //onChange={(event) => handleChange(event, row)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  defaultValue={row.draws}
+                  id={`draws_${row.team}`}
+                  //onChange={(event) => handleChange(event, row)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  defaultValue={row.loses}
+                  id={`loses_${row.team}`}
+                  // onChange={(event) => handleChange(event, row)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  defaultValue={row.goalsdifference}
+                  id={`goaldifference_${row.team}`}
+                  //onChange={(event) => handleChange(event, row)}
+                ></input>
+              </td>
               <td>{row.points}</td>
               <td>{row.matchesplayed}</td>
             </tr>
@@ -128,6 +121,7 @@ export default function Page() {
           )}
         </tbody>
       </table>
+      {/* <button onClick={handleSubmit}>Submit</button> */}
     </div>
   );
 }
