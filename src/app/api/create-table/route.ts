@@ -4,17 +4,10 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     // All tables in the database
-    // const result = await sql`
-    // SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
-    //   ;
-    // `;
     const result = await sql`
-    SELECT * FROM AUTH;
+    SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+      ;
     `;
-    //  sql`
-    // INSERT INTO AUTH (EMAIL, PASSWORD) VALUES ('organizer1@gmail.com', 'organizer1234');
-    // `;
-
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

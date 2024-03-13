@@ -1,0 +1,177 @@
+.body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.card {
+  border: 10px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #009879;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.card select {
+  margin: 10px 10px 10px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.card span {
+  margin: 10px 10px 10px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+
+}
+
+.card input {
+  margin: 10px 10px 10px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.card p {
+  margin: 5px 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.card select {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.card select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.card select option {
+  font-size: 14px;
+}
+
+.card img {
+  border-radius: 50%;
+}
+
+
+.closeButton {
+  background-color: #f41a0a;
+  color: white;
+  padding: 10px 20px;
+  margin-right: -90%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.closeButton:hover {
+  background-color: #ce1212;
+}
+
+.saveButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.saveButton:hover {
+  background-color: #09450c;
+}
+
+.deleteButton {
+  background-color: #f41a0a;
+  margin-left: 10px;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.deleteButton:hover {
+  background-color: #ce1212;
+}
+
+.cancelButton {
+  background-color: #0aaaf4;
+  color: white;
+  margin-left: 10px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cancelButton:hover {
+  background-color: #ffffff;
+  color: black;
+}
+
+.decrementButton {
+  background-color: #f41a0a;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px 10px 10px 10px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.decrementButton:hover {
+  background-color: #ce1212;
+}
+
+.incrementButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin: 10px 10px 10px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.incrementButton:hover {
+  background-color: #09450c;
+}
+
+.card .score {
+  margin: 10px 10px 10px 10px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #1e293b;
+}
