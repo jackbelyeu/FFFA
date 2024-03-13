@@ -2,35 +2,36 @@ import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const { match_id, home_team, away_team, homeScore, awayScore } = await request.json();
-  console.log(match_id, home_team, away_team, homeScore, awayScore);
+  try {
+    const { match_id, home_team, away_team, homeScore, awayScore } = await request.json();
+    console.log(match_id, home_team, away_team, homeScore, awayScore);
 
-  if (homeScore < awayScore) {
+    let winner;
+    let gd;
+
+    if (homeScore < awayScore) {
+      winner = away_team;
+      gd = awayScore - homeScore;
+    } else if (homeScore > awayScore) {
+      winner = home_team;
+      gd = homeScore - awayScore;
+    } else {
+      winner = 'Draw';
+      gd = homeScore - awayScore;
+    }
+
     await sql`
       UPDATE match_schedule
-      SET winner = ${away_team}
+      SET winner = ${winner},
+          gd = ${gd},
+          home_score = ${homeScore},
+          away_score = ${awayScore}
       WHERE match_id = ${match_id};
     `;
-  } else if (homeScore > awayScore) {
-    await sql`
-      UPDATE match_schedule
-      SET winner = ${home_team}
-      WHERE match_id = ${match_id};
-    `;
-  } else {
-    await sql`
-      UPDATE match_schedule
-      SET winner = 'Draw'
-      WHERE match_id = ${match_id};
-    `;
+
+    return NextResponse.json({ success: true, message: 'Match result updated successfully.' });
+  } catch (error) {
+    console.error('Error updating match result:', error);
+    return NextResponse.json({ success: false, message: 'An error occurred while updating match result.' });
   }
-
-  const result = await sql`
-    UPDATE match_schedule
-    SET home_score = ${homeScore},
-        away_score = ${awayScore}
-    WHERE match_id = ${match_id};
-  `;
-
-  return NextResponse.json(result);
 }
