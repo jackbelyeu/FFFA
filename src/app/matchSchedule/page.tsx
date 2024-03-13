@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
-import Match from "@/app/Components/scheduleCard/matches";
+import Match from "@/app/Components/scheduleCard/match";
 import styles from "./styles.module.css";
 
 

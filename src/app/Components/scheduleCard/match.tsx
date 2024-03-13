@@ -92,7 +92,7 @@ export default function Match({
   };
   const handleDelete = async () => {
     const confirmation = window.confirm(
-      "Are you sure you want to add / update this player?"
+      "Are you sure you want to Delete Match?"
     );
     if (!confirmation) {
       return;
