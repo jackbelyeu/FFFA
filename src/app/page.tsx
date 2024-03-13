@@ -55,7 +55,7 @@ export default async function Page() {
                 <td>{row.team}</td>
                 <td>
                   <Image
-                    src={`/logos/${row.team}.jpeg`}
+                    src={`/logos/${row.team.toLowerCase()}.jpeg`}
                     alt={`Logo of ${row.team}`}
                     width={50}
                     height={50}
