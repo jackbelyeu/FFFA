@@ -4,7 +4,10 @@ import Image from "next/image";
 
 export default async function Page() {
   try {
-    const { rows } = await sql`SELECT * FROM Elevate;`;
+    const { rows } = await sql`
+      SELECT * FROM Standings;
+    `;
+    // console.log("rows", rows);
     const sortedRows = [...rows].sort((a, b) => b.points - a.points);
 
     return (
@@ -47,12 +50,13 @@ export default async function Page() {
               <th>L</th>
               <th>GD</th>
               <th>Pts</th>
+              <th>MP</th>
             </tr>
           </thead>
           <tbody>
             {sortedRows.map((row, index) => (
               <tr key={index}>
-                <td>{row.team}</td>
+                <td>{row.team.toUpperCase()}</td>
                 <td>
                   <Image
                     src={`/logos/${row.team.toLowerCase()}.jpeg`}
@@ -63,9 +67,10 @@ export default async function Page() {
                 </td>
                 <td>{row.wins}</td>
                 <td>{row.draws}</td>
-                <td>{row.lost}</td>
-                <td>{row.gd}</td>
+                <td>{row.losses}</td>
+                <td>{row.goal_difference}</td>
                 <td>{row.points}</td>
+                <td>{row.matches_played}</td>
               </tr>
             ))}
           </tbody>
