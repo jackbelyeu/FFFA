@@ -41,46 +41,10 @@ export default function Page() {
   return (
     <div>
       <h1>Flagrant Fowl Futbol Association</h1>
-      <Link
-        href="/dashboard"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        Go to Dashboard
-      </Link>{" "}
-      <Link
-        href="/learnmore"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        Learn More
-      </Link>{" "}
-      <Link
-        href="/Schedule"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        {" "}
-        Match Schedule
-      </Link>
+      <Link href="/dashboard">Go to Dashboard</Link> <br />
+      <Link href="/learnmore">Learn More</Link>
+      <br />
+      <Link href="/Schedule"> Match Schedule</Link>
       <h2>Final Standings</h2>
       <h3>Points Table</h3>
       <select onChange={handleChange}>
