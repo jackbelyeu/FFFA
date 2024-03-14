@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     //   ;
     // `;
     const result = await sql`
-    select * from Standings;  
+    select * from Standings;
    `;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {

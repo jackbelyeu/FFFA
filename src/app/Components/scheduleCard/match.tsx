@@ -68,6 +68,13 @@ export default function Match({
     setEditing(true);
   };
   const handleSubmit = () => {
+    // Ask for confirmation before submitting score
+    const confirmation = window.confirm(
+      `Are you sure you want to submit the score for match ${match_id} ? \n ${home_team} ${homeScore} - ${awayScore} ${away_team} \n This action cannot be undone.`
+    );
+    if (!confirmation) {
+      return;
+    }
     fetch("/api/submitScore", {
       method: "POST",
       body: JSON.stringify({

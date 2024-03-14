@@ -11,6 +11,9 @@ const MatchSchedule = () => {
   const [todayMatches, setTodayMatches] = useState([]);
   const [pastMatches, setPastMatches] = useState([]);
   const [futureMatches, setFutureMatches] = useState([]);
+  const [todayDate, setTodayDate] = useState(
+    new Date().toISOString().substring(0, 10)
+  );
 
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
@@ -22,8 +25,12 @@ const MatchSchedule = () => {
       .then((data) => {
         const matchRows = data.result.rows;
         setRows(matchRows);
-        const today = new Date();
-        const todayDate = today.toISOString().substring(0, 10);
+  
+        // Get the current date in UTC
+        const todayUTC = new Date(new Date().toUTCString());
+        const centralOffset = -5 * 60 * 60 * 1000;
+        const todayCentral = new Date(todayUTC.getTime() + centralOffset);
+        const todayDate = todayCentral.toISOString().split('T')[0];
         const todayMatches = matchRows.filter(
           (row: any) => row.date.substring(0, 10) === todayDate
         );
@@ -33,7 +40,7 @@ const MatchSchedule = () => {
         );
         setPastMatches(pastMatches);
         const futureMatches = matchRows.filter(
-          (row: any) => row.date.substring(0, 10) > todayDate
+          (row:any) => row.date.substring(0, 10) > todayDate
         );
         setFutureMatches(futureMatches);
       });
@@ -84,6 +91,7 @@ const MatchSchedule = () => {
       )}
       {pastMatches.length > 0 && (
         <>
+          <h2>Past Matches</h2>
           {pastMatches.map((row: any) => (
             <Match
               key={row.match_id}

@@ -5,9 +5,8 @@ import Image from "next/image";
 export default async function Page() {
   try {
     const { rows } = await sql`
-      SELECT * FROM Standings;
+     select * from Standings order by points desc, goal_difference desc, wins desc, team asc;
     `;
-    // console.log("rows", rows);
     const sortedRows = [...rows].sort((a, b) => b.points - a.points);
 
     return (
