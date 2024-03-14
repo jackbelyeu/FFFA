@@ -27,6 +27,7 @@ export default function Match({
   const [teams, setTeams] = useState<string[]>([]);
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+  const [scoresSubmitted, setScoresSubmitted] = useState(false);
 
   useEffect(() => {
     fetch("/api/teams")
@@ -84,7 +85,9 @@ export default function Match({
         homeScore,
         awayScore,
       }),
-    });
+    })
+    .then(() => setScoresSubmitted(true)) // Set scoresSubmitted to true after successful submission
+    .catch((error) => console.error("Error submitting scores:", error));
   };
 
   const handleSave = async () => {
@@ -338,6 +341,7 @@ export default function Match({
           Submit Score
         </button>
       </div>
+      {scoresSubmitted && <p>Scores Submitted Successfully</p>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 export default async function Page() {
   try {
     const { rows } = await sql`
-     select * from Standings order by points desc, goal_difference desc, wins desc, team asc;
+     select * from StanDings order by points desc, goal_difference desc, wins desc, team asc;
     `;
     const sortedRows = [...rows].sort((a, b) => b.points - a.points);
 
