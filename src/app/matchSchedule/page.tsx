@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { signOut } from "next-auth/react";
-import AddMatch from "@/app/Components/scheduleCard/addMatch";
-import Match from "@/app/Components/scheduleCard/match";
+import AddMatch from "@/app/components/scheduleCard/addMatch";
+import Match from "@/app/components/scheduleCard/match";
 import styles from "./styles.module.css";
 import Button from "react-bootstrap/Button";
 

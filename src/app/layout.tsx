@@ -1,6 +1,6 @@
 import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import MyNavbar from "@/app/Components/Navbar/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import MyNavbar from "@/app/components/Navbar/Navbar";
 export default function RootLayout({
   children,
 }: {
@@ -11,7 +11,7 @@ export default function RootLayout({
       <body>
         <MyNavbar />
         {children}
-        </body>
+      </body>
     </html>
   );
 }

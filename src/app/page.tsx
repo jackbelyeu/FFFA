@@ -1,39 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-interface Row {
-  team: string;
-  wins: number;
-  draws: number;
-  loses: number;
-  goalsdifference: number;
-  points: number;
-  year: number;
-  matchesplayed: number;
-}
-
-export default function Page() {
-  const [pointsData, setPointsData] = useState<Row[]>([]);
-  const [filteredPointsData, setFilteredPointsData] = useState<Row[]>([]);
-
-  const fetchPointsData = async () => {
-    try {
-      const response = await fetch("/api/points");
-      const data = await response.json();
-      setPointsData(data.result.rows);
-    } catch (error) {
-      console.error("Error fetching points data:", error);
-    }
-  };
-  
+import { sql } from "@vercel/postgres";
+import Image from "next/image";
 export default async function Page() {
   try {
     const { rows } = await sql`
      select * from StanDings order by points desc, goal_difference desc, wins desc, team asc;
     `;
     const sortedRows = [...rows].sort((a, b) => b.points - a.points);
-
     return (
       <div>
         <br />
@@ -81,7 +54,6 @@ export default async function Page() {
     );
   } catch (error) {
     console.error("Error fetching data from the database:", error);
-
     return (
       <div>
         <h1>Hello</h1>
