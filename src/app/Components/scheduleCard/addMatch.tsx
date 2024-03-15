@@ -2,6 +2,7 @@
 import styles from "./addMatch.module.css";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Button from "react-bootstrap/Button";
 
 interface AddMatchProps {
   onClose: () => void;
@@ -45,18 +46,19 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
 
   return (
     <div className={styles.card}>
-      <button id="close" onClick={onClose} className={styles.closeButton}>
+      <Button id="close" onClick={onClose} variant="danger">
         X
-      </button>
+      </Button>
       <h2> Add Match</h2>
       <p>
-        <Image 
+        <Image
           src={`/logos/${homeTeam}.jpeg`}
           alt={`Logo of ${homeTeam}`}
           width={100}
           height={100}
           className={styles.logo}
-        /><br/>
+        />
+        <br />
         Home Team :
         <select value={homeTeam} onChange={handleHomeTeamChange}>
           {teams.map((team) => (
@@ -68,13 +70,14 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         <br />
         vs
         <br />
-        <Image 
+        <Image
           src={`/logos/${awayTeam}.jpeg`}
           alt={`Logo of ${awayTeam}`}
           width={100}
           height={100}
           className={styles.logo}
-        /><br/>
+        />
+        <br />
         Away Team :
         <select value={awayTeam} onChange={handleAwayTeamChange}>
           {teams
@@ -106,9 +109,9 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
           onChange={(e) => setLocation(e.target.value)}
         />
       </p>
-      <button className={styles.saveButton} onClick={addMatch}>
+      <Button variant="success" onClick={addMatch}>
         Save
-      </button>
+      </Button>
     </div>
   );
 };

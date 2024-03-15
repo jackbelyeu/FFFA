@@ -4,7 +4,6 @@ table {
   border-collapse: collapse;
   border: 1px solid black;
   font-size: 0.9em;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
@@ -12,7 +11,6 @@ table {
 h1 {
   text-align: center;
   color: #0d6efd;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 th {

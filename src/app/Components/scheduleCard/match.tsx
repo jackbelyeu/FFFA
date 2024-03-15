@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styles from "./addMatch.module.css";
 import Image from "next/image";
 import { useEffect } from "react";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 export default function Match({
   match_id,
@@ -70,7 +71,6 @@ export default function Match({
     setEditing(true);
   };
   const handleSubmit = () => {
-    // Ask for confirmation before submitting score
     const confirmation = window.confirm(
       `Are you sure you want to submit the score for match ${match_id} ? \n ${home_team} ${homeScore} - ${awayScore} ${away_team} \n This action cannot be undone.`
     );
@@ -87,8 +87,8 @@ export default function Match({
         awayScore,
       }),
     })
-    .then(() => setScoresSubmitted(true)) // Set scoresSubmitted to true after successful submission
-    .catch((error) => console.error("Error submitting scores:", error));
+      .then(() => setScoresSubmitted(true))
+      .catch((error) => console.error("Error submitting scores:", error));
   };
 
   const handleSave = async () => {
@@ -217,8 +217,8 @@ export default function Match({
           </select>
         ) : (
           <span className={homeScore > awayScore ? styles.winningTeam : ""}>
-          {initialHomeTeam.toUpperCase()}
-        </span>
+            {initialHomeTeam.toUpperCase()}
+          </span>
         )}
       </p>
       <p>vs</p>
@@ -288,63 +288,53 @@ export default function Match({
       </p>
       {editing ? (
         <>
-          <button className={styles.saveButton} onClick={handleSave}>
+          <Button variant="success" onClick={handleSave}>
             Save
-          </button>
-          <button className={styles.cancelButton} onClick={handleCancel}>
+          </Button>
+          <Button variant="primary" onClick={handleCancel}>
             Cancel
-          </button>
-          <button className={styles.deleteButton} onClick={handleDelete}>
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
             Delete
-          </button>
+          </Button>
         </>
       ) : (
-        <button className={styles.cancelButton} onClick={handleEdit}>
+        <Button variant="primary" onClick={handleEdit}>
           Edit Match Details
-        </button>
+        </Button>
       )}
       <div className={styles.score}>
         <p>Score</p>
-        <button
-          className={styles.decrementButton}
-          onClick={handleHomeScoreDecrement}
-        >
+        <Button variant="danger" onClick={handleHomeScoreDecrement}>
           -
-        </button>
+        </Button>
         <span>
           {home_team.toUpperCase()} :<big> {homeScore}</big>
         </span>
-        <button
-          className={styles.incrementButton}
-          onClick={handleHomeScoreIncrement}
-        >
+        <Button variant="success" onClick={handleHomeScoreIncrement}>
           +
-        </button>
+        </Button>
+        <br />
         <br />
         <span>
-          <button
-            className={styles.decrementButton}
-            onClick={handleAwayScoreDecrement}
-          >
+          <Button variant="danger" onClick={handleAwayScoreDecrement}>
             -
-          </button>
+          </Button>
           {away_team.toUpperCase()} : <big>{awayScore}</big>
-          <button
-            className={styles.incrementButton}
-            onClick={handleAwayScoreIncrement}
-          >
+          <Button variant="success" onClick={handleAwayScoreIncrement}>
             +
-          </button>
+          </Button>
         </span>
         <br />
-        <button className={styles.cancelButton} onClick={handleSubmit}>
+        <br />
+        <Button variant="primary" onClick={handleSubmit}>
           {" "}
           Submit Score
-        </button>
+        </Button>
       </div>
-      {scoresSubmitted && <Alert variant="success">
-        Scores submitted successfully
-        </Alert>}
+      {scoresSubmitted && (
+        <Alert variant="success">Scores submitted successfully</Alert>
+      )}
     </div>
   );
 }
