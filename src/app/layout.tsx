@@ -1,13 +1,17 @@
-import './globals.css'
-
-export default function RootLayout ({
+import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MyNavbar from "@/app/Components/Navbar/Navbar";
+export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MyNavbar />
+        {children}
+        </body>
     </html>
-  )
+  );
 }

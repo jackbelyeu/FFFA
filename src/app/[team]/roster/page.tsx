@@ -4,6 +4,7 @@ import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Link from "next/link";
+import Button from "react-bootstrap/Button";
 
 interface RosterProps {
   params: {
@@ -43,7 +44,17 @@ const fetchData = async (team: string, setRosterData: any, setLoading: any) => {
 export default function Roster({ params }: RosterProps) {
   const [rosterData, setRosterData] = useState<CardProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddPlayer, setShowAddPlayer] = useState(false);
+  const [showRemovePlayer, setShowRemovePlayer] = useState(false);
 
+  const handleAddPlayerClick = () => {
+    setShowAddPlayer(true);
+    setShowRemovePlayer(false);
+  };
+  const handleRemovePlayerClick = () => {
+    setShowRemovePlayer(true);
+    setShowAddPlayer(false);
+  };
   useEffect(() => {
     fetchData(params.team, setRosterData, setLoading);
   }, [params.team]);
@@ -51,7 +62,13 @@ export default function Roster({ params }: RosterProps) {
   return loading ? (
     <LoadingMessage />
   ) : validTeams.includes(params.team) ? (
-    <ValidTeamContent params={params} rosterData={rosterData} />
+    <ValidTeamContent
+      params={params}
+      rosterData={rosterData}
+      handleRemovePlayerClick={handleRemovePlayerClick}
+      showAddPlayer={showAddPlayer}
+      showRemovePlayer={showRemovePlayer}
+    />
   ) : (
     <InvalidTeamContent params={params} />
   );
@@ -66,31 +83,38 @@ const LoadingMessage = () => (
 const ValidTeamContent = ({
   params,
   rosterData,
+  handleRemovePlayerClick,
+  showAddPlayer,
+  showRemovePlayer,
 }: {
   params: { team: string };
   rosterData: CardProps[];
+  handleRemovePlayerClick: () => void;
+  showAddPlayer: boolean;
+  showRemovePlayer: boolean;
 }) => (
   <main>
     <h1>ROSTER FOR {params.team.toUpperCase()}</h1>
     <li>
-      <Link
-        href="/api/auth/signout"
-        style={{
-          textDecoration: "none",
-          color: "white",
-          backgroundColor: "#009879",
-          padding: "10px",
-          borderRadius: "5px",
-          fontWeight: "bold",
-        }}
-      >
-        Sign Out
-      </Link>
+      <center>
+        <Button href="/api/auth/signout" variant="danger">
+          Sign Out
+        </Button>
+      </center>
     </li>
     <br />
     <TeamLogo team={params.team} />
     <br />
     <PlayerCards params={params} rosterData={rosterData} />
+    <br />
+    <center>
+      <Button variant="danger" onClick={handleRemovePlayerClick}>
+        Remove Player
+      </Button>
+    </center>
+
+    <br />
+    {showRemovePlayer && <RemovePlayerForm rosterData={rosterData} />}
   </main>
 );
 
@@ -241,53 +265,25 @@ const PlayerCards = ({
             <option value="Emus">Emus</option>
           </select>
           <br />
-          <button
-            style={{
-              margin: "10px",
-              backgroundColor: "green",
-              color: "white",
-              width: "150px",
-              height: "50px",
-              borderRadius: "10px",
-              border: "none",
-              cursor: "pointer",
-            }}
-            onClick={handleAddPlayer}
-          >
+          <Button variant="primary" onClick={handleAddPlayer}>
             Add Player
-          </button>
-        </div>
-        <div className={styles.removePlayer}>
-          <h1>Remove Player from {params.team}</h1>
-          <select
-            value={removePlayerName}
-            onChange={(e) => setRemovePlayerName(e.target.value)}
-          >
-            <option value="">Select Player to Remove</option>
-            {rosterData.map((row) => (
-              <option key={row.player_name} value={row.player_name}>
-                {row.player_name}
-              </option>
-            ))}
-          </select>
-          <br />
-          <button
-            style={{
-              margin: "10px",
-              backgroundColor: "red",
-              color: "white",
-              width: "150px",
-              height: "50px",
-              borderRadius: "10px",
-              border: "none",
-              cursor: "pointer",
-            }}
-            onClick={handleRemovePlayer}
-          >
-            Remove Player
-          </button>
+          </Button>
         </div>
       </div>
     </center>
   );
 };
+const RemovePlayerForm = ({ rosterData }: { rosterData: CardProps[] }) => (
+  <div className={styles.addPlayer}>
+    <h2>Remove Player</h2>
+    <select>
+      {rosterData.map((player) => (
+        <option key={player.player_name} value={player.player_name}>
+          {player.player_name}
+        </option>
+      ))}
+    </select>
+    <br />
+    <Button variant="danger">Remove</Button>
+  </div>
+);
