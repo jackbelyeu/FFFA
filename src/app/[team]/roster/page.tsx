@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Card from "../../components/Card/Card";
+import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Link from "next/link";

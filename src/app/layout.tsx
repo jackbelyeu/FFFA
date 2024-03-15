@@ -1,6 +1,6 @@
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyNavbar from "@/app/components/Navbar/Navbar";
+import MyNavbar from "@/app/Components/Navbar/Navbar";
 export default function RootLayout({
   children,
 }: {
