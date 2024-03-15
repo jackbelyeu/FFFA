@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import people from "/src/images/people.jpeg";
+import Spinner from "react-bootstrap/Spinner";
 interface RSVPProps {
   params: {
     team: string;
@@ -106,7 +107,15 @@ export default function RSVP({ params }: RSVPProps) {
   if (loading) {
     return (
       <main>
-        <h1>... Updating Give me a Second ...</h1>
+        <h1>Loading...</h1>
+        <center>
+          <Spinner animation="border" size="sm" />
+          <Spinner animation="border" />
+          <Spinner animation="grow" size="sm" />
+          <Spinner animation="grow" />
+
+        </center>
+	
       </main>
     );
   }
@@ -127,7 +136,6 @@ export default function RSVP({ params }: RSVPProps) {
       <center>
         <table
           style={{
-            marginLeft: "-25%",
             marginTop: "5%",
           }}
         >

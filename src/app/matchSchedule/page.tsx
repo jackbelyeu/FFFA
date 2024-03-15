@@ -4,6 +4,7 @@ import { signOut } from "next-auth/react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import Match from "@/app/Components/scheduleCard/match";
 import styles from "./styles.module.css";
+import Button from "react-bootstrap/Button";
 
 const MatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
@@ -48,6 +49,7 @@ const MatchSchedule = () => {
 
   return (
     <div>
+      <center>
       <button className={styles.signOutButton} onClick={() => signOut()}>
         Sign Out
       </button>
@@ -106,11 +108,13 @@ const MatchSchedule = () => {
         </>
       )}
       {!showAddMatch && (
-        <button className={styles.addMatchButton} onClick={handleAddMatchClick}>
+        <Button variant="outline-success" onClick={handleAddMatchClick}>
           Add Match
-        </button>
+        </Button>
       )}
       {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
+      </center>
+        <br />
     </div>
   );
 };

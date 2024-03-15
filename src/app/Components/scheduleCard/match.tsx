@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./addMatch.module.css";
 import Image from "next/image";
 import { useEffect } from "react";
+import Alert from 'react-bootstrap/Alert';
 
 export default function Match({
   match_id,
@@ -341,7 +342,9 @@ export default function Match({
           Submit Score
         </button>
       </div>
-      {scoresSubmitted && <p>Scores Submitted Successfully</p>}
+      {scoresSubmitted && <Alert variant="success">
+        Scores submitted successfully
+        </Alert>}
     </div>
   );
 }

@@ -3,13 +3,12 @@
   border-radius: 8px;
   padding: 20px;
   margin: 10px;
+  text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #009879;
-}
-
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
+  background-color: #0a58ca;
+  width: calc(33.33% - 20px);
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card select {
@@ -62,6 +61,9 @@
 
 .card img {
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+
 }
 
 
