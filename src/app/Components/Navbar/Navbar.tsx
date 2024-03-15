@@ -5,9 +5,11 @@ import Navbar from "react-bootstrap/Navbar";
 
 function MyNavbar() {
   return (
-    <Navbar bg="primary"  sticky="top" data-bs-theme="dark">
+    <Navbar bg="primary" collapseOnSelect expand="lg"   sticky="top" data-bs-theme="dark">
       <Container>
         <Navbar.Brand href="/">Flagrant Fowl Futbol Association</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/dashboard">Daashboard</Nav.Link>
@@ -15,6 +17,7 @@ function MyNavbar() {
           <Nav.Link href="/matchSchedule">Match Schedule</Nav.Link>
           <Nav.Link href="/interest">Express Interest for 2024</Nav.Link>
         </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
