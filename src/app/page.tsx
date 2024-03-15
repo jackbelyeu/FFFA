@@ -1,7 +1,32 @@
-import Link from "next/link";
-import { sql } from "@vercel/postgres";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+interface Row {
+  team: string;
+  wins: number;
+  draws: number;
+  loses: number;
+  goalsdifference: number;
+  points: number;
+  year: number;
+  matchesplayed: number;
+}
 
+export default function Page() {
+  const [pointsData, setPointsData] = useState<Row[]>([]);
+  const [filteredPointsData, setFilteredPointsData] = useState<Row[]>([]);
+
+  const fetchPointsData = async () => {
+    try {
+      const response = await fetch("/api/points");
+      const data = await response.json();
+      setPointsData(data.result.rows);
+    } catch (error) {
+      console.error("Error fetching points data:", error);
+    }
+  };
+  
 export default async function Page() {
   try {
     const { rows } = await sql`
