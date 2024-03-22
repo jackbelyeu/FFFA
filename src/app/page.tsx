@@ -8,7 +8,7 @@ export default async function Page() {
     `;
     const sortedRows = [...rows].sort((a, b) => b.points - a.points);
     return (
-      <div>
+      <div className="body">
         <br />
         <center>
           {" "}

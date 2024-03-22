@@ -7,7 +7,9 @@ table {
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
-
+body {
+  background-color: grey;
+}
 h1 {
   text-align: center;
   color: #0d6efd;

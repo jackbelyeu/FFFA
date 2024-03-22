@@ -1,0 +1,152 @@
+/* Importing Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+/* Styles for Points component */
+.points-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, #f7f7f7, #e6e6e6); /* Added gradient */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+  height: 100%;
+}
+.sample-container {
+  display: flex; /* Set display to flex */
+  width: 200pxs;
+}
+
+.sample {
+  margin-right: 10px; /* Add margin between the images */
+}
+
+.sample:last-child {
+  margin-right: 0; /* Remove margin from the last image to prevent extra space */
+}
+
+.sample img {
+  width: 100px; /* Set width of the images */
+  height: auto; /* Maintain aspect ratio */
+}
+.points-container:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Box shadow on hover */
+}
+
+.select-container {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: clamp(14px, 2vw, 18px); /* Responsive font size */
+  margin-bottom: 10px;
+  font-family: "Roboto", sans-serif; /* Custom font */
+  font-weight: 700; /* Bold font weight */
+}
+
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 200px;
+  font-family: Arial, sans-serif;
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in effect */
+}
+
+.result-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.result-container label {
+  margin-right: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+  transform: scale(1.5);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: clamp(14px, 2vw, 16px); /* Responsive font size */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for color */
+  font-family: "Roboto", sans-serif; /* Custom font */
+}
+
+button:hover {
+  background-color: #45a049;
+  color: #f7f7f7; /* Text color change on hover */
+}
+
+button.loading::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.slideIn {
+  animation-name: slideIn;
+  animation-duration: 0.5s;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .points-container,
+  .result-container {
+    flex-direction: column;
+  }
+
+  select,
+  button {
+    width: 100%;
+  }
+}

@@ -39,33 +39,34 @@ const Login = () => {
   
 
   return (
-    <div className={styles.logo}>
-      <h1 style={{padding:"30px"}}> WELCOME TO ORGANISER LOGIN</h1>
-    <center>
-          <form onSubmit={handleSubmit}>
-           <div  className={styles.email}>
+    <div className={styles.container}>
+      <h1 className={styles.logo}> WELCOME TO ORGANISER LOGIN</h1>
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
             <span>Email Id:</span>
-            <input
+            <input style={{width:"100%"}}
               type="email"
               placeholder="Email"
               value={emailValue}
               onChange={(e) => setEmailValue(e.target.value)}
             />
-            </div> 
-            <div  className={styles.password}>
+          </div> 
+          <div className={styles.inputGroup}>
             <span>Password:</span>
-            <input className={styles.password}
+            <input style={{width:"100%"}}
               type="password"
               placeholder="Password"
               value={passwordValue}
               onChange={(e) => setPasswordValue(e.target.value)}
             />
           </div>
-            <button className={styles.submitbutton} type="submit">Login In</button>
-          </form>
-    </center>
-  </div>
+          <button className={styles.submitButton} type="submit">LogIn</button>
+        </form>
+      </div>
+    </div>
   );
 };
+
 
 export default Login;
