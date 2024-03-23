@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
-    const result = await sql`SELECT team, wins, draws, lost, gd, points, logo 
-    FROM Elevate`;
+    const result =
+      await sql`SELECT HomeTeam, AwayTeam, MatchDate, MatchTime, Location, MatchDay, MatchID
+    FROM ElevateSch WHERE HomeTeam='Emus' OR AwayTeam='Emus'`;
     console.log(result);
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {

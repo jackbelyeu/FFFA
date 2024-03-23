@@ -1,59 +1,145 @@
-//import React from "react";
-import Link from "next/link";
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { sql } from "@vercel/postgres";
-//import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
-export default async function Page() {
-  try {
-    //const router = useRouter();
-    const { rows } = await sql`SELECT * FROM Elevate;`;
-    const sortedRows = [...rows].sort((a, b) => b.points - a.points);
+interface Row {
+  team: string;
+  wins: number;
+  draws: number;
+  loses: number;
+  goalsdifference: number;
+  points: number;
+  year: number;
+  matchesplayed: number;
+}
 
-    //const handleEditStandingsClick = () => {
-    // Navigate to the login page for password prompt
-    //router.push('/edit_standings_security');
-    //};
+export default function Page() {
+  const [pointsData, setPointsData] = useState<Row[]>([]);
+  const [uniqueTeams, setUniqueTeams] = useState<string[]>([]);
+  const [filteredPointsData, setFilteredPointsData] = useState<Row[]>([]);
+  const router = useRouter();
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
-    return (
-      <div>
+  const fetchPointsData = async () => {
+    try {
+      const response = await fetch("/api/points");
+      const data = await response.json();
+      setPointsData(data.result.rows);
+
+      // Create a list of unique teams
+      const teamNames = data.result.rows.map((row: Row) => row.team);
+      const teamSet = new Set(teamNames);
+      setUniqueTeams(Array.from(teamSet) as string[]); // Cast to string[]
+    } catch (error) {
+      console.error("Error fetching points data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPointsData();
+
+    document.body.classList.add("with-sidebar");
+
+    return () => {
+      document.body.classList.remove("with-sidebar");
+    };
+  }, []);
+
+  const handleChangeYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const year = parseInt(event.target.value);
+    const filteredData = pointsData.filter((row) => row.year === year);
+    setFilteredPointsData(filteredData);
+  };
+
+  const handleSelectTeam = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const teamName = event.target.value;
+    if (teamName === "Mosquitoes") {
+      router.push("/Mosquitoes"); // Directly navigate to Mosquitoes page
+    } else if (teamName === "Hyenas") {
+      router.push("/Hyenas"); // Directly navigate to Mosquitoes page
+    } else if (teamName === "Emus") {
+      router.push("/Emus"); // Directly navigate to Mosquitoes page
+    } else if (teamName === "Grasskickers") {
+      router.push("/Grasskickers"); // Directly navigate to Mosquitoes page
+    } else if (teamName === "Mockingbirds") {
+      router.push("/Mockingbirds"); // Directly navigate to Mosquitoes page
+    } else if (teamName === "PCFC") {
+      router.push("/PCFC"); // Directly navigate to Mosquitoes page
+    } else {
+      router.push(createTeamPageLink(teamName));
+    }
+  };
+
+  // This function will generate the URL to the team's main page
+  const createTeamPageLink = (teamName: string) => {
+    return `/${encodeURIComponent(teamName.replace(/\s+/g, "-"))}`;
+  };
+
+  return (
+    <div className="page-layout">
+      {/* Button to toggle the sidebar */}
+      <button
+        className="sidebar-toggle"
+        onClick={() => setIsSidebarVisible(!isSidebarVisible)}
+      >
+        {/* Styled div for three dots */}
+        <div className="dots-icon">⋮</div>
+      </button>
+
+      {/* Conditional rendering of the sidebar based on its visibility state */}
+      {isSidebarVisible && (
+        <nav className="sidebar">
+          <Link href="/learnmore">Learn More</Link>
+          <Link href="/Sch">Match Schedule</Link>
+          <select onChange={handleSelectTeam} defaultValue="">
+            <option value="" disabled>
+              Teams
+            </option>
+            {uniqueTeams.map((team, index) => (
+              <option key={index} value={team}>
+                {team}
+              </option>
+            ))}
+          </select>
+           
+        </nav>
+      )}
+      <main className="main-content">
         <h1>Flagrant Fowl Futbol Association</h1>
-        <Link href="/dashboard" passHref>
-          <button className="button">Go to Dashboard</button>
-        </Link>{" "}
-        <Link href="/learnmore" passHref>
-          <button className="button">Learn More</button>
-        </Link>{" "}
-        <Link href="/2023" passHref>
-          <button className="button">2023 Final Standings</button>
-        </Link>{" "}
-        <Link href="/2024" passHref>
-          <button className="button">2024 Final Standings</button>
-        </Link>{" "}
-        <Link href="/edit_standings_security" passHref>
-          <button className="button">Edit Standings</button>
-        </Link>{" "}
-        <Link href="/Sch" passHref>
-          <button className="button">Match Schedule</button>
-        </Link>{" "}
-        <h2>2023 Final Standings</h2>
+        <h2>Final Standings</h2>
+        <h3>Points Table</h3>
+        <select onChange={handleChangeYear}>
+          <option value="">Select Year</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
         <table>
           <thead>
             <tr>
               <th>Team</th>
               <th></th>
+              <th>Wins</th>
+              <th>Draws</th>
+              <th>Loses</th>
+              <th>Goals Difference</th>
+              <th>Points</th>
               <th>Matches Played</th>
-              <th>W</th>
-              <th>D</th>
-              <th>L</th>
-              <th>GD</th>
-              <th>Pts</th>
             </tr>
           </thead>
           <tbody>
-            {sortedRows.map((row, index) => (
+            {filteredPointsData.map((row, index) => (
               <tr key={index}>
-                <td>{row.team}</td>
+                <td>
+                  {/* Correct usage of Link with child a tag */}
+                  <Link
+                    href={createTeamPageLink(row.team)}
+                    className="team-link"
+                  >
+                    {row.team}
+                  </Link>
+                </td>
                 <td>
                   <Image
                     src={`/logos/${row.team}.jpeg`}
@@ -62,30 +148,22 @@ export default async function Page() {
                     height={50}
                   />
                 </td>
-                <td>{row.wins + row.draws + row.lost}</td>
                 <td>{row.wins}</td>
                 <td>{row.draws}</td>
-                <td>{row.lost}</td>
-                <td>{row.gd}</td>
+                <td>{row.loses}</td>
+                <td>{row.goalsdifference}</td>
                 <td>{row.points}</td>
+                <td>{row.wins + row.draws + row.loses}</td>
               </tr>
             ))}
+            {filteredPointsData.length === 0 && (
+              <tr>
+                <td colSpan={8}>Please Select a year to get the Points</td>
+              </tr>
+            )}
           </tbody>
         </table>
-      </div>
-    );
-  } catch (error) {
-    console.error("Error fetching data from the database:", error);
-
-    return (
-      <div>
-        <h1>Hello</h1>
-        <Link href="/dashboard">Go to Dashboard</Link>
-        <p>
-          Error fetching data from the database. Please check the console for
-          more details.
-        </p>
-      </div>
-    );
-  }
+      </main>
+    </div>
+  );
 }
