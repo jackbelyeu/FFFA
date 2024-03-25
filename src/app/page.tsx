@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 interface Row {
   team: string;
@@ -90,7 +91,11 @@ export default function Page() {
         <tbody>
           {filteredPointsData.map((row, index) => (
             <tr key={index}>
-              <td>{row.team}</td>
+              <td>
+                <Link href={`/schedule_roaster?team=${row.team}`}>
+                {row.team}
+                  </Link>
+                </td>
 
               <td>
                 <Image
