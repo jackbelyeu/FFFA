@@ -1,0 +1,96 @@
+/* styles.module.css */
+
+.container {
+  background-color: #37bbf8; /* Green background */
+  color: #fff; /* White text */
+  padding: 20px;
+  border-radius: 10px;
+  background-image: url('./background.jpeg'); /* Set the background image directly */
+  background-repeat: no-repeat; /* Prevent background image from repeating */
+  background-position: center; /* Center the background image */
+  background-size: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px; /* Increased spacing */
+}
+
+.heading {
+  font-size: 36px; /* Larger font size for impact */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Added spacing for elegance */
+  color: #fff; /* White text */
+}
+
+.footballIcon {
+  font-size: 30px; /* Slightly larger for emphasis */
+  margin-right: 10px;
+  color: #ffd700; /* Gold color for a premium feel */
+}
+
+.teamSelection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px; /* Increased spacing */
+}
+
+.label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #000; /* Gold color to match the icon */
+}
+
+.dropdown {
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none; /* Removes default border */
+  background-color: #2681f8; /* Darker green for contrast */
+  color: #fff; /* White text */
+  cursor: pointer; /* Changes cursor on hover */
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.scheduleSection,
+.rosterSection {
+  width: 48%;
+  overflow-x: auto; /* Ensures content is scrollable on small screens */
+}
+
+.sectionHeading {
+  font-size: 26px; /* Increased size for readability */
+  font-weight: bold;
+  margin-bottom: 15px; /* Increased spacing */
+  color: #ffffff; /* Gold color for consistency */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+}
+
+.table th,
+.table td {
+  padding: 10px; /* Increased padding for better spacing */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #2681f8; /* Even darker green for a richer look */
+  color: #fff; /* White text for contrast */
+}
+
+.table tr:hover {
+  background-color: #f5f5f5; /* Adds hover effect for interactivity */
+  color: #333; /* Dark text for readability */
+}
