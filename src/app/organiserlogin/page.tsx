@@ -50,7 +50,7 @@ const Login = () => {
               placeholder="Email"
               value={emailValue}
               onChange={(e) => setEmailValue(e.target.value)}
-            />
+            required/>
           </div> 
           <div className={styles.inputGroup}>
             <span>Password:</span>
@@ -59,7 +59,7 @@ const Login = () => {
               placeholder="Password"
               value={passwordValue}
               onChange={(e) => setPasswordValue(e.target.value)}
-            />
+            required/>
           </div>
           <button className={styles.submitButton} type="submit">LogIn</button>
         </form>
