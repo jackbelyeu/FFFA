@@ -208,7 +208,7 @@ export default function Match({
       <p>
         Home Team:{" "}
         {editing ? (
-          <select>
+          <select onChange={(e) => setHomeTeam(e.target.value)}>
             {teams.map((team) => (
               <option key={team} value={team}>
                 {team}
@@ -232,7 +232,7 @@ export default function Match({
       <p>
         Away Team:{" "}
         {editing ? (
-          <select id="awayteam">
+          <select id="awayteam" onChange={(e) => setAwayTeam(e.target.value)}>
             {teams
               .filter((team) => team !== home_team)
               .map((team) => (
@@ -252,6 +252,7 @@ export default function Match({
         {editing ? (
           <input
             type="time"
+            onChange={(e) => setTime(e.target.value)}
             value={time}
           />
         ) : (
@@ -263,6 +264,7 @@ export default function Match({
         {editing ? (
           <input
             type="date"
+            onChange={(e) => setDate(e.target.value)}
             value={date.substring(0, 10)}
           />
         ) : (
@@ -278,12 +280,61 @@ export default function Match({
         {editing ? (
           <input
             value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
         ) : (
           location
         )}
       </p>
-  
+      {editing ? (
+        <>
+          <Button variant="success" onClick={handleSave}>
+            Save
+          </Button>
+          <Button variant="primary" onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </>
+      ) : (
+        <Button variant="primary" onClick={handleEdit}>
+          Edit Match Details
+        </Button>
+      )}
+      <div className={styles.score}>
+        <p>Score</p>
+        <Button variant="danger" onClick={handleHomeScoreDecrement}>
+          -
+        </Button>
+        <span>
+          {home_team.toUpperCase()} :<big> {homeScore}</big>
+        </span>
+        <Button variant="success" onClick={handleHomeScoreIncrement}>
+          +
+        </Button>
+        <br />
+        <br />
+        <span>
+          <Button variant="danger" onClick={handleAwayScoreDecrement}>
+            -
+          </Button>
+          {away_team.toUpperCase()} : <big>{awayScore}</big>
+          <Button variant="success" onClick={handleAwayScoreIncrement}>
+            +
+          </Button>
+        </span>
+        <br />
+        <br />
+        <Button variant="primary" onClick={handleSubmit}>
+          {" "}
+          Submit Score
+        </Button>
+      </div> 
+       {scoresSubmitted && (
+        <Alert variant="success">Scores submitted successfully</Alert>
+      )}
     </div>
   );
 }

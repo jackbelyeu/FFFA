@@ -1,9 +1,9 @@
 import styles from './styles.module.css'
 
-export default function InterestLayout({
+export default function ThankYouLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  return <section className={styles.interest}>{children}</section>
+  return <section className={styles.thankyou}>{children}</section>;
 }

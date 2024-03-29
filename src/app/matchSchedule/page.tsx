@@ -108,12 +108,6 @@ const MatchSchedule = () => {
             ))}
           </>
         )}
-        {!showAddMatch && (
-          <Button variant="outline-success" onClick={handleAddMatchClick}>
-            Add Match
-          </Button>
-        )}
-        {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
       </center>
       <br />
     </div>
