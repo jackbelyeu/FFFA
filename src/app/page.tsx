@@ -12,15 +12,15 @@ interface Row {
 
   draws: number;
 
-  loses: number;
+  losses: number;
 
-  goalsdifference: number;
+  goal_difference: number;
 
   points: number;
 
   year: number;
 
-  matchesplayed: number;
+  matches_played: number;
 }
 
 export default function Page() {
@@ -30,7 +30,7 @@ export default function Page() {
 
   const fetchPointsData = async () => {
     try {
-      const response = await fetch("/api/points");
+      const response = await fetch("/api/standings");
 
       const data = await response.json();
 
@@ -80,7 +80,7 @@ export default function Page() {
 
             <th>Loses</th>
 
-            <th>Goals Difference</th>
+            <th>Goal Difference</th>
 
             <th>Points</th>
 
@@ -93,9 +93,9 @@ export default function Page() {
             <tr key={index}>
               <td>
                 <Link href={`/schedule_roaster?team=${row.team}`}>
-                {row.team}
-                  </Link>
-                </td>
+                  {row.team.toUpperCase()}
+                </Link>
+              </td>
 
               <td>
                 <Image
@@ -110,13 +110,13 @@ export default function Page() {
 
               <td>{row.draws}</td>
 
-              <td>{row.loses}</td>
+              <td>{row.losses}</td>
 
-              <td>{row.goalsdifference}</td>
+              <td>{row.goal_difference}</td>
 
               <td>{row.points}</td>
 
-              <td>{row.matchesplayed}</td>
+              <td>{row.matches_played}</td>
             </tr>
           ))}
 
