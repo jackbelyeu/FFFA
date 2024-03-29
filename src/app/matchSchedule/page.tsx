@@ -1,13 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { signOut } from "next-auth/react";
-import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import Match from "@/app/Components/scheduleCard/match";
-import styles from "./styles.module.css";
 import Button from "react-bootstrap/Button";
 
 const MatchSchedule = () => {
-  const [showAddMatch, setShowAddMatch] = useState(false);
   const [rows, setRows] = useState([]);
   const [todayMatches, setTodayMatches] = useState([]);
   const [pastMatches, setPastMatches] = useState([]);
@@ -15,11 +11,6 @@ const MatchSchedule = () => {
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
-
-  const handleAddMatchClick = () => {
-    setShowAddMatch(true);
-  };
-
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
