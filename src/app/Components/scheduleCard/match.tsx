@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./addMatch.module.css";
 import Image from "next/image";
-import { useEffect } from "react";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
 
 export default function Match({
   match_id,
@@ -20,7 +17,6 @@ export default function Match({
   date: string;
   location: string;
 }) {
-  const [editing, setEditing] = useState(false);
   const [home_team, setHomeTeam] = useState(initialHomeTeam);
   const [away_team, setAwayTeam] = useState(initialAwayTeam);
   const [time, setTime] = useState(initialTime);
@@ -67,223 +63,45 @@ export default function Match({
     match_id,
   ]);
 
-  const handleEdit = () => {
-    setEditing(true);
-  };
-  const handleSubmit = () => {
-    const confirmation = window.confirm(
-      `Are you sure you want to submit the score for match ${match_id} ? \n ${home_team} ${homeScore} - ${awayScore} ${away_team} \n This action cannot be undone.`
-    );
-    if (!confirmation) {
-      return;
-    }
-    fetch("/api/submitScore", {
-      method: "POST",
-      body: JSON.stringify({
-        match_id,
-        away_team,
-        home_team,
-        homeScore,
-        awayScore,
-      }),
-    })
-      .then(() => setScoresSubmitted(true))
-      .catch((error) => console.error("Error submitting scores:", error));
-  };
-
-  const handleSave = async () => {
-    try {
-      const response = await fetch("/api/editMatch", {
-        method: "POST",
-        body: JSON.stringify({
-          match_id,
-          home_team,
-          away_team,
-          time,
-          date,
-          location,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update match");
-      }
-      setEditing(false);
-    } catch (error) {
-      console.error("Error updating match:", error);
-    }
-    window.location.reload();
-  };
-  const handleDelete = async () => {
-    const confirmation = window.confirm(
-      "Are you sure you want to Delete Match?"
-    );
-    if (!confirmation) {
-      return;
-    }
-    try {
-      const response = await fetch("/api/deleteMatch", {
-        method: "POST",
-        body: JSON.stringify({
-          match_id,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete match");
-      }
-    } catch (error) {
-      console.error("Error deleting match:", error);
-    }
-    window.location.reload();
-  };
-
-  const handleCancel = () => {
-    setHomeTeam(initialHomeTeam);
-    setAwayTeam(initialAwayTeam);
-    setTime(initialTime);
-    setDate(initialDate);
-    setLocation(initialLocation);
-    setEditing(false);
-  };
-
-  const handleHomeScoreIncrement = () => {
-    setHomeScore(homeScore + 1);
-    fetch("/api/updateScore", {
-      method: "POST",
-      body: JSON.stringify({
-        match_id,
-        homeScore: homeScore + 1,
-        awayScore,
-      }),
-    });
-  };
-
-  const handleAwayScoreIncrement = () => {
-    setAwayScore(awayScore + 1);
-    fetch("/api/updateScore", {
-      method: "POST",
-      body: JSON.stringify({
-        match_id,
-        homeScore,
-        awayScore: awayScore + 1,
-      }),
-    });
-  };
-  const handleHomeScoreDecrement = () => {
-    if (homeScore > 0) {
-      setHomeScore(homeScore - 1);
-    }
-    fetch("/api/updateScore", {
-      method: "POST",
-      body: JSON.stringify({
-        match_id,
-        homeScore: homeScore - 1,
-        awayScore,
-      }),
-    });
-  };
-  const handleAwayScoreDecrement = () => {
-    if (awayScore > 0) {
-      setAwayScore(awayScore - 1);
-    }
-    fetch("/api/updateScore", {
-      method: "POST",
-      body: JSON.stringify({
-        match_id,
-        homeScore,
-        awayScore: awayScore - 1,
-      }),
-    });
-  };
-
   return (
     <div className={styles.card}>
       <h2>Match {match_id}</h2>
-      <Image
-        src={`/logos/${home_team}.jpeg`}
-        alt={`Logo of ${home_team}`}
-        width={100}
-        height={100}
-        className={styles.logo}
-      />
-      <p>
-        Home Team:{" "}
-        {editing ? (
-          <select>
-            {teams.map((team) => (
-              <option key={team} value={team}>
-                {team}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <span className={homeScore > awayScore ? styles.winningTeam : ""}>
-            {initialHomeTeam.toUpperCase()}
-          </span>
-        )}
-      </p>
-      <p>vs</p>
-      <Image
-        src={`/logos/${away_team}.jpeg`}
-        alt={`Logo of ${away_team}`}
-        width={100}
-        height={100}
-        className={styles.logo}
-      />
-      <p>
-        Away Team:{" "}
-        {editing ? (
-          <select id="awayteam">
-            {teams
-              .filter((team) => team !== home_team)
-              .map((team) => (
-                <option key={team} value={team}>
-                  {team}
-                </option>
-              ))}
-          </select>
-        ) : (
-          <span className={awayScore > homeScore ? styles.winningTeam : ""}>
-            {initialAwayTeam.toUpperCase()}
-          </span>
-        )}
-      </p>
-      <p>
-        Time:{" "}
-        {editing ? (
-          <input
-            type="time"
-            value={time}
+      <div className={styles.teamContainer}>
+        <div className={styles.team}>
+          <p>Home Team</p>
+          <Image
+            src={`/logos/${home_team}.jpeg`}
+            alt={`Logo of ${home_team}`}
+            width={100}
+            height={100}
+            className={styles.logo}
           />
-        ) : (
-          time
-        )}
-      </p>
-      <p>
-        Date:{" "}
-        {editing ? (
-          <input
-            type="date"
-            value={date.substring(0, 10)}
+          <p>{home_team.toUpperCase()}</p>
+        </div>
+        <div>
+          <Image
+            src={`/images/vs.png`}
+            alt={`Logo of ${home_team}`}
+            width={100}
+            height={100}
+            className={styles.logo}
           />
-        ) : (
-          date.substring(5, 7) +
-          "/" +
-          date.substring(8, 10) +
-          "/" +
-          date.substring(0, 4)
-        )}
-      </p>
-      <p>
-        Location:{" "}
-        {editing ? (
-          <input
-            value={location}
+        </div>
+        <div className={styles.team}>
+          <p>Away Team</p>
+          <Image
+            src={`/logos/${away_team}.jpeg`}
+            alt={`Logo of ${away_team}`}
+            width={100}
+            height={100}
+            className={styles.logo}
           />
-        ) : (
-          location
-        )}
-      </p>
-  
+          <p>{away_team.toUpperCase()}</p>
+        </div>
+      </div>
+      <p>Time: {time}</p>
+      <p>Date: {new Date(date).toLocaleDateString()}</p>
+      <p>Location: {location}</p>
     </div>
   );
 }

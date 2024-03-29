@@ -42,9 +42,6 @@ const MatchSchedule = () => {
     <div>
       <center>
         <br />
-        <Button variant="danger" href="/api/auth/signout">
-          Sign Out
-        </Button>
         <h1>Match Schedule</h1>
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
