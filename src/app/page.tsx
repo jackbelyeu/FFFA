@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import StickyAlert from "./Components/alerts/alert";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -54,6 +55,7 @@ export default function Page() {
 
   return (
     <div>
+      <StickyAlert />
       <center>
         {" "}
         <h1>Flagrant Fowl Futbol Association</h1>
@@ -93,9 +95,9 @@ export default function Page() {
             <tr key={index}>
               <td>
                 <Link href={`/schedule_roaster?team=${row.team}`}>
-                {row.team}
-                  </Link>
-                </td>
+                  {row.team}
+                </Link>
+              </td>
 
               <td>
                 <Image
