@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import StickyAlert from "./Components/alerts/alert";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,15 +12,15 @@ interface Row {
 
   draws: number;
 
-  loses: number;
+  losses: number;
 
-  goalsdifference: number;
+  goal_difference: number;
 
   points: number;
 
   year: number;
 
-  matchesplayed: number;
+  matches_played: number;
 }
 
 export default function Page() {
@@ -31,7 +30,7 @@ export default function Page() {
 
   const fetchPointsData = async () => {
     try {
-      const response = await fetch("/api/points");
+      const response = await fetch("/api/standings");
 
       const data = await response.json();
 
@@ -55,7 +54,6 @@ export default function Page() {
 
   return (
     <div>
-      <StickyAlert />
       <center>
         {" "}
         <h1>Flagrant Fowl Futbol Association</h1>
@@ -82,7 +80,7 @@ export default function Page() {
 
             <th>Loses</th>
 
-            <th>Goals Difference</th>
+            <th>Goal Difference</th>
 
             <th>Points</th>
 
@@ -95,7 +93,7 @@ export default function Page() {
             <tr key={index}>
               <td>
                 <Link href={`/schedule_roaster?team=${row.team}`}>
-                  {row.team}
+                  {row.team.toUpperCase()}
                 </Link>
               </td>
 
@@ -112,13 +110,13 @@ export default function Page() {
 
               <td>{row.draws}</td>
 
-              <td>{row.loses}</td>
+              <td>{row.losses}</td>
 
-              <td>{row.goalsdifference}</td>
+              <td>{row.goal_difference}</td>
 
               <td>{row.points}</td>
 
-              <td>{row.matchesplayed}</td>
+              <td>{row.matches_played}</td>
             </tr>
           ))}
 

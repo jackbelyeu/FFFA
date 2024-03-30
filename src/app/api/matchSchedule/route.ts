@@ -6,7 +6,6 @@ export async function GET(request: Request) {
     const result = await sql`
       SELECT * FROM match_schedule ORDER BY date, time;
     `;
-
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(
@@ -18,32 +17,25 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const { homeTeam, awayTeam, date, time, location } = await request.json();
-  console.log(homeTeam, awayTeam, date, time, location);
-
   try {
-    // Check if the match already exists
+  
     const existingMatch = await sql`
       SELECT * FROM match_schedule 
       WHERE home_team = ${homeTeam} AND away_team = ${awayTeam} AND date = ${date} AND time = ${time} AND location = ${location};
     `;
-
     if (existingMatch.rows.length > 0) {
       return NextResponse.json(
         { message: "Match already exists" },
         { status: 409 } // Conflict status code
       );
     }
-
-    // If the match doesn't exist, proceed with insertion
+    // If the match doesn't exist, proceed with insertion 
     await sql`
-      INSERT INTO match_schedule (home_team, away_team, date, time, location) VALUES (${homeTeam}, ${awayTeam}, ${date}, ${time}, ${location});
+      INSERT INTO match_schedule (home_team, away_team, date, time, location,home_score,away_score) VALUES (${homeTeam}, ${awayTeam}, ${date}, ${time}, ${location},0,0);
     `;
-    
-    // Fetch the updated list of matches
     const result = await sql`
       SELECT * FROM match_schedule;
     `;
-
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

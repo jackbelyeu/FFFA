@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const result = await sql`
-      SELECT * FROM risers_rsvp WHERE player_team = ${params.team}
+      SELECT * FROM RSVP WHERE player_team = ${params.team}
       ORDER BY id ASC;
     `;
     return NextResponse.json(result);
@@ -26,7 +26,7 @@ export async function POST(
     const body = await request.json();
     const { player_name, commitment, position, previous_club } = body;
     const result = await sql`
-      UPDATE risers_rsvp
+      UPDATE RSVP
       SET commitment = ${commitment},
           position = ${position},
           previous_club = ${previous_club}

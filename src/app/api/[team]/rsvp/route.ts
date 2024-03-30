@@ -6,7 +6,7 @@ export async function GET(
   { params }: { team: string; params: any }
 ) {
   const result = await sql`
-   SELECT * FROM risers_rsvp where player_team = ${params.team}
+   SELECT * FROM RSVP where player_team = ${params.team}
    ORDER BY id ASC;
   `;
   return NextResponse.json(result);
@@ -28,7 +28,7 @@ export async function POST(
     nov_26,
   } = await request.json();
   const result = await sql`
-   UPDATE risers_rsvp
+   UPDATE RSVP
     SET oct_8 = ${oct_8},
         oct_15 = ${oct_15},
         oct_22 = ${oct_22},
