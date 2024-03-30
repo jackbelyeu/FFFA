@@ -4,7 +4,7 @@ import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
 import Button from "react-bootstrap/Button";
 
-const MatchSchedule = () => {
+const OrganiserMatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [rows, setRows] = useState([]);
   const [todayMatches, setTodayMatches] = useState([]);
@@ -17,14 +17,13 @@ const MatchSchedule = () => {
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
   };
-
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
         const matchRows = data.result.rows;
         setRows(matchRows);
-        console.log(matchRows);
+
 
         // Get the current date in UTC
         const todayUTC = new Date(new Date().toUTCString());
@@ -45,7 +44,6 @@ const MatchSchedule = () => {
         setFutureMatches(futureMatches);
       });
   }, []);
-
   return (
     <div>
       <center>
@@ -74,7 +72,6 @@ const MatchSchedule = () => {
             ))}
           </>
         )}
-
         {futureMatches.length > 0 && (
           <>
             <h2>Upcoming Matches</h2>
@@ -119,4 +116,4 @@ const MatchSchedule = () => {
   );
 };
 
-export default MatchSchedule;
+export default OrganiserMatchSchedule;

@@ -10,14 +10,14 @@ export async function POST(
     const { player_name, commitment, position,previous_club } = body;
     console.log(previous_club)
     const existingRecord = await sql`
-      SELECT * FROM RISERS_RSVP
+      SELECT * FROM RSVP
       WHERE player_name = ${player_name}
       AND player_team = ${params.team}
     `;
     
     if (existingRecord && existingRecord.rowCount > 0) {
       const result = await sql`
-        UPDATE RISERS_RSVP
+        UPDATE RSVP
         SET commitment = ${commitment},
         position = ${position},
         previous_club = ${previous_club}
@@ -28,7 +28,7 @@ export async function POST(
     }
     
     const result = await sql`
-      INSERT INTO RISERS_RSVP(
+      INSERT INTO RSVP(
         player_name, 
         player_team, 
         oct_8, 

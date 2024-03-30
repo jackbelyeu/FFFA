@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   try {
     const result = await sql`
       SELECT *
-      FROM risers_rsvp
+      FROM RSVP
       WHERE LOWER(player_team) = ${team}`;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {

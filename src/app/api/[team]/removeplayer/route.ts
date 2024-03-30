@@ -9,7 +9,7 @@ export async function POST(
     const body = await request.json();
     const { player_name } = body;
     const result = await sql`
-      DELETE FROM risers_rsvp
+      DELETE FROM RSVP
       WHERE player_name = ${player_name} AND player_team = ${params.team};
     `;
     return NextResponse.json(result);
