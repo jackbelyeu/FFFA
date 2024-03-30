@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import "./StickyAlert.css";
+import React, { useState, useEffect } from 'react';
 
-const StickyAlert = () => {
+interface StickyAlertProps {
+  message: string; // Explicitly declare the type of message as string
+}
+
+const StickyAlert: React.FC<StickyAlertProps> = ({ message }) => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
@@ -18,16 +21,11 @@ const StickyAlert = () => {
     }
   }, []);
 
-  const dismissAlert = () => {
-    setShowAlert(false);
-    localStorage.setItem("hideAlert", "true");
-  };
-
   return (
     showAlert && (
       <div className="sticky-alert">
-        <p>Pickup game this Sunday at 3pm at SLU Intramural field</p>
-        <button onClick={dismissAlert}>Dismiss</button>
+        <p>{message}</p>
+        <button onClick={() => setShowAlert(false)}>Dismiss</button>
       </div>
     )
   );

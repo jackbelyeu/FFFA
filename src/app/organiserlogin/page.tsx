@@ -13,10 +13,19 @@ const OrganiserMatchSchedule = () => {
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
+  const [alertText, setAlertText] = useState(""); // State to hold alert text
 
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
   };
+
+  const handleAddAlert = () => {
+    // Encode the message to handle special characters properly
+    const encodedMessage = encodeURIComponent(alertText);
+    // Navigate to the "/alert" page with the message as a query parameter
+    window.location.href = `/components/alert?message=${encodedMessage}`;
+  };
+
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
@@ -24,8 +33,6 @@ const OrganiserMatchSchedule = () => {
         const matchRows = data.result.rows;
         setRows(matchRows);
 
-
-        // Get the current date in UTC
         const todayUTC = new Date(new Date().toUTCString());
         const centralOffset = -5 * 60 * 60 * 1000;
         const todayCentral = new Date(todayUTC.getTime() + centralOffset);
@@ -48,9 +55,25 @@ const OrganiserMatchSchedule = () => {
     <div>
       <center>
         <br />
+
+        {/* Input field for entering alert text */}
+        <input
+          type="text"
+          value={alertText}
+          onChange={(e) => setAlertText(e.target.value)}
+          placeholder="Enter Alert Text"
+        />
+
+        {/* Button to add alert and navigate */}
+        <Button variant="primary" onClick={handleAddAlert}>
+          Add Alert
+        </Button>
+
+        <br />
         <Button variant="danger" href="/api/auth/signout">
           Sign Out
         </Button>
+
         <h1>Match Schedule</h1>
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&

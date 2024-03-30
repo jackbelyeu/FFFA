@@ -55,7 +55,8 @@ export default function Page() {
 
   return (
     <div>
-      <StickyAlert />
+      <StickyAlert message="Pickup game this Sunday at 3pm at SLU Intramural field" />
+
       <center>
         {" "}
         <h1>Flagrant Fowl Futbol Association</h1>
