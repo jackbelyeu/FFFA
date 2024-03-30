@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
-export default function Match({
+export default function OrganiserMatch({
   match_id,
   home_team: initialHomeTeam,
   away_team: initialAwayTeam,
@@ -331,8 +331,8 @@ export default function Match({
           {" "}
           Submit Score
         </Button>
-      </div> 
-       {scoresSubmitted && (
+      </div>
+      {scoresSubmitted && (
         <Alert variant="success">Scores submitted successfully</Alert>
       )}
     </div>

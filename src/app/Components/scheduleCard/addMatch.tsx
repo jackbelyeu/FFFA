@@ -25,6 +25,10 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       });
   }, []);
   const addMatch = () => {
+    if (!homeTeam || !awayTeam || !time || !date || !location) {
+      alert("Please fill all the fields");
+      return;
+    }
     fetch("/api/matchSchedule", {
       method: "POST",
       body: JSON.stringify({
@@ -35,7 +39,8 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         location,
       }),
     });
-    window.location.reload();
+    onClose();
+    alert("Match added successfully");
   };
   const handleHomeTeamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHomeTeam(e.target.value);

@@ -1,12 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { signOut } from "next-auth/react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
-import Matchscore from "@/app/Components/scheduleCard/matchscore";
-import styles from "./styles.module.css";
+import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
 import Button from "react-bootstrap/Button";
 
-const Organizer = () => {
+const MatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [rows, setRows] = useState([]);
   const [todayMatches, setTodayMatches] = useState([]);
@@ -26,6 +24,7 @@ const Organizer = () => {
       .then((data) => {
         const matchRows = data.result.rows;
         setRows(matchRows);
+        console.log(matchRows);
 
         // Get the current date in UTC
         const todayUTC = new Date(new Date().toUTCString());
@@ -63,7 +62,7 @@ const Organizer = () => {
           <>
             <h2>Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
-              <Matchscore
+              <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
                 home_team={row.home_team}
@@ -80,7 +79,7 @@ const Organizer = () => {
           <>
             <h2>Upcoming Matches</h2>
             {futureMatches.map((row: any) => (
-              <Matchscore
+              <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
                 home_team={row.home_team}
@@ -96,7 +95,7 @@ const Organizer = () => {
           <>
             <h2>Past Matches</h2>
             {pastMatches.map((row: any) => (
-              <Matchscore
+              <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
                 home_team={row.home_team}
@@ -120,4 +119,4 @@ const Organizer = () => {
   );
 };
 
-export default Organizer;
+export default MatchSchedule;
