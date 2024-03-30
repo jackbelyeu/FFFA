@@ -10,8 +10,8 @@ export async function GET(request: Request) {
   try {
     const result = await sql`
       SELECT *
-      FROM elevatesch
-      WHERE LOWER(hometeam) = ${team} OR LOWER(awayteam) = ${team}
+      FROM match_schedule
+      WHERE home_team = ${team} OR away_team = ${team}
     `;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {

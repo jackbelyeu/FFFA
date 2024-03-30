@@ -20,7 +20,7 @@ const ScheduleRoasterLayout: React.FC = () => {
     { name: "Hyenas" },
     { name: "Grasskickers" },
     { name: "Emus" },
-    { name: "PCFC" },
+    { name: "Chickens" },
     { name: "Mockingbirds" },
   ];
 
