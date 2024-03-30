@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./StickyAlert.css"; // Import CSS file for styling
+import "./StickyAlert.css";
 
 const StickyAlert = () => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const hideAlert = localStorage.getItem("hideAlert");
+    if (hideAlert === "true") {
       setShowAlert(false);
-      localStorage.setItem("hideAlert", "true");
-    }, 7 * 24 * 60 * 60 * 1000); // Hide after seven days
+    } else {
+      const timeout = setTimeout(() => {
+        setShowAlert(false);
+        localStorage.setItem("hideAlert", "true");
+      }, 7 * 24 * 60 * 60 * 1000);
 
-    return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout);
+    }
   }, []);
 
   const dismissAlert = () => {
@@ -19,8 +24,7 @@ const StickyAlert = () => {
   };
 
   return (
-    showAlert &&
-    !localStorage.getItem("hideAlert") && (
+    showAlert && (
       <div className="sticky-alert">
         <p>Pickup game this Sunday at 3pm at SLU Intramural field</p>
         <button onClick={dismissAlert}>Dismiss</button>
