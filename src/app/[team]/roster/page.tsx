@@ -47,10 +47,6 @@ export default function Roster({ params }: RosterProps) {
   const [showAddPlayer, setShowAddPlayer] = useState(false);
   const [showRemovePlayer, setShowRemovePlayer] = useState(false);
 
-  const handleAddPlayerClick = () => {
-    setShowAddPlayer(true);
-    setShowRemovePlayer(false);
-  };
   const handleRemovePlayerClick = () => {
     setShowRemovePlayer(true);
     setShowAddPlayer(false);
@@ -107,14 +103,7 @@ const ValidTeamContent = ({
     <br />
     <PlayerCards params={params} rosterData={rosterData} />
     <br />
-    <center>
-      <Button variant="danger" onClick={handleRemovePlayerClick}>
-        Remove Player
-      </Button>
-    </center>
-
     <br />
-    {showRemovePlayer && <RemovePlayerForm rosterData={rosterData} />}
   </main>
 );
 
@@ -269,21 +258,21 @@ const PlayerCards = ({
             Add Player
           </Button>
         </div>
+        <div className={styles.addPlayer}>
+          <h2>Remove Player</h2>
+          <select onChange={(e) => setRemovePlayerName(e.target.value)}>
+            {rosterData.map((player) => (
+              <option key={player.player_name} value={player.player_name}>
+                {player.player_name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <Button variant="danger" onClick={handleRemovePlayer}>
+            Remove Player
+          </Button>
+        </div>
       </div>
     </center>
   );
 };
-const RemovePlayerForm = ({ rosterData }: { rosterData: CardProps[] }) => (
-  <div className={styles.addPlayer}>
-    <h2>Remove Player</h2>
-    <select>
-      {rosterData.map((player) => (
-        <option key={player.player_name} value={player.player_name}>
-          {player.player_name}
-        </option>
-      ))}
-    </select>
-    <br />
-    <Button variant="danger">Remove</Button>
-  </div>
-);

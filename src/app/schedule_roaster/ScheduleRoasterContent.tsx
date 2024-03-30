@@ -5,7 +5,9 @@ interface ScheduleRoasterContentProps {
   team: string;
 }
 
-const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team }) => {
+const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({
+  team,
+}) => {
   const [selectedTeam, setSelectedTeam] = useState<string>(team);
   const [scheduleData, setScheduleData] = useState<any[]>([]);
   const [rosterData, setRosterData] = useState<any[]>([]);
@@ -27,7 +29,7 @@ const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team })
       const rosterData = await rosterResponse.json();
       setRosterData(rosterData.result.rows);
     } catch (error) {
-      console.error('Failed to fetch data:', error);
+      console.error("Failed to fetch data:", error);
     }
   };
 
@@ -35,7 +37,8 @@ const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team })
     <div className={styles.content}>
       <div className={styles.scheduleSection}>
         <h2 className={styles.sectionHeading}>
-          <span className={styles.footballIcon}>&#9917;</span> Schedule for {selectedTeam}
+          <span className={styles.footballIcon}>&#9917;</span> Schedule for{" "}
+          {selectedTeam}
         </h2>
         <table className={styles.table}>
           <thead>
@@ -50,10 +53,14 @@ const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team })
             {scheduleData &&
               scheduleData.map((game, index) => (
                 <tr key={index}>
-                  <td>{game.matchdate}</td>
-                  <td>{game.matchtime}</td>
-                  <td>{game.hometeam == selectedTeam ? game.awayteam : game.hometeam}</td>
-                  <td>{game.location}</td>
+                  <td>{game.date.substring(0, 10)}</td>
+                  <td>{game.time}</td>
+                  <td>
+                    {game.home_team === selectedTeam.toLowerCase()
+                      ? game.away_team.toUpperCase()
+                      : game.home_team.toUpperCase()}
+                  </td>
+                  <td>{game.location.toUpperCase()}</td>
                 </tr>
               ))}
           </tbody>
@@ -62,12 +69,12 @@ const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team })
 
       <div className={styles.rosterSection}>
         <h2 className={styles.sectionHeading}>
-          <span className={styles.footballIcon}>&#9917;</span> Roster for {selectedTeam}
+          <span className={styles.footballIcon}>&#9917;</span> Roster for{" "}
+          {selectedTeam}
         </h2>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Player ID</th>
               <th>Player Name</th>
               <th>Oct 8</th>
               <th>Oct 15</th>
@@ -86,7 +93,6 @@ const ScheduleRoasterContent: React.FC<ScheduleRoasterContentProps> = ({ team })
             {rosterData &&
               rosterData.map((player, index) => (
                 <tr key={index}>
-                  <td>{player.id}</td>
                   <td>{player.player_name}</td>
                   <td>{player.oct_8}</td>
                   <td>{player.oct_15}</td>
