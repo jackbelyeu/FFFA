@@ -136,7 +136,9 @@ export default function OrganiserMatch({
     } catch (error) {
       console.error("Error deleting match:", error);
     }
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
     toast.success('Match deleted successfully')
   };
 
