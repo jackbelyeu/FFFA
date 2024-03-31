@@ -10,20 +10,21 @@ const OrganiserMatchSchedule = () => {
   const [todayMatches, setTodayMatches] = useState([]);
   const [pastMatches, setPastMatches] = useState([]);
   const [futureMatches, setFutureMatches] = useState([]);
+  const [alert, setAlert] = useState("");
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
-  const [alertText, setAlertText] = useState(""); // State to hold alert text
-
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
   };
 
-  const handleAddAlert = () => {
-    // Encode the message to handle special characters properly
-    const encodedMessage = encodeURIComponent(alertText);
-    // Navigate to the "/alert" page with the message as a query parameter
-    window.location.href = `/components/alert?message=${encodedMessage}`;
+  const handleAddAlert = (e: any) => {
+    fetch("/api/alert", {
+      method: "POST",
+      body: JSON.stringify({
+        alert: alert,
+      }),
+    });
   };
 
   useEffect(() => {
@@ -55,16 +56,12 @@ const OrganiserMatchSchedule = () => {
     <div>
       <center>
         <br />
-
-        {/* Input field for entering alert text */}
+        <h1>Organiser Dashboard</h1>
         <input
           type="text"
-          value={alertText}
-          onChange={(e) => setAlertText(e.target.value)}
-          placeholder="Enter Alert Text"
+          placeholder="Enter Alert"
+          onChange={(e) => setAlert(e.target.value)}
         />
-
-        {/* Button to add alert and navigate */}
         <Button variant="primary" onClick={handleAddAlert}>
           Add Alert
         </Button>

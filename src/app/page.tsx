@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import StickyAlert from "./Components/alerts/alert";
+import AlertDismisible from "@/app/Components/alerts/alert";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -48,7 +48,7 @@ export default function Page() {
 
   return (
     <div>
-      <StickyAlert message="Pickup game this Sunday at 3pm at SLU Intramural field" />
+      <AlertDismisible />
 
       <center>
         <h1>Flagrant Fowl Futbol Association</h1>
