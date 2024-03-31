@@ -10,13 +10,23 @@ const OrganiserMatchSchedule = () => {
   const [todayMatches, setTodayMatches] = useState([]);
   const [pastMatches, setPastMatches] = useState([]);
   const [futureMatches, setFutureMatches] = useState([]);
+  const [alert, setAlert] = useState("");
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
-
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
   };
+
+  const handleAddAlert = (e: any) => {
+    fetch("/api/alert", {
+      method: "POST",
+      body: JSON.stringify({
+        alert: alert,
+      }),
+    });
+  };
+
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
@@ -24,8 +34,6 @@ const OrganiserMatchSchedule = () => {
         const matchRows = data.result.rows;
         setRows(matchRows);
 
-
-        // Get the current date in UTC
         const todayUTC = new Date(new Date().toUTCString());
         const centralOffset = -5 * 60 * 60 * 1000;
         const todayCentral = new Date(todayUTC.getTime() + centralOffset);
@@ -48,9 +56,21 @@ const OrganiserMatchSchedule = () => {
     <div>
       <center>
         <br />
+        <h1>Organiser Dashboard</h1>
+        <input
+          type="text"
+          placeholder="Enter Alert"
+          onChange={(e) => setAlert(e.target.value)}
+        />
+        <Button variant="primary" onClick={handleAddAlert}>
+          Add Alert
+        </Button>
+
+        <br />
         <Button variant="danger" href="/api/auth/signout">
           Sign Out
         </Button>
+
         <h1>Match Schedule</h1>
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
