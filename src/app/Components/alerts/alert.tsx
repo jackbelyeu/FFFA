@@ -4,6 +4,7 @@ import Alert from "react-bootstrap/Alert";
 function AlertDismissible() {
   const [show, setShow] = useState(true);
   const [message, setMessage] = useState("");
+
   useEffect(() => {
     const fetchAlert = async () => {
       try {
@@ -19,12 +20,31 @@ function AlertDismissible() {
     fetchAlert();
   }, []);
 
-  if (show) {
+  useEffect(() => {
+    const lastShown = localStorage.getItem("alertLastShown");
+    if (lastShown) {
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      if (new Date(lastShown) < sevenDaysAgo) {
+        setShow(false);
+      }
+    }
+  }, []);
+
+  const handleClose = () => {
+    setShow(false);
+    localStorage.setItem("alertLastShown", new Date().toISOString());
+  };
+
+  if (show && message) {
     return (
-      <Alert variant="info" onClose={() => setShow(false)} dismissible>
+      <Alert variant="info" onClose={handleClose} dismissible>
         <Alert.Heading>{message}</Alert.Heading>
       </Alert>
     );
+  } else {
+    return null;
   }
 }
+
 export default AlertDismissible;
