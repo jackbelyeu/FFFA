@@ -49,7 +49,6 @@ export default function Page() {
   return (
     <div>
       <AlertDismisible />
-
       <center>
         <h1>Flagrant Fowl Futbol Association</h1>
         <h2> {year} Final Standings</h2>
@@ -102,11 +101,6 @@ export default function Page() {
               <td>{row.matches_played}</td>
             </tr>
           ))}
-          {filteredPointsData.length === 0 && (
-            <tr>
-              <td colSpan={8}>Please Select a year to get the Points</td>
-            </tr>
-          )}
         </tbody>
       </table>
     </div>

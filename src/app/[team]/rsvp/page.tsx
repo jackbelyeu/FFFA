@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import people from "/src/images/people.jpeg";
 import Spinner from "react-bootstrap/Spinner";
+import { Toaster, toast } from "sonner";
 interface RSVPProps {
   params: {
     team: string;
@@ -83,7 +84,8 @@ export default function RSVP({ params }: RSVPProps) {
         )?.value,
       }),
     });
-    window.location.reload();
+    toast.success("RSVP updated successfully")
+      
   };
 
   useEffect(() => {
@@ -113,15 +115,14 @@ export default function RSVP({ params }: RSVPProps) {
           <Spinner animation="border" />
           <Spinner animation="grow" size="sm" />
           <Spinner animation="grow" />
-
         </center>
-	
       </main>
     );
   }
   const validTeamContent = (
     <main>
       <h1>RSVP FOR {params.team.toUpperCase()}</h1>
+      <Toaster richColors closeButton />
       <Image
         src={`/logos/${params.team}.jpeg`}
         alt="Team logo"

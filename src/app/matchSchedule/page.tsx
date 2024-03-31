@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Match from "@/app/Components/scheduleCard/match";
 import Accordion from "react-bootstrap/Accordion";
-import styles from "./styles.module.css";
 
 const MatchSchedule = () => {
   const [rows, setRows] = useState([]);

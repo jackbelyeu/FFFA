@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import {toast} from 'sonner'
 
 export default function OrganiserMatch({
   match_id,
@@ -89,6 +90,7 @@ export default function OrganiserMatch({
     })
       .then(() => setScoresSubmitted(true))
       .catch((error) => console.error("Error submitting scores:", error));
+      toast.success('Scores submitted successfully')
   };
 
   const handleSave = async () => {
@@ -112,6 +114,7 @@ export default function OrganiserMatch({
       console.error("Error updating match:", error);
     }
     window.location.reload();
+    toast.success('Match updated successfully')
   };
   const handleDelete = async () => {
     const confirmation = window.confirm(
@@ -134,6 +137,7 @@ export default function OrganiserMatch({
       console.error("Error deleting match:", error);
     }
     window.location.reload();
+    toast.success('Match deleted successfully')
   };
 
   const handleCancel = () => {

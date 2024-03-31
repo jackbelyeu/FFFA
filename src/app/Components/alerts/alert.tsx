@@ -11,7 +11,6 @@ function AlertDismissible() {
         const response = await fetch("/api/alert");
         const data = await response.json();
         const alert_text = data.rows[0].alert_text;
-        console.log(alert_text);
         setMessage(alert_text);
       } catch (error) {
         console.error("Error fetching alert:", error);

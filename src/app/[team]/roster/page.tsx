@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
-import Link from "next/link";
 import Button from "react-bootstrap/Button";
-
+import { Toaster, toast } from "sonner";
 interface RosterProps {
   params: {
     team: string;
@@ -168,7 +167,10 @@ const PlayerCards = ({
       } catch (error) {
         console.error(`Error adding player ${newPlayerName}:`, error);
       }
-      window.location.reload();
+      toast.success("Player added successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
@@ -194,12 +196,16 @@ const PlayerCards = ({
     } catch (error) {
       console.error(`Error removing player ${removePlayerName}:`, error);
     }
-    window.location.reload();
+    toast.success("Player removed successfully");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (
     <center>
       <div className={styles.cardContainer}>
+        <Toaster richColors closeButton />
         {rosterData.map((row) => (
           <Card
             key={row.player_name}

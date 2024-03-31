@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
 import Button from "react-bootstrap/Button";
+import { Toaster, toast } from "sonner";
 
 const OrganiserMatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
@@ -25,6 +26,7 @@ const OrganiserMatchSchedule = () => {
         alert: alert,
       }),
     });
+    toast.success("Alert added successfully");
   };
 
   useEffect(() => {
@@ -70,6 +72,7 @@ const OrganiserMatchSchedule = () => {
         <Button variant="danger" href="/api/auth/signout">
           Sign Out
         </Button>
+        <Toaster  richColors />
 
         <h1>Match Schedule</h1>
         {todayMatches.length < 1 &&

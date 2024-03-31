@@ -3,6 +3,7 @@ import styles from "./addMatch.module.css";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
+import {Toaster,toast} from 'sonner'
 
 interface AddMatchProps {
   onClose: () => void;
@@ -40,7 +41,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       }),
     });
     onClose();
-    alert("Match added successfully");
+    toast.success('Match added successfully')
   };
   const handleHomeTeamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHomeTeam(e.target.value);
