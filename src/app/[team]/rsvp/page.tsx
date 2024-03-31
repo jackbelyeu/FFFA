@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import people from "/src/images/people.jpeg";
 import Spinner from "react-bootstrap/Spinner";
-import { Toaster, toast } from "sonner";
+import { Toaster, toast } from "sonner"; 
 interface RSVPProps {
   params: {
     team: string;

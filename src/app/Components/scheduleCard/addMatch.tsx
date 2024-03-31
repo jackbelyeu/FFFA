@@ -3,7 +3,7 @@ import styles from "./addMatch.module.css";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
-import {Toaster,toast} from 'sonner'
+import {toast} from 'sonner' 
 
 interface AddMatchProps {
   onClose: () => void;

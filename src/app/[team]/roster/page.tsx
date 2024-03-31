@@ -4,7 +4,7 @@ import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Button from "react-bootstrap/Button";
-import { Toaster, toast } from "sonner";
+import { Toaster, toast } from "sonner"; 
 interface RosterProps {
   params: {
     team: string;
