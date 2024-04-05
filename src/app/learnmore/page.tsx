@@ -20,22 +20,12 @@ const SendEmailButton = () => {
 export default function LearnMore() {
   return (
     <div>
-      <br/>
+      <br />
       <h1>Hello, Learn More Page!</h1>
       <p>Find out more about the 2023 season.</p>
       <Image src={soccerPic} alt="Soccer" width={800} height={600} />
       <br />
       <SendEmailButton />
-      <center>
-        <Button variant="outline-success" href="/interest">Express Interest for 2024</Button>
-        {" or "}
-        <Button variant="outline-success"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdePwew3zR-kj-D512n-0biefdlnWeOPOXVXuOBAEv1y_qmFg/viewform?authuser=0"
-          target="_blank"
-        >
-          Google Form
-        </Button>
-      </center>
     </div>
   );
 }

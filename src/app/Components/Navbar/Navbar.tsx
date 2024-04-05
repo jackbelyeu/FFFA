@@ -20,7 +20,6 @@ function MyNavbar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/learnmore">Learn More</Nav.Link>
             <Nav.Link href="/matchSchedule">Match Schedule</Nav.Link>
-            <Nav.Link href="/interest">Express Interest for 2024</Nav.Link>
             <Nav.Link href="/organiserlogin">Organiser Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
