@@ -2831,7 +2831,7 @@ __metadata:
     eslint-config-next: 14.1.0
     jsdom: ^24.0.0
     next: 14.1.0
-    next-auth: ^4.24.6
+    next-auth: ^4.24.7
     react: ^18
     react-bootstrap: ^2.10.1
     react-dom: ^18
@@ -3673,10 +3673,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^4.11.4, jose@npm:^4.15.4":
+"jose@npm:^4.15.4":
   version: 4.15.4
   resolution: "jose@npm:4.15.4"
   checksum: dccad91cb3357f36423774a0b89ad830dd84b31090de65cd139b85488439f16a00f8c59c0773825e8a1adb0dd9d13ad725ad66e6ea33880ecb3959bb99e1ea5b
+  languageName: node
+  linkType: hard
+
+"jose@npm:^4.15.5":
+  version: 4.15.5
+  resolution: "jose@npm:4.15.5"
+  checksum: 7dde76447c7707bd4b448f914b216f3858e701aa83f00447434252461af5b9e159dcbffb88badea3f9616739526763581267c9560622f0a058df8d68c86d7f79
   languageName: node
   linkType: hard
 
@@ -4218,14 +4225,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:^4.24.6":
-  version: 4.24.6
-  resolution: "next-auth@npm:4.24.6"
+"next-auth@npm:^4.24.7":
+  version: 4.24.7
+  resolution: "next-auth@npm:4.24.7"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
     cookie: ^0.5.0
-    jose: ^4.11.4
+    jose: ^4.15.5
     oauth: ^0.9.15
     openid-client: ^5.4.0
     preact: ^10.6.3
@@ -4239,7 +4246,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: f07b62dfe54c2d151a64ea65f8a33a0695fd50a2e2823a4348cf6fbdcab764747d87105e5ecb4506e85053211690c3214e433a02ed568063940ba00d61fdc054
+  checksum: e7849ecf86394d86f08730b96f869c9353b6cc003794fcd953db2949f1ab06a2ce4f7a67312fdb8c7b3bbe7e99a8a215f11ef4eba5ec93f6c3e8ac1954e8b3e6
   languageName: node
   linkType: hard
 

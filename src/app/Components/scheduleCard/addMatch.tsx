@@ -3,7 +3,7 @@ import styles from "./addMatch.module.css";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
-import {toast} from 'sonner' 
+import { toast } from "sonner";
 
 interface AddMatchProps {
   onClose: () => void;
@@ -14,15 +14,20 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
   const [awayTeam, setAwayTeam] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
+  const [locations, setLocations] = useState<string[]>([]);
   const [teams, setTeams] = useState<string[]>([]);
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     fetch("/api/teams")
       .then((res) => res.json())
       .then((data) => {
-        setTeams(data.uniqueTeams);
-        setHomeTeam(data.uniqueTeams[0]);
+        setTeams(data.teams);
+      });
+    fetch("/api/locations")
+      .then((res) => res.json())
+      .then((data) => {
+        setLocations(data.locations);
       });
   }, []);
   const addMatch = () => {
@@ -41,13 +46,16 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       }),
     });
     onClose();
-    toast.success('Match added successfully')
+    toast.success("Match added successfully");
   };
   const handleHomeTeamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setHomeTeam(e.target.value);
   };
   const handleAwayTeamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAwayTeam(e.target.value);
+  };
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLocation(e.target.value);
   };
 
   return (
@@ -109,11 +117,13 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       </p>
       <p>
         Location:
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
+        <select value={location} onChange={handleLocationChange}>
+          {locations.map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
       </p>
       <Button variant="success" onClick={addMatch}>
         Save
