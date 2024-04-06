@@ -4,56 +4,26 @@ import Image from "next/image";
 
 export default function Match({
   match_id,
-  away_team: initialAwayTeam,
+  home_team: InitialHomeTeamId,
+  away_team: initialAwayTeamId,
   time: initialTime,
   date: initialDate,
   location: initialLocation,
 }: {
   match_id: string;
-  home_team: string;
-  away_team: string;
+  home_team: number;
+  away_team: number;
   time: string;
   date: string;
   location: string;
 }) {
-  const [home_team, setHomeTeam] = useState("");
-  const [away_team, setAwayTeam] = useState(initialAwayTeam);
+  const [home_team, setHomeTeam] = useState(InitialHomeTeamId);
+  const [away_team, setAwayTeam] = useState(initialAwayTeamId);
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
-  const [teams, setTeams] = useState<string[]>([]);
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
-  const [scoresSubmitted, setScoresSubmitted] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/teams")
-      .then((res) => res.json())
-      .then((data) => {
-        setTeams(data.uniqueTeams);
-      });
-
-    fetch("/api/matchSchedule")
-      .then((res) => res.json())
-      .then((data) => {
-        const matchRows = data;
-        console.log(matchRows);
-        matchRows.forEach(
-          (row: {
-            match_id: string;
-            home_team: string;
-            away_team: string;
-            home_score: number;
-            away_score: number;
-          }) => {
-            if (row.match_id === match_id) {
-              setHomeScore(row.home_score);
-              setAwayScore(row.away_score);
-            }
-          }
-        );
-      });
-  }, [initialTime, initialDate, initialLocation, match_id]);
 
   return (
     <div className={styles.card}>
@@ -68,7 +38,7 @@ export default function Match({
             height={100}
             className={styles.logo}
           />
-          <p>name of team</p>
+          <p>{home_team}</p>
         </div>
         <div>
           <Image
@@ -88,7 +58,7 @@ export default function Match({
             height={100}
             className={styles.logo}
           />
-          <p>name of team</p>
+          <p>{away_team}</p>
         </div>
       </div>
       <p>Time: {time}</p>

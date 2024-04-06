@@ -11,12 +11,26 @@ const MatchSchedule = () => {
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
+
+  const fetchTeamName = async (teamId: number) => {
+    const response = await fetch(`/api/getTeamNameById?teamId=${teamId}`);
+    const data = await response.json();
+    return data.teamName;
+  };
+
+  const fetchLocationName = async (locationId: number) => {
+    const response = await fetch(
+      `/api/getLocationNameById?locationId=${locationId}`
+    );
+    const data = await response.json();
+    return data.locationName;
+  };
+
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
-        const matchRows = data.result.rows;
-        console.log(matchRows);
+        const matchRows = data.matches;
         setRows(matchRows);
 
         // Get the current date in UTC
@@ -35,6 +49,7 @@ const MatchSchedule = () => {
         const futureMatches = matchRows.filter(
           (row: any) => row.date.substring(0, 10) > todayDate
         );
+        console.log(futureMatches);
         setFutureMatches(futureMatches);
       });
   }, []);
@@ -57,17 +72,24 @@ const MatchSchedule = () => {
             <Accordion.Body>
               {todayMatches.length > 0 && (
                 <>
-                  {todayMatches.map((row: any) => (
-                    <Match
-                      key={row.matchid}
-                      match_id={row.matchid}
-                      home_team={row.hometeamid}
-                      away_team={row.awayteamid}
-                      time={row.time}
-                      date={row.date}
-                      location={row.locationid}
-                    />
-                  ))}
+                  {todayMatches.map(async (row: any) => {
+                    const homeTeamName = await fetchTeamName(row.hometeamid);
+                    const awayTeamName = await fetchTeamName(row.awayteamid);
+                    const locationName = await fetchLocationName(
+                      row.locationid
+                    );
+                    return (
+                      <Match
+                        key={row.matchid}
+                        match_id={row.matchid}
+                        home_team={homeTeamName}
+                        away_team={awayTeamName}
+                        time={row.time}
+                        date={row.date}
+                        location={locationName}
+                      />
+                    );
+                  })}
                 </>
               )}
             </Accordion.Body>

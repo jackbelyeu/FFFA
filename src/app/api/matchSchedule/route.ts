@@ -6,7 +6,8 @@ export async function GET(request: Request) {
     const result = await sql`
       SELECT * FROM matches ORDER BY date, time;
     `;
-    return NextResponse.json({ result }, { status: 200 });
+    const matches = result.rows;
+    return NextResponse.json({ matches }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(
       { error: (error as Error).message },

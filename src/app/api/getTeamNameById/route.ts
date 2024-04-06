@@ -1,13 +1,17 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const teamId = await request.json();
+export async function POST(request: Request) {
   try {
-    const result = await sql`
-      SELECT teamName FROM teams WHERE teamId = ${teamId};
-    `;
-    const teamName = result.rows.map((name) => name.teamName);
+    const body = await request.json();
+    const { teamId } = body;
+
+    const res = await sql`
+    
+    SELECT teamName FROM teams WHERE teamId = ${teamId};
+  `;
+
+    const teamName = res;
     return NextResponse.json({ teamName }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(
