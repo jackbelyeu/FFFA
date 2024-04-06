@@ -16,6 +16,7 @@ const MatchSchedule = () => {
       .then((res) => res.json())
       .then((data) => {
         const matchRows = data.result.rows;
+        console.log(matchRows);
         setRows(matchRows);
 
         // Get the current date in UTC
@@ -47,7 +48,7 @@ const MatchSchedule = () => {
           futureMatches.length < 1 &&
           pastMatches.length < 1 && <h2>No matches scheduled</h2>}
         {todayMatches.length == 0 && <h2>No Matches Today</h2>}
-          
+
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
             <Accordion.Header>
@@ -58,13 +59,13 @@ const MatchSchedule = () => {
                 <>
                   {todayMatches.map((row: any) => (
                     <Match
-                      key={row.match_id}
-                      match_id={row.match_id}
-                      home_team={row.home_team}
-                      away_team={row.away_team}
+                      key={row.matchid}
+                      match_id={row.matchid}
+                      home_team={row.hometeamid}
+                      away_team={row.awayteamid}
                       time={row.time}
                       date={row.date}
-                      location={row.location}
+                      location={row.locationid}
                     />
                   ))}
                 </>
@@ -80,13 +81,13 @@ const MatchSchedule = () => {
                 <>
                   {futureMatches.map((row: any) => (
                     <Match
-                      key={row.match_id}
-                      match_id={row.match_id}
-                      home_team={row.home_team}
-                      away_team={row.away_team}
+                      key={row.matchid}
+                      match_id={row.matchid}
+                      home_team={row.hometeamid}
+                      away_team={row.awayteamid}
                       time={row.time}
                       date={row.date}
-                      location={row.location}
+                      location={row.locationid}
                     />
                   ))}
                 </>
@@ -102,13 +103,13 @@ const MatchSchedule = () => {
                 <>
                   {pastMatches.map((row: any) => (
                     <Match
-                      key={row.match_id}
-                      match_id={row.match_id}
-                      home_team={row.home_team}
-                      away_team={row.away_team}
+                      key={row.matchid}
+                      match_id={row.matchid}
+                      home_team={row.hometeamid}
+                      away_team={row.awayteamid}
                       time={row.time}
                       date={row.date}
-                      location={row.location}
+                      location={row.locationid}
                     />
                   ))}
                 </>

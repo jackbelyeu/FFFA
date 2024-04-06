@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     const result = await sql`
-      SELECT * FROM match_schedule ORDER BY date, time;
+      SELECT * FROM matches ORDER BY date, time;
     `;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {
@@ -18,10 +18,9 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { homeTeam, awayTeam, date, time, location } = await request.json();
   try {
-  
     const existingMatch = await sql`
-      SELECT * FROM match_schedule 
-      WHERE home_team = ${homeTeam} AND away_team = ${awayTeam} AND date = ${date} AND time = ${time} AND location = ${location};
+      SELECT * FROM matches 
+      WHERE homeTeamId = (SELECT teamid FROM teams WHERE teamName = ${homeTeam}) AND awayTeamId = (SELECT teamid FROM teams WHERE teamName = ${awayTeam}) AND date = ${date} AND time = ${time} AND locationId = (SELECT locationId FROM locations WHERE locationName =${location});
     `;
     if (existingMatch.rows.length > 0) {
       return NextResponse.json(
@@ -29,12 +28,12 @@ export async function POST(request: Request) {
         { status: 409 } // Conflict status code
       );
     }
-    // If the match doesn't exist, proceed with insertion 
+    // If the match doesn't exist, proceed with insertion
     await sql`
-      INSERT INTO match_schedule (home_team, away_team, date, time, location,home_score,away_score) VALUES (${homeTeam}, ${awayTeam}, ${date}, ${time}, ${location},0,0);
+      INSERT INTO matches (homeTeamId, awayTeamId, homeTeamScore, awayTeamScore, date, time, locationId) VALUES ((SELECT teamid FROM teams WHERE teamName = ${homeTeam}), (SELECT teamid FROM teams WHERE teamName = ${awayTeam}), 0, 0, ${date}, ${time}, (SELECT locationId FROM locations WHERE locationName =${location}));
     `;
     const result = await sql`
-      SELECT * FROM match_schedule;
+      SELECT * FROM matches;
     `;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error: unknown) {

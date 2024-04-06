@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default function Match({
   match_id,
-  home_team: initialHomeTeam,
   away_team: initialAwayTeam,
   time: initialTime,
   date: initialDate,
@@ -17,7 +16,7 @@ export default function Match({
   date: string;
   location: string;
 }) {
-  const [home_team, setHomeTeam] = useState(initialHomeTeam);
+  const [home_team, setHomeTeam] = useState("");
   const [away_team, setAwayTeam] = useState(initialAwayTeam);
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
@@ -32,13 +31,13 @@ export default function Match({
       .then((res) => res.json())
       .then((data) => {
         setTeams(data.uniqueTeams);
-        setHomeTeam(initialHomeTeam);
       });
 
     fetch("/api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
-        const matchRows = data.result.rows;
+        const matchRows = data;
+        console.log(matchRows);
         matchRows.forEach(
           (row: {
             match_id: string;
@@ -54,14 +53,7 @@ export default function Match({
           }
         );
       });
-  }, [
-    initialHomeTeam,
-    initialAwayTeam,
-    initialTime,
-    initialDate,
-    initialLocation,
-    match_id,
-  ]);
+  }, [initialTime, initialDate, initialLocation, match_id]);
 
   return (
     <div className={styles.card}>
@@ -76,7 +68,7 @@ export default function Match({
             height={100}
             className={styles.logo}
           />
-          <p>{home_team.toUpperCase()}</p>
+          <p>name of team</p>
         </div>
         <div>
           <Image
@@ -96,7 +88,7 @@ export default function Match({
             height={100}
             className={styles.logo}
           />
-          <p>{away_team.toUpperCase()}</p>
+          <p>name of team</p>
         </div>
       </div>
       <p>Time: {time}</p>

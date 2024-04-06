@@ -4,12 +4,10 @@ import Image from "next/image";
 import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import {toast} from 'sonner' 
+import { toast } from "sonner";
 
 export default function OrganiserMatch({
   match_id,
-  home_team: initialHomeTeam,
-  away_team: initialAwayTeam,
   time: initialTime,
   date: initialDate,
   location: initialLocation,
@@ -22,8 +20,8 @@ export default function OrganiserMatch({
   location: string;
 }) {
   const [editing, setEditing] = useState(false);
-  const [home_team, setHomeTeam] = useState(initialHomeTeam);
-  const [away_team, setAwayTeam] = useState(initialAwayTeam);
+  const [home_team, setHomeTeam] = useState("");
+  const [away_team, setAwayTeam] = useState("");
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
@@ -36,8 +34,8 @@ export default function OrganiserMatch({
     fetch("/api/teams")
       .then((res) => res.json())
       .then((data) => {
-        setTeams(data.uniqueTeams);
-        setHomeTeam(initialHomeTeam);
+        setTeams(data.teams);
+        console.log(data.teams);
       });
 
     fetch("/api/matchSchedule")
@@ -59,14 +57,7 @@ export default function OrganiserMatch({
           }
         );
       });
-  }, [
-    initialHomeTeam,
-    initialAwayTeam,
-    initialTime,
-    initialDate,
-    initialLocation,
-    match_id,
-  ]);
+  }, [initialTime, initialDate, initialLocation, match_id]);
 
   const handleEdit = () => {
     setEditing(true);
@@ -90,7 +81,7 @@ export default function OrganiserMatch({
     })
       .then(() => setScoresSubmitted(true))
       .catch((error) => console.error("Error submitting scores:", error));
-      toast.success('Scores submitted successfully')
+    toast.success("Scores submitted successfully");
   };
 
   const handleSave = async () => {
@@ -114,7 +105,7 @@ export default function OrganiserMatch({
       console.error("Error updating match:", error);
     }
     window.location.reload();
-    toast.success('Match updated successfully')
+    toast.success("Match updated successfully");
   };
   const handleDelete = async () => {
     const confirmation = window.confirm(
@@ -139,12 +130,12 @@ export default function OrganiserMatch({
     setTimeout(() => {
       window.location.reload();
     }, 1000);
-    toast.success('Match deleted successfully')
+    toast.success("Match deleted successfully");
   };
 
   const handleCancel = () => {
-    setHomeTeam(initialHomeTeam);
-    setAwayTeam(initialAwayTeam);
+    setHomeTeam("");
+    setAwayTeam("");
     setTime(initialTime);
     setDate(initialDate);
     setLocation(initialLocation);
@@ -222,9 +213,9 @@ export default function OrganiserMatch({
             ))}
           </select>
         ) : (
-          <span className={homeScore > awayScore ? styles.winningTeam : ""}>
-            {initialHomeTeam.toUpperCase()}
-          </span>
+          <span
+            className={homeScore > awayScore ? styles.winningTeam : ""}
+          ></span>
         )}
       </p>
       <p>vs</p>
@@ -248,9 +239,9 @@ export default function OrganiserMatch({
               ))}
           </select>
         ) : (
-          <span className={awayScore > homeScore ? styles.winningTeam : ""}>
-            {initialAwayTeam.toUpperCase()}
-          </span>
+          <span
+            className={awayScore > homeScore ? styles.winningTeam : ""}
+          ></span>
         )}
       </p>
       <p>
