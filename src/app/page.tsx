@@ -82,12 +82,12 @@ export default function Page() {
             <tr key={index}>
               <td>
                 <Link href={`/schedule_roaster?team=${row.team}`}>
-                  {row.team.toUpperCase()}
+                  {row.team}
                 </Link>
               </td>
               <td>
                 <Image
-                  src={`/logos/${row.team.toLowerCase()}.jpeg`}
+                  src={`/logos/${row.team}.jpeg`}
                   alt={`Logo of ${row.team}`}
                   width={50}
                   height={50}
