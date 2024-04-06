@@ -5,15 +5,16 @@ export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const params = new URLSearchParams(url.search);
-    const teamId = params.get("teamId");
+    const locationId = params.get("locationId");
 
     const res = await sql`
-      SELECT teamName FROM teams WHERE teamId = ${teamId};
+      SELECT locationName FROM locations WHERE locationId = ${locationId};
     `;
 
-    const teamName = res.rows.map((name) => name.teamname);
+    const locationName = res.rows.map((name) => name.locationname);
+    console.log(locationName);
 
-    return NextResponse.json({ teamName }, { status: 200 });
+    return NextResponse.json({ locationName }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(
       { error: (error as Error).message },

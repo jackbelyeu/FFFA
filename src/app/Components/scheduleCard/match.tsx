@@ -15,7 +15,7 @@ export default function Match({
   away_team: number;
   time: string;
   date: string;
-  location: string;
+  location: number;
 }) {
   const [home_team, setHomeTeam] = useState(InitialHomeTeamId);
   const [away_team, setAwayTeam] = useState(initialAwayTeamId);
@@ -25,24 +25,37 @@ export default function Match({
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
   const [teamNames, setTeamNames] = useState<{ [key: number]: string }>({});
+  const [locationNames, setLocationNames] = useState<{ [key: number]: string }>(
+    {}
+  );
 
   useEffect(() => {
-    const fetchTeamNames = async () => {
+    const fetchMatchData = async () => {
       const homeTeamName = await fetchTeamName(home_team);
       const awayTeamName = await fetchTeamName(away_team);
+      const locationName = await fetchLocationName(location);
       setTeamNames({
         [home_team]: homeTeamName,
         [away_team]: awayTeamName,
       });
+      setLocationNames({ [location]: locationName });
     };
 
-    fetchTeamNames();
-  }, [home_team, away_team]);
+    fetchMatchData();
+  }, [home_team, away_team, location]);
 
   const fetchTeamName = async (teamId: number) => {
     const response = await fetch(`/api/getTeamNameById?teamId=${teamId}`);
     const data = await response.json();
     return data.teamName;
+  };
+
+  const fetchLocationName = async (locationId: number) => {
+    const response = await fetch(
+      `/api/getLocationNameById?locationId=${locationId}`
+    );
+    const data = await response.json();
+    return data.locationName;
   };
 
   return (
@@ -83,7 +96,7 @@ export default function Match({
       </div>
       <p>Time: {time}</p>
       <p>Date: {new Date(date).toLocaleDateString()}</p>
-      <p>Location: {location}</p>
+      <p>Location: {locationNames[location]}</p>
     </div>
   );
 }
