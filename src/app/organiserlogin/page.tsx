@@ -33,7 +33,7 @@ const OrganiserMatchSchedule = () => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
-        const matchRows = data.result.rows;
+        const matchRows = data.matches;
         setRows(matchRows);
 
         const todayUTC = new Date(new Date().toUTCString());

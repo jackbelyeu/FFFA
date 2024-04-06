@@ -35,13 +35,12 @@ export default function OrganiserMatch({
       .then((res) => res.json())
       .then((data) => {
         setTeams(data.teams);
-        console.log(data.teams);
       });
 
     fetch("/api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
-        const matchRows = data.result.rows;
+        const matchRows = data.matches;
         matchRows.forEach(
           (row: {
             match_id: string;
