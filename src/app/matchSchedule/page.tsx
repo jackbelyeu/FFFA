@@ -49,7 +49,6 @@ const MatchSchedule = () => {
         const futureMatches = matchRows.filter(
           (row: any) => row.date.substring(0, 10) > todayDate
         );
-        console.log(futureMatches);
         setFutureMatches(futureMatches);
       });
   }, []);

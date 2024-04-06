@@ -24,6 +24,26 @@ export default function Match({
   const [location, setLocation] = useState(initialLocation);
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+  const [teamNames, setTeamNames] = useState<{ [key: number]: string }>({});
+
+  useEffect(() => {
+    const fetchTeamNames = async () => {
+      const homeTeamName = await fetchTeamName(home_team);
+      const awayTeamName = await fetchTeamName(away_team);
+      setTeamNames({
+        [home_team]: homeTeamName,
+        [away_team]: awayTeamName,
+      });
+    };
+
+    fetchTeamNames();
+  }, [home_team, away_team]);
+
+  const fetchTeamName = async (teamId: number) => {
+    const response = await fetch(`/api/getTeamNameById?teamId=${teamId}`);
+    const data = await response.json();
+    return data.teamName;
+  };
 
   return (
     <div className={styles.card}>
@@ -32,13 +52,13 @@ export default function Match({
         <div className={styles.team}>
           <p>Home Team</p>
           <Image
-            src={`/logos/${home_team}.jpeg`}
+            src={`/logos/${teamNames[home_team]}.jpeg`}
             alt={`Logo of ${home_team}`}
             width={100}
             height={100}
             className={styles.logo}
           />
-          <p>{home_team}</p>
+          <p>{teamNames[home_team]}</p>
         </div>
         <div>
           <Image
@@ -52,13 +72,13 @@ export default function Match({
         <div className={styles.team}>
           <p>Away Team</p>
           <Image
-            src={`/logos/${away_team}.jpeg`}
+            src={`/logos/${teamNames[away_team]}.jpeg`}
             alt={`Logo of ${away_team}`}
             width={100}
             height={100}
             className={styles.logo}
           />
-          <p>{away_team}</p>
+          <p>{teamNames[away_team]}</p>
         </div>
       </div>
       <p>Time: {time}</p>
