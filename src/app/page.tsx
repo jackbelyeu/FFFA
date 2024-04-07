@@ -5,63 +5,47 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface Row {
-  team: string;
+  team_name: string;
+  total_matches: number;
   wins: number;
   draws: number;
   losses: number;
   goal_difference: number;
-  points: number;
-  year: number;
-  matches_played: number;
 }
 
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
-  const [filteredPointsData, setFilteredPointsData] = useState<Row[]>([]);
-  const [year, setYear] = useState(2024);
 
-  const fetchPointsData = async () => {
+  const fetchPointsData = async (teamId: string) => {
     try {
-      const response = await fetch("/api/standings");
+      const response = await fetch(`/api/standings?teamId=${teamId}`);
       const data = await response.json();
-      setPointsData(data.result.rows);
+      setPointsData((prevData) => {
+        const newData = data.standings.filter(
+          (newRow: { team_name: string }) =>
+            !prevData.some((prevRow) => prevRow.team_name === newRow.team_name)
+        );
+        return [...prevData, ...newData];
+      });
     } catch (error) {
-      console.error("Error fetching points data:", error);
+      console.error("Error fetching points data for teamId:", teamId, error);
     }
   };
 
   useEffect(() => {
-    fetchPointsData();
+    const teamIds = ["1", "2", "3", "4", "5", "6", "7"];
+    teamIds.forEach(async (teamId) => {
+      await fetchPointsData(teamId);
+    });
   }, []);
-
-  useEffect(() => {
-    const filteredData = pointsData.filter((row) => row.year === 2024);
-    setFilteredPointsData(filteredData);
-  }, [pointsData]); // Update filteredPointsData when pointsData changes
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const year = parseInt(event.target.value);
-    setYear(year);
-    const filteredData = pointsData.filter((row) => row.year === year);
-    setFilteredPointsData(filteredData);
-  };
 
   return (
     <div>
+      <button onClick={() => console.log(pointsData)}></button>
       <AlertDismisible />
       <center>
         <h1>Flagrant Fowl Futbol Association</h1>
-        <h2> {year} Final Standings</h2>
-
-        <select onChange={handleChange}>
-          {Array.from(new Set(pointsData.map((row) => row.year))).map(
-            (year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            )
-          )}
-        </select>
+        <h2> Current Standings</h2>
       </center>
 
       <table>
@@ -78,17 +62,17 @@ export default function Page() {
           </tr>
         </thead>
         <tbody>
-          {filteredPointsData.map((row, index) => (
+          {pointsData.map((row, index) => (
             <tr key={index}>
               <td>
-                <Link href={`/schedule_roaster?team=${row.team}`}>
-                  {row.team}
+                <Link href={`/schedule_roaster?team=${row.team_name}`}>
+                  {row.team_name}
                 </Link>
               </td>
               <td>
                 <Image
-                  src={`/logos/${row.team}.jpeg`}
-                  alt={`Logo of ${row.team}`}
+                  src={`/logos/${row.team_name}.jpeg`}
+                  alt={`Logo of ${row.team_name}`}
                   width={50}
                   height={50}
                 />
@@ -97,8 +81,8 @@ export default function Page() {
               <td>{row.draws}</td>
               <td>{row.losses}</td>
               <td>{row.goal_difference}</td>
-              <td>{row.points}</td>
-              <td>{row.matches_played}</td>
+              <td>{row.wins * 3 + row.draws * 1}</td>
+              <td>{row.total_matches}</td>
             </tr>
           ))}
         </tbody>
