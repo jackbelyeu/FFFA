@@ -41,7 +41,6 @@ export default function Page() {
 
   return (
     <div>
-      <button onClick={() => console.log(pointsData)}></button>
       <AlertDismisible />
       <center>
         <h1>Flagrant Fowl Futbol Association</h1>
