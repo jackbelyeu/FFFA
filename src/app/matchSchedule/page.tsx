@@ -12,20 +12,6 @@ const MatchSchedule = () => {
     new Date().toISOString().substring(0, 10)
   );
 
-  const fetchTeamName = async (teamId: number) => {
-    const response = await fetch(`/api/getTeamNameById?teamId=${teamId}`);
-    const data = await response.json();
-    return data.teamName;
-  };
-
-  const fetchLocationName = async (locationId: number) => {
-    const response = await fetch(
-      `/api/getLocationNameById?locationId=${locationId}`
-    );
-    const data = await response.json();
-    return data.locationName;
-  };
-
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((res) => res.json())
@@ -71,24 +57,17 @@ const MatchSchedule = () => {
             <Accordion.Body>
               {todayMatches.length > 0 && (
                 <>
-                  {todayMatches.map(async (row: any) => {
-                    const homeTeamName = await fetchTeamName(row.hometeamid);
-                    const awayTeamName = await fetchTeamName(row.awayteamid);
-                    const locationName = await fetchLocationName(
-                      row.locationid
-                    );
-                    return (
-                      <Match
-                        key={row.matchid}
-                        match_id={row.matchid}
-                        home_team={homeTeamName}
-                        away_team={awayTeamName}
-                        time={row.time}
-                        date={row.date}
-                        location={locationName}
-                      />
-                    );
-                  })}
+                  {todayMatches.map((row: any) => (
+                    <Match
+                      key={row.matchid}
+                      match_id={row.matchid}
+                      home_team={row.hometeamid}
+                      away_team={row.awayteamid}
+                      time={row.time}
+                      date={row.date}
+                      location={row.locationid}
+                    />
+                  ))}
                 </>
               )}
             </Accordion.Body>
