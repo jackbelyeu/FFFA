@@ -30,9 +30,10 @@ const OrganiserMatchSchedule = () => {
   };
 
   useEffect(() => {
-    fetch("api/matchSchedule")
+    fetch("api/organizer")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.matches);
         const matchRows = data.matches;
         setRows(matchRows);
 
@@ -86,11 +87,11 @@ const OrganiserMatchSchedule = () => {
               <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
-                home_team={row.home_team}
-                away_team={row.away_team}
+                home_team={row.hometeamname}
+                away_team={row.awayteamname}
                 time={row.time}
                 date={row.date}
-                location={row.location}
+                location={row.locationname}
               />
             ))}
           </>
@@ -102,11 +103,11 @@ const OrganiserMatchSchedule = () => {
               <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
-                home_team={row.home_team}
-                away_team={row.away_team}
+                home_team={row.hometeamname}
+                away_team={row.awayteamname}
                 time={row.time}
                 date={row.date}
-                location={row.location}
+                location={row.locationname}
               />
             ))}
           </>
@@ -118,11 +119,11 @@ const OrganiserMatchSchedule = () => {
               <OrganiserMatch
                 key={row.match_id}
                 match_id={row.match_id}
-                home_team={row.home_team}
-                away_team={row.away_team}
+                home_team={row.hometeamname}
+                away_team={row.awayteamname}
                 time={row.time}
                 date={row.date}
-                location={row.location}
+                location={row.locationname}
               />
             ))}
           </>

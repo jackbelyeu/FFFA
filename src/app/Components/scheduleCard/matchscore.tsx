@@ -8,6 +8,8 @@ import { toast } from "sonner";
 
 export default function OrganiserMatch({
   match_id,
+  home_team: InitialHomeTeam,
+  away_team: initialAwayTeam,
   time: initialTime,
   date: initialDate,
   location: initialLocation,
@@ -20,8 +22,8 @@ export default function OrganiserMatch({
   location: string;
 }) {
   const [editing, setEditing] = useState(false);
-  const [home_team, setHomeTeam] = useState("");
-  const [away_team, setAwayTeam] = useState("");
+  const [home_team, setHomeTeam] = useState(InitialHomeTeam);
+  const [away_team, setAwayTeam] = useState(initialAwayTeam);
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
@@ -202,7 +204,7 @@ export default function OrganiserMatch({
         className={styles.logo}
       />
       <p>
-        Home Team:{" "}
+        Home Team: {home_team}
         {editing ? (
           <select onChange={(e) => setHomeTeam(e.target.value)}>
             {teams.map((team) => (
@@ -226,7 +228,7 @@ export default function OrganiserMatch({
         className={styles.logo}
       />
       <p>
-        Away Team:{" "}
+        Away Team: {away_team}
         {editing ? (
           <select id="awayteam" onChange={(e) => setAwayTeam(e.target.value)}>
             {teams
