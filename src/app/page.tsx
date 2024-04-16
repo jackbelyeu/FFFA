@@ -64,7 +64,7 @@ export default function Page() {
           {pointsData.map((row, index) => (
             <tr key={index}>
               <td>
-                <Link href={`/schedule_roaster?team=${row.team_name}`}>
+                <Link href={`/team?team=${row.team_name}`}>
                   {row.team_name}
                 </Link>
               </td>

@@ -5,33 +5,31 @@ import ScheduleRoasterContent from "./ScheduleRoasterContent";
 
 const ScheduleRoasterLayout: React.FC = () => {
   const [team, setTeam] = useState<string>("");
-
+  const [teams, setTeams] = useState<string[]>([]);
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const teamParam = urlParams.get("team");
+    fetch("api/teams")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.teams);
+        setTeams(data.teams);
+      });
     if (teamParam) {
       setTeam(teamParam);
     }
   }, []);
 
-  const teams = [
-    { name: "Teams" },
-    { name: "Mosquitoes" },
-    { name: "Hyenas" },
-    { name: "Grasskickers" },
-    { name: "Emus" },
-    { name: "Chickens" },
-    { name: "Mockingbirds" },
-  ];
-
-  const handleTeamChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTeamChange = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedTeam = event.target.value;
     setTeam(selectedTeam);
 
     // Update the URL with the selected team
     const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('team', selectedTeam);
-    window.history.pushState({ path: newUrl.href }, '', newUrl.href);
+    newUrl.searchParams.set("team", selectedTeam);
+    window.history.pushState({ path: newUrl.href }, "", newUrl.href);
   };
 
   return (
@@ -52,8 +50,8 @@ const ScheduleRoasterLayout: React.FC = () => {
           className={styles.dropdown}
         >
           {teams.map((team, index) => (
-            <option key={index} value={team.name}>
-              {team.name}
+            <option key={index} value={team}>
+              {team}
             </option>
           ))}
         </select>
