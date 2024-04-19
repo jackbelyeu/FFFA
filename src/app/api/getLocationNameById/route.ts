@@ -12,8 +12,6 @@ export async function GET(request: Request) {
     `;
 
     const locationName = res.rows.map((name) => name.locationname);
-    console.log(locationName);
-
     return NextResponse.json({ locationName }, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

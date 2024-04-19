@@ -7,14 +7,14 @@ import Button from "react-bootstrap/Button";
 import { toast } from "sonner";
 
 export default function OrganiserMatch({
-  match_id,
+  matchid,
   home_team: InitialHomeTeam,
   away_team: initialAwayTeam,
   time: initialTime,
   date: initialDate,
   location: initialLocation,
 }: {
-  match_id: string;
+  matchid: string;
   home_team: string;
   away_team: string;
   time: string;
@@ -28,8 +28,8 @@ export default function OrganiserMatch({
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
   const [teams, setTeams] = useState<string[]>([]);
-  const [homeScore, setHomeScore] = useState(0);
-  const [awayScore, setAwayScore] = useState(0);
+  const [hometeamscore, setHomeTeamScore] = useState(0);
+  const [awayteamscore, setAwayTeamScore] = useState(0);
   const [scoresSubmitted, setScoresSubmitted] = useState(false);
 
   useEffect(() => {
@@ -43,29 +43,30 @@ export default function OrganiserMatch({
       .then((res) => res.json())
       .then((data) => {
         const matchRows = data.matches;
+        console.log(matchRows[0]);
         matchRows.forEach(
           (row: {
-            match_id: string;
-            home_team: string;
-            away_team: string;
-            home_score: number;
-            away_score: number;
+            matchid: string;
+            hometeamid: number;
+            awayteamid: string;
+            hometeamscore: number;
+            awayteamscore: number;
           }) => {
-            if (row.match_id === match_id) {
-              setHomeScore(row.home_score);
-              setAwayScore(row.away_score);
+            if (row.matchid === matchid) {
+              setHomeTeamScore(row.hometeamscore);
+              setAwayTeamScore(row.awayteamscore);
             }
           }
         );
       });
-  }, [initialTime, initialDate, initialLocation, match_id]);
+  }, [initialTime, initialDate, initialLocation, matchid]);
 
   const handleEdit = () => {
     setEditing(true);
   };
   const handleSubmit = () => {
     const confirmation = window.confirm(
-      `Are you sure you want to submit the score for match ${match_id} ? \n ${home_team} ${homeScore} - ${awayScore} ${away_team} \n This action cannot be undone.`
+      `Are you sure you want to submit the score for match ${matchid} ? \n ${home_team} ${hometeamscore} - ${awayteamscore} ${away_team} \n This action cannot be undone.`
     );
     if (!confirmation) {
       return;
@@ -73,11 +74,11 @@ export default function OrganiserMatch({
     fetch("/api/submitScore", {
       method: "POST",
       body: JSON.stringify({
-        match_id,
+        matchid,
         away_team,
         home_team,
-        homeScore,
-        awayScore,
+        hometeamscore,
+        awayteamscore,
       }),
     })
       .then(() => setScoresSubmitted(true))
@@ -90,7 +91,7 @@ export default function OrganiserMatch({
       const response = await fetch("/api/editMatch", {
         method: "POST",
         body: JSON.stringify({
-          match_id,
+          matchid,
           home_team,
           away_team,
           time,
@@ -119,7 +120,7 @@ export default function OrganiserMatch({
       const response = await fetch("/api/deleteMatch", {
         method: "POST",
         body: JSON.stringify({
-          match_id,
+          matchid,
         }),
       });
       if (!response.ok) {
@@ -144,58 +145,58 @@ export default function OrganiserMatch({
   };
 
   const handleHomeScoreIncrement = () => {
-    setHomeScore(homeScore + 1);
+    setHomeTeamScore(hometeamscore + 1);
     fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
-        match_id,
-        homeScore: homeScore + 1,
-        awayScore,
+        matchid,
+        hometeamscore: hometeamscore + 1,
+        awayteamscore,
       }),
     });
   };
 
   const handleAwayScoreIncrement = () => {
-    setAwayScore(awayScore + 1);
+    setAwayTeamScore(awayteamscore + 1);
     fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
-        match_id,
-        homeScore,
-        awayScore: awayScore + 1,
+        matchid,
+        hometeamscore,
+        awayteamscore: awayteamscore + 1,
       }),
     });
   };
   const handleHomeScoreDecrement = () => {
-    if (homeScore > 0) {
-      setHomeScore(homeScore - 1);
+    if (hometeamscore > 0) {
+      setHomeTeamScore(hometeamscore - 1);
     }
     fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
-        match_id,
-        homeScore: homeScore - 1,
-        awayScore,
+        matchid,
+        hometeamscore: hometeamscore - 1,
+        awayteamscore,
       }),
     });
   };
   const handleAwayScoreDecrement = () => {
-    if (awayScore > 0) {
-      setAwayScore(awayScore - 1);
+    if (awayteamscore > 0) {
+      setAwayTeamScore(awayteamscore - 1);
     }
     fetch("/api/updateScore", {
       method: "POST",
       body: JSON.stringify({
-        match_id,
-        homeScore,
-        awayScore: awayScore - 1,
+        matchid,
+        hometeamscore,
+        awayScore: awayteamscore - 1,
       }),
     });
   };
 
   return (
     <div className={styles.card}>
-      <h2>Match {match_id}</h2>
+      <h2>Match </h2>
       <Image
         src={`/logos/${home_team}.jpeg`}
         alt={`Logo of ${home_team}`}
@@ -204,7 +205,7 @@ export default function OrganiserMatch({
         className={styles.logo}
       />
       <p>
-        Home Team: {home_team}
+        Home Team: 
         {editing ? (
           <select onChange={(e) => setHomeTeam(e.target.value)}>
             {teams.map((team) => (
@@ -215,8 +216,10 @@ export default function OrganiserMatch({
           </select>
         ) : (
           <span
-            className={homeScore > awayScore ? styles.winningTeam : ""}
-          ></span>
+            className={hometeamscore > awayteamscore ? styles.winningTeam : ""}
+          >
+            {home_team}
+          </span>
         )}
       </p>
       <p>vs</p>
@@ -228,7 +231,7 @@ export default function OrganiserMatch({
         className={styles.logo}
       />
       <p>
-        Away Team: {away_team}
+      Away Team:
         {editing ? (
           <select id="awayteam" onChange={(e) => setAwayTeam(e.target.value)}>
             {teams
@@ -241,8 +244,10 @@ export default function OrganiserMatch({
           </select>
         ) : (
           <span
-            className={awayScore > homeScore ? styles.winningTeam : ""}
-          ></span>
+            className={awayteamscore > hometeamscore ? styles.winningTeam : ""}
+          >
+              {away_team}
+          </span>
         )}
       </p>
       <p>
@@ -307,7 +312,7 @@ export default function OrganiserMatch({
           -
         </Button>
         <span>
-          {home_team.toUpperCase()} :<big> {homeScore}</big>
+          {home_team.toUpperCase()} :<big> {hometeamscore}</big>
         </span>
         <Button variant="success" onClick={handleHomeScoreIncrement}>
           +
@@ -318,7 +323,7 @@ export default function OrganiserMatch({
           <Button variant="danger" onClick={handleAwayScoreDecrement}>
             -
           </Button>
-          {away_team.toUpperCase()} : <big>{awayScore}</big>
+          {away_team.toUpperCase()} : <big>{awayteamscore}</big>
           <Button variant="success" onClick={handleAwayScoreIncrement}>
             +
           </Button>
