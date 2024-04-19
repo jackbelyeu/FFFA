@@ -60,7 +60,7 @@ export default function OrganiserMatch({
         );
       });
   }, [initialTime, initialDate, initialLocation, matchid]);
-
+ 
   const handleEdit = () => {
     setEditing(true);
   };
@@ -193,7 +193,6 @@ export default function OrganiserMatch({
       }),
     });
   };
-
   return (
     <div className={styles.card}>
       <h2>Match </h2>
