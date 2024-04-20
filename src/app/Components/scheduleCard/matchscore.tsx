@@ -53,7 +53,7 @@ export default function OrganiserMatch({
         matchRows.forEach(
           (row: {
             matchid: string;
-            hometeamid: number;
+            hometeamid: string;
             awayteamid: string;
             hometeamscore: number;
             awayteamscore: number;
