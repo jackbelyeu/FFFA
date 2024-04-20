@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 export default function OrganiserMatch({
   matchid,
-  home_team: InitialHomeTeam,
+  home_team: initialHomeTeam,
   away_team: initialAwayTeam,
   time: initialTime,
   date: initialDate,
@@ -22,11 +22,12 @@ export default function OrganiserMatch({
   location: string;
 }) {
   const [editing, setEditing] = useState(false);
-  const [home_team, setHomeTeam] = useState(InitialHomeTeam);
+  const [home_team, setHomeTeam] = useState(initialHomeTeam);
   const [away_team, setAwayTeam] = useState(initialAwayTeam);
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
+  const [locationNames, setLocationNames] = useState<string[]>([]);
   const [teams, setTeams] = useState<string[]>([]);
   const [hometeamscore, setHomeTeamScore] = useState(0);
   const [awayteamscore, setAwayTeamScore] = useState(0);
@@ -38,12 +39,17 @@ export default function OrganiserMatch({
       .then((data) => {
         setTeams(data.teams);
       });
+    fetch("api/locations")
+      .then((res) => res.json())
+      .then((data) => {
+        const locationNames = data.locations;
+        setLocationNames(locationNames);
+      });
 
     fetch("/api/matchSchedule")
       .then((res) => res.json())
       .then((data) => {
         const matchRows = data.matches;
-        console.log(matchRows[0]);
         matchRows.forEach(
           (row: {
             matchid: string;
@@ -85,7 +91,6 @@ export default function OrganiserMatch({
       .catch((error) => console.error("Error submitting scores:", error));
     toast.success("Scores submitted successfully");
   };
-
   const handleSave = async () => {
     try {
       const response = await fetch("/api/editMatch", {
@@ -136,8 +141,8 @@ export default function OrganiserMatch({
   };
 
   const handleCancel = () => {
-    setHomeTeam("");
-    setAwayTeam("");
+    setHomeTeam(initialHomeTeam);
+    setAwayTeam(initialAwayTeam);
     setTime(initialTime);
     setDate(initialDate);
     setLocation(initialLocation);
@@ -280,10 +285,13 @@ export default function OrganiserMatch({
       <p>
         Location:{" "}
         {editing ? (
-          <input
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
+          <select onChange={(e) => setLocation(e.target.value)}>
+            {locationNames.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
+          </select>
         ) : (
           location
         )}
