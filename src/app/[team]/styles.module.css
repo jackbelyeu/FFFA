@@ -1,0 +1,8 @@
+.nav-tabs {
+  background-color: #f8f9fa; /* Set your desired background color */
+  border-radius: 5px; /* Add border radius if needed */
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px; /* Adjust spacing between tabs if needed */
+}

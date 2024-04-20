@@ -86,7 +86,7 @@ const OrganiserMatchSchedule = () => {
             {todayMatches.map((row: any) => (
               <OrganiserMatch
                 key={row.match_id}
-                match_id={row.match_id}
+                matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}
                 time={row.time}
@@ -101,8 +101,8 @@ const OrganiserMatchSchedule = () => {
             <h2>Upcoming Matches</h2>
             {futureMatches.map((row: any) => (
               <OrganiserMatch
-                key={row.match_id}
-                match_id={row.match_id}
+                key={row.matchid}
+                matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}
                 time={row.time}
@@ -117,8 +117,8 @@ const OrganiserMatchSchedule = () => {
             <h2>Past Matches</h2>
             {pastMatches.map((row: any) => (
               <OrganiserMatch
-                key={row.match_id}
-                match_id={row.match_id}
+                key={row.matchid}
+                matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}
                 time={row.time}

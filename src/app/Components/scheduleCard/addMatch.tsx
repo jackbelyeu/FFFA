@@ -75,6 +75,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         <br />
         Home Team :
         <select value={homeTeam} onChange={handleHomeTeamChange}>
+          <option value="">Select Home Team</option>
           {teams.map((team) => (
             <option key={team} value={team}>
               {team}
@@ -94,6 +95,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         <br />
         Away Team :
         <select value={awayTeam} onChange={handleAwayTeamChange}>
+          <option value="">Select Away Team</option>
           {teams
             .filter((team) => team !== homeTeam)
             .map((team) => (
@@ -118,6 +120,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       <p>
         Location:
         <select value={location} onChange={handleLocationChange}>
+          <option value="">Select Location</option>
           {locations.map((location) => (
             <option key={location} value={location}>
               {location}

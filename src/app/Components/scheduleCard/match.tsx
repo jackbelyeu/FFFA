@@ -22,8 +22,6 @@ export default function Match({
   const [time, setTime] = useState(initialTime);
   const [date, setDate] = useState(initialDate);
   const [location, setLocation] = useState(initialLocation);
-  const [homeScore, setHomeScore] = useState(0);
-  const [awayScore, setAwayScore] = useState(0);
   const [teamNames, setTeamNames] = useState<{ [key: number]: string }>({});
   const [locationNames, setLocationNames] = useState<{ [key: number]: string }>(
     {}
