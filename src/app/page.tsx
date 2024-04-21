@@ -16,7 +16,7 @@ interface Row {
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
 
-  const fetchPointsData = async (teamId: string) => {
+ const fetchPointsData = async (teamId: string) => {
     try {
       const response = await fetch(`/api/standings?teamId=${teamId}`);
       const data = await response.json();
@@ -25,7 +25,12 @@ export default function Page() {
           (newRow: { team_name: string }) =>
             !prevData.some((prevRow) => prevRow.team_name === newRow.team_name)
         );
-        return [...prevData, ...newData];
+        const sortedData = [...prevData, ...newData].sort((a, b) => {
+          const pointsA = a.wins * 3 + a.draws * 1;
+          const pointsB = b.wins * 3 + b.draws * 1;
+          return pointsB - pointsA;
+        });
+        return sortedData;
       });
     } catch (error) {
       console.error("Error fetching points data for teamId:", teamId, error);
