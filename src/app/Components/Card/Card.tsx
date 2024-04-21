@@ -42,7 +42,7 @@ const Card = ({
       }
     };
     getPlayerData();
-  }, [player_name, player_team,previous_club]);
+  }, [player_name, player_team, previous_club]);
 
   const handleCommitmentChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -76,7 +76,6 @@ const Card = ({
       position: localPosition,
     });
   };
-  
 
   const updatePlayerData = async (data: {
     commitment?: string;
@@ -115,6 +114,7 @@ const Card = ({
         onChange={handleCommitmentChange}
         id={`commitment-${player_name}`}
       >
+        <option>Select Commitment</option>
         <option value="Full time">Full Time</option>
         <option value="Part time">Part Time</option>
       </select>
@@ -124,6 +124,7 @@ const Card = ({
         onChange={handlePositionChange}
         id={`position-${player_name}`}
       >
+        <option>Select Position</option>
         <option value="Goal Keeper">Goalkeeper</option>
         <option value="Defender">Defender</option>
         <option value="Midfielder">Midfielder</option>
@@ -135,15 +136,14 @@ const Card = ({
         onChange={handlePreviousClubChange}
         id={`previous_club-${player_name}`}
       >
-         <option value="Mosquitoes">Mosquitoes</option>
-            <option value="Hyenas">Hyenas</option>
-            <option value="Chickens">Chickens</option>
-            <option value="Grasskickeers ">Grasskickers</option>
-            <option value="Mockingbirds">Mockingbirds</option>
-            <option value="Emus">Emus</option>
-        
+        <option>Select Previous Club</option>
+        <option value="Mosquitoes">Mosquitoes</option>
+        <option value="Hyenas">Hyenas</option>
+        <option value="Chickens">Chickens</option>
+        <option value="Grasskickeers ">Grasskickers</option>
+        <option value="Mockingbirds">Mockingbirds</option>
+        <option value="Emus">Emus</option>
       </select>
-
     </div>
   );
 };

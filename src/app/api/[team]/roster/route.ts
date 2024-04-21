@@ -25,6 +25,7 @@ export async function POST(
   try {
     const body = await request.json();
     const { player_name, commitment, position, previous_club } = body;
+    console.log(commitment)
     const result = await sql`
       UPDATE RSVP
       SET commitment = ${commitment},

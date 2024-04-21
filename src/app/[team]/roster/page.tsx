@@ -18,6 +18,7 @@ const validTeams = [
   "mosquitoes",
   "grasskickers",
   "hyenas",
+  "paceychickens"
 ];
 interface CardProps {
   player_name: string;
@@ -137,9 +138,9 @@ const PlayerCards = ({
   rosterData: CardProps[];
 }) => {
   const [newPlayerName, setNewPlayerName] = useState("");
-  const [commitmentLevel, setCommitmentLevel] = useState("Full time");
-  const [previous_club, setPreviousClub] = useState("Mosquitoes");
-  const [position, setPosition] = useState("Goalkeeper");
+  const [commitmentLevel, setCommitmentLevel] = useState("");
+  const [previous_club, setPreviousClub] = useState("");
+  const [position, setPosition] = useState("");
   const [removePlayerName, setRemovePlayerName] = useState("");
 
   const handleAddPlayer = async () => {
@@ -232,15 +233,18 @@ const PlayerCards = ({
             value={commitmentLevel}
             onChange={(e) => setCommitmentLevel(e.target.value)}
           >
+             <option >Select Commitment Level</option>
             <option value="Full time">Full Time</option>
             <option value="Part time">Part Time</option>
           </select>
           <br />
           <label>Position :</label>
+       
           <select
             value={position}
             onChange={(e) => setPosition(e.target.value)}
           >
+             <option >Select Position</option>
             <option value="Goalkeeper">Goalkeeper</option>
             <option value="Forward">Forward</option>
             <option value="Midfielder">Midfielder</option>
@@ -252,6 +256,7 @@ const PlayerCards = ({
             value={previous_club}
             onChange={(e) => setPreviousClub(e.target.value)}
           >
+            <option >Select Previous Club</option>
             <option value="Mosquitoes">Mosquitoes</option>
             <option value="Hyenas">Hyenas</option>
             <option value="Chickens">Chickens</option>

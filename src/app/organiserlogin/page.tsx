@@ -4,7 +4,6 @@ import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
 import Button from "react-bootstrap/Button";
 import { Toaster, toast } from "sonner";
-
 const OrganiserMatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [rows, setRows] = useState([]);
@@ -12,13 +11,18 @@ const OrganiserMatchSchedule = () => {
   const [pastMatches, setPastMatches] = useState([]);
   const [futureMatches, setFutureMatches] = useState([]);
   const [alert, setAlert] = useState("");
+  const [newlocation, setNewLocation] = useState("");
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
+  const [locations, setLocations] = useState<string[]>([]);
+  const [deletelocation, setDeleteLocation] = useState("");
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDeleteLocation(e.target.value);
+  };
   const handleAddMatchClick = () => {
     setShowAddMatch(true);
   };
-
   const handleAddAlert = (e: any) => {
     fetch("/api/alert", {
       method: "POST",
@@ -28,15 +32,30 @@ const OrganiserMatchSchedule = () => {
     });
     toast.success("Alert added successfully");
   };
-
+  const handleAddNewLocation = (e: any) => {
+    fetch("/api/addlocation", {
+      method: "POST",
+      body: JSON.stringify({
+        newlocation: newlocation,
+      }),
+    });
+    toast.success("New Location added successfully");
+  };
+  const handleDeleteLocation = (e: any) => {
+    fetch("/api/deletelocation", {
+      method: "POST",
+      body: JSON.stringify({
+        deletelocation: deletelocation,
+      }),
+    });
+    toast.success("Location Deleted successfully");
+  };
   useEffect(() => {
     fetch("api/organizer")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.matches);
         const matchRows = data.matches;
         setRows(matchRows);
-
         const todayUTC = new Date(new Date().toUTCString());
         const centralOffset = -5 * 60 * 60 * 1000;
         const todayCentral = new Date(todayUTC.getTime() + centralOffset);
@@ -54,6 +73,12 @@ const OrganiserMatchSchedule = () => {
         );
         setFutureMatches(futureMatches);
       });
+    fetch("api/locations")
+      .then((res) => res.json())
+      .then((data) => {
+        const locationRows = data.locations;
+        setLocations(locationRows);
+      });
   }, []);
   return (
     <div>
@@ -64,24 +89,60 @@ const OrganiserMatchSchedule = () => {
           type="text"
           placeholder="Enter Alert"
           onChange={(e) => setAlert(e.target.value)}
+          style={{ margin: "10px", padding: "5px" }}
         />
-        <Button variant="primary" onClick={handleAddAlert}>
+        <Button
+          variant="primary"
+          onClick={handleAddAlert}
+          style={{ margin: "10px", padding: "5px" }}
+        >
           Add Alert
         </Button>
-
+        <br />
+        <input
+          type="text"
+          placeholder="Enter Location"
+          onChange={(e) => setNewLocation(e.target.value)}
+          style={{ margin: "10px", padding: "5px" }}
+        />
+        <Button
+          variant="primary"
+          onClick={handleAddNewLocation}
+          style={{ margin: "10px", padding: "5px" }}
+        >
+          Add Location
+        </Button>
+        <br />
+        <select
+          onChange={handleLocationChange}
+          style={{ margin: "10px", padding: "5px" }}
+        >
+          <option value="">Select Location to Delete</option>
+          {locations.map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
+        <Button
+          variant="danger"
+          onClick={handleDeleteLocation}
+          style={{ margin: "10px", padding: "5px" }}
+        >
+          Delete Location
+        </Button>
         <br />
         <Button variant="danger" href="/api/auth/signout">
           Sign Out
         </Button>
         <Toaster richColors />
-
         <h1>Match Schedule</h1>
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
           pastMatches.length < 1 && <h2>No matches scheduled</h2>}
         {todayMatches.length == 0 && <h2>No Matches Today</h2>}
         {todayMatches.length > 0 && (
-          <>
+          <div>
             <h2>Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
               <OrganiserMatch
@@ -94,7 +155,7 @@ const OrganiserMatchSchedule = () => {
                 location={row.locationname}
               />
             ))}
-          </>
+          </div>
         )}
         {futureMatches.length > 0 && (
           <>
@@ -138,5 +199,4 @@ const OrganiserMatchSchedule = () => {
     </div>
   );
 };
-
 export default OrganiserMatchSchedule;
