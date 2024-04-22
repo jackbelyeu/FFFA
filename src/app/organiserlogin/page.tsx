@@ -141,6 +141,12 @@ const OrganiserMatchSchedule = () => {
         </Button>
         <Toaster richColors />
         <h1>Match Schedule</h1>
+        {!showAddMatch && (
+          <Button variant="outline-success" onClick={handleAddMatchClick}>
+            Add Match
+          </Button>
+        )}
+        {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
           pastMatches.length < 1 && <h2>No matches scheduled</h2>}
@@ -150,7 +156,7 @@ const OrganiserMatchSchedule = () => {
             <h2>Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
               <OrganiserMatch
-                key={row.match_id}
+                key={row.matchid}
                 matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}
@@ -192,11 +198,6 @@ const OrganiserMatchSchedule = () => {
               />
             ))}
           </>
-        )}
-        {!showAddMatch && (
-          <Button variant="outline-success" onClick={handleAddMatchClick}>
-            Add Match
-          </Button>
         )}
         {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
         <br />

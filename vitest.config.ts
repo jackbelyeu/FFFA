@@ -5,5 +5,12 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    'alias': {
+      '@': '/src',
+      '@app': '/src/app',
+      '@components': '/src/app/Components',
+      '@pages': '/src/app/pages',
+      '@tests': '/src/__tests__',
+    },
   },
 })
