@@ -151,7 +151,7 @@ export default function OrganiserMatch({
 
   const handleHomeScoreIncrement = () => {
     setHomeTeamScore(hometeamscore + 1);
-    fetch("/api/updateScore", {
+    fetch("/api/updateScore" ,{
       method: "POST",
       body: JSON.stringify({
         matchid,
