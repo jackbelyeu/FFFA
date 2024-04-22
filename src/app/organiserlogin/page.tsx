@@ -152,7 +152,7 @@ const OrganiserMatchSchedule = () => {
             <h2>Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
               <OrganiserMatch
-                key={row.match_id}
+                key={row.matchid}
                 matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}
