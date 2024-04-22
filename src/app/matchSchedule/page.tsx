@@ -3,21 +3,30 @@ import React, { useState, useEffect } from "react";
 import Match from "@/app/Components/scheduleCard/match";
 import Accordion from "react-bootstrap/Accordion";
 
+type ISOString = string;
+type matchRow = {
+  matchid: number;
+  hometeamid: number;
+  awayteamid: number;
+  hometeamscore: number;
+  awayteamscore: number;
+  date: ISOString;
+  time: string;
+  locationid: number;
+};
 const MatchSchedule = () => {
-  const [rows, setRows] = useState([]);
-  const [todayMatches, setTodayMatches] = useState([]);
-  const [pastMatches, setPastMatches] = useState([]);
-  const [futureMatches, setFutureMatches] = useState([]);
+  const [todayMatches, setTodayMatches] = useState<matchRow[]>([]);
+  const [pastMatches, setPastMatches] = useState<matchRow[]>([]);
+  const [futureMatches, setFutureMatches] = useState<matchRow[]>([]);
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
 
   useEffect(() => {
     fetch("api/matchSchedule")
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        const matchRows = data.matches;
-        setRows(matchRows);
+        const matchRows: matchRow[] = data.matches;
 
         // Get the current date in UTC
         const todayUTC = new Date(new Date().toUTCString());
