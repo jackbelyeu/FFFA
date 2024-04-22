@@ -137,6 +137,12 @@ const OrganiserMatchSchedule = () => {
         </Button>
         <Toaster richColors />
         <h1>Match Schedule</h1>
+        {!showAddMatch && (
+          <Button variant="outline-success" onClick={handleAddMatchClick}>
+            Add Match
+          </Button>
+        )}
+        {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
           pastMatches.length < 1 && <h2>No matches scheduled</h2>}
@@ -189,12 +195,6 @@ const OrganiserMatchSchedule = () => {
             ))}
           </>
         )}
-        {!showAddMatch && (
-          <Button variant="outline-success" onClick={handleAddMatchClick}>
-            Add Match
-          </Button>
-        )}
-        {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
       </center>
     </div>
   );
