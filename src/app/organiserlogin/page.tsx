@@ -52,7 +52,12 @@ const OrganiserMatchSchedule = () => {
   };
   useEffect(() => {
     fetch("api/organizer")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch organizer data");
+        }
+        return res.json();
+      })
       .then((data) => {
         const matchRows = data.matches;
         setRows(matchRows);
@@ -72,12 +77,23 @@ const OrganiserMatchSchedule = () => {
           (row: any) => row.date.substring(0, 10) > todayDate
         );
         setFutureMatches(futureMatches);
+      })
+      .catch((error) => {
+        console.error("Error fetching organizer data:", error);
       });
     fetch("api/locations")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch locations data");
+        }
+        return res.json();
+      })
       .then((data) => {
         const locationRows = data.locations;
         setLocations(locationRows);
+      })
+      .catch((error) => {
+        console.error("Error fetching locations data:", error);
       });
   }, []);
   return (
@@ -152,7 +168,7 @@ const OrganiserMatchSchedule = () => {
             <h2>Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
               <OrganiserMatch
-                key={row.match_id}
+                key={row.matchid}
                 matchid={row.matchid}
                 home_team={row.hometeamname}
                 away_team={row.awayteamname}

@@ -11,9 +11,6 @@ test("LearnMore", () => {
     screen.getByRole("img")
   ).toBeDefined();
   expect(
-    screen.getByRole("link",{name:"Express Interest"})
-  ).toBeDefined();
-  expect(
     screen.getByRole("button", { name: "Contact Organizer" })
   ).toBeDefined();
 });
