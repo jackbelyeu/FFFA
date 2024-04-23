@@ -25,7 +25,7 @@ const MatchSchedule = () => {
 
   useEffect(() => {
     fetch("api/matchSchedule")
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
         const matchRows: matchRow[] = data.matches;
 
