@@ -3,37 +3,51 @@ import React, { useState, useEffect } from "react";
 import Match from "@/app/Components/scheduleCard/match";
 import Accordion from "react-bootstrap/Accordion";
 
+type ISOString = string;
+type matchRow = {
+  matchid: number;
+  hometeamid: number;
+  awayteamid: number;
+  hometeamscore: number;
+  awayteamscore: number;
+  date: ISOString;
+  time: string;
+  locationid: number;
+};
+
 const MatchSchedule = () => {
-  const [rows, setRows] = useState([]);
-  const [todayMatches, setTodayMatches] = useState([]);
-  const [pastMatches, setPastMatches] = useState([]);
-  const [futureMatches, setFutureMatches] = useState([]);
+  const [todayMatches, setTodayMatches] = useState<matchRow[]>([]);
+  const [pastMatches, setPastMatches] = useState<matchRow[]>([]);
+  const [futureMatches, setFutureMatches] = useState<matchRow[]>([]);
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
 
   useEffect(() => {
     fetch("api/matchSchedule")
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        const matchRows = data.matches;
-        setRows(matchRows);
+        const matchRows: matchRow[] = data.matches;
 
         // Get the current date in UTC
-        const todayUTC = new Date(new Date().toUTCString());
-        const centralOffset = -5 * 60 * 60 * 1000;
-        const todayCentral = new Date(todayUTC.getTime() + centralOffset);
-        const todayDate = todayCentral.toISOString().split("T")[0];
+        const todayUTC = new Date();
+        const localOffset = todayUTC.getTimezoneOffset() * 60 * 1000;
+        const todayLocal = new Date(todayUTC.getTime() - localOffset);
+        const todayDate = todayLocal.toISOString().split("T")[0];
+        setTodayDate(todayDate);
+
         const todayMatches = matchRows.filter(
-          (row: any) => row.date.substring(0, 10) === todayDate
+          (row: matchRow) => row.date.split("T")[0] === todayDate
         );
         setTodayMatches(todayMatches);
+
         const pastMatches = matchRows.filter(
-          (row: any) => row.date.substring(0, 10) < todayDate
+          (row: matchRow) => row.date.split("T")[0] < todayDate
         );
         setPastMatches(pastMatches);
+
         const futureMatches = matchRows.filter(
-          (row: any) => row.date.substring(0, 10) > todayDate
+          (row: matchRow) => row.date.split("T")[0] > todayDate
         );
         setFutureMatches(futureMatches);
       });
