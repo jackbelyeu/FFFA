@@ -15,17 +15,6 @@ type matchRow = {
   locationid: number;
 };
 
-type ISOString = string;
-type matchRow = {
-  matchid: number;
-  hometeamid: number;
-  awayteamid: number;
-  hometeamscore: number;
-  awayteamscore: number;
-  date: ISOString;
-  time: string;
-  locationid: number;
-};
 const MatchSchedule = () => {
   const [todayMatches, setTodayMatches] = useState<matchRow[]>([]);
   const [pastMatches, setPastMatches] = useState<matchRow[]>([]);
