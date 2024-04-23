@@ -15,11 +15,17 @@ interface Row {
 
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
- const fetchPointsData = async (teamId: string) => {
+  const fetchPointsData = async (teamId: string) => {
     try {
       const response = await fetch(`/api/standings?teamId=${teamId}`);
       const data = await response.json();
+
+      if (!data.standings) {
+        throw new Error("Standings data is missing");
+      }
+
       setPointsData((prevData) => {
         const newData = data.standings.filter(
           (newRow: { team_name: string }) =>
@@ -33,6 +39,7 @@ export default function Page() {
         return sortedData;
       });
     } catch (error) {
+      setError("Failed to fetch standings data");
       console.error("Error fetching points data for teamId:", teamId, error);
     }
   };
@@ -69,9 +76,7 @@ export default function Page() {
           {pointsData.map((row, index) => (
             <tr key={index}>
               <td>
-                <Link href={`/${row.team_name}`}>
-                  {row.team_name}
-                </Link>
+                <Link href={`/${row.team_name}`}>{row.team_name}</Link>
               </td>
               <td>
                 <Image

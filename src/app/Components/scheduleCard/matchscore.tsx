@@ -151,7 +151,7 @@ export default function OrganiserMatch({
 
   const handleHomeScoreIncrement = () => {
     setHomeTeamScore(hometeamscore + 1);
-    fetch("/api/updateScore", {
+    fetch("/api/updateScore" ,{
       method: "POST",
       body: JSON.stringify({
         matchid,
@@ -200,7 +200,7 @@ export default function OrganiserMatch({
   };
   return (
     <div className={styles.card}>
-      <h2>Match </h2>
+      <h2>Match {matchid}</h2>
       <Image
         src={`/logos/${home_team}.jpeg`}
         alt={`Logo of ${home_team}`}
