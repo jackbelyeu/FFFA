@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, cache } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
 import Button from "react-bootstrap/Button";
@@ -51,7 +51,7 @@ const OrganiserMatchSchedule = () => {
     toast.success("Location Deleted successfully");
   };
   useEffect(() => {
-    fetch("api/organizer")
+    fetch("api/organizer", { cache: "no-store" })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch organizer data");
@@ -81,7 +81,7 @@ const OrganiserMatchSchedule = () => {
       .catch((error) => {
         console.error("Error fetching organizer data:", error);
       });
-    fetch("api/locations")
+    fetch("api/locations", { cache: "no-store" })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch locations data");
