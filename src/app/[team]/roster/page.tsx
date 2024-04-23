@@ -4,7 +4,7 @@ import Card from "../../Components/Card/Card";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Button from "react-bootstrap/Button";
-import { Toaster, toast } from "sonner"; 
+import { Toaster, toast } from "sonner";
 interface RosterProps {
   params: {
     team: string;
@@ -18,7 +18,7 @@ const validTeams = [
   "mosquitoes",
   "grasskickers",
   "hyenas",
-  "paceychickens"
+  "paceychickens",
 ];
 interface CardProps {
   player_name: string;
@@ -233,18 +233,18 @@ const PlayerCards = ({
             value={commitmentLevel}
             onChange={(e) => setCommitmentLevel(e.target.value)}
           >
-             <option >Select Commitment Level</option>
+            <option>Select Commitment Level</option>
             <option value="Full time">Full Time</option>
             <option value="Part time">Part Time</option>
           </select>
           <br />
           <label>Position :</label>
-       
+
           <select
             value={position}
             onChange={(e) => setPosition(e.target.value)}
           >
-             <option >Select Position</option>
+            <option>Select Position</option>
             <option value="Goalkeeper">Goalkeeper</option>
             <option value="Forward">Forward</option>
             <option value="Midfielder">Midfielder</option>
@@ -256,7 +256,7 @@ const PlayerCards = ({
             value={previous_club}
             onChange={(e) => setPreviousClub(e.target.value)}
           >
-            <option >Select Previous Club</option>
+            <option>Select Previous Club</option>
             <option value="Mosquitoes">Mosquitoes</option>
             <option value="Hyenas">Hyenas</option>
             <option value="Chickens">Chickens</option>
