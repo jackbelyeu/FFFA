@@ -39,7 +39,10 @@ function MyNavbar() {
             </NavDropdown>
 
             <Nav.Link href="/matchSchedule">Match Schedule</Nav.Link>
-            <Nav.Link href="/organiserlogin">Organiser Login</Nav.Link>
+            <NavDropdown title="Login">
+                <NavDropdown.Item href="/organiserlogin">Organizer Login</NavDropdown.Item>
+                <NavDropdown.Item href="/PlayerLogin">Player Login</NavDropdown.Item>
+           </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
