@@ -4,6 +4,7 @@ import Image from "next/image";
 import people from "/src/images/people.jpeg";
 import Spinner from "react-bootstrap/Spinner";
 import { Toaster, toast } from "sonner"; 
+import Link from "next/link";
 interface RSVPProps {
   params: {
     team: string;
@@ -134,6 +135,7 @@ export default function RSVP({ params }: RSVPProps) {
           marginBottom: "-20px",
         }}
       />
+       <h1>Please Click here to Access <Link href={`/${params.team}/roster`}>Roster</Link></h1>
       <center>
         <table
           style={{
