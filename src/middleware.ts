@@ -3,6 +3,6 @@ export const config = {
   matcher: [
     // "/:team/roster",
     // "/:team/rsvp",
-    "/organiserlogin",
+    // "/organiserlogin",
   ],
 };

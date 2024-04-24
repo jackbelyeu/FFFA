@@ -13,42 +13,55 @@ interface Row {
   goal_difference: number;
 }
 
+interface StandingsResponse {
+  standings: Row[];
+  teams: string[];
+}
+
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPointsData = async (teamId: string) => {
-    try {
-      const response = await fetch(`/api/standings?teamId=${teamId}`);
-      const data = await response.json();
+  useEffect(() => {
+    const fetchStandingsData = async () => {
+      try {
+        const response = await fetch("/api/standings");
+        const data: StandingsResponse = await response.json();
 
-      if (!data.standings) {
-        throw new Error("Standings data is missing");
-      }
+        if (!data.standings) {
+          throw new Error("Standings data is missing");
+        }
 
-      setPointsData((prevData) => {
-        const newData = data.standings.filter(
-          (newRow: { team_name: string }) =>
-            !prevData.some((prevRow) => prevRow.team_name === newRow.team_name)
-        );
-        const sortedData = [...prevData, ...newData].sort((a, b) => {
+        const teamMap: { [key: string]: Row } = {};
+        data.standings.forEach((row) => {
+          teamMap[row.team_name] = row;
+        });
+
+        const allTeams: Row[] = data.teams.map((teamName) => {
+          return teamMap[teamName] || {
+            team_name: teamName,
+            total_matches: 0,
+            wins: 0,
+            draws: 0,
+            losses: 0,
+            goal_difference: 0,
+          };
+        });
+
+        const sortedTeams = allTeams.sort((a, b) => {
           const pointsA = a.wins * 3 + a.draws * 1;
           const pointsB = b.wins * 3 + b.draws * 1;
           return pointsB - pointsA;
         });
-        return sortedData;
-      });
-    } catch (error) {
-      setError("Failed to fetch standings data");
-      console.error("Error fetching points data for teamId:", teamId, error);
-    }
-  };
 
-  useEffect(() => {
-    const teamIds = ["1", "2", "3", "4", "5", "6", "7"];
-    teamIds.forEach(async (teamId) => {
-      await fetchPointsData(teamId);
-    });
+        setPointsData(sortedTeams);
+      } catch (error) {
+        setError("Failed to fetch standings data");
+        console.error("Error fetching standings data:", error);
+      }
+    };
+
+    fetchStandingsData();
   }, []);
 
   return (
@@ -56,7 +69,7 @@ export default function Page() {
       <AlertDismisible />
       <center>
         <h1>Flagrant Fowl Futbol Association</h1>
-        <h2> Current Standings</h2>
+        <h2>Current Standings</h2>
       </center>
 
       <table>
@@ -66,7 +79,7 @@ export default function Page() {
             <th></th>
             <th>Wins</th>
             <th>Draws</th>
-            <th>Loses</th>
+            <th>Losses</th>
             <th>Goal Difference</th>
             <th>Points</th>
             <th>Matches Played</th>
@@ -99,3 +112,4 @@ export default function Page() {
     </div>
   );
 }
+
