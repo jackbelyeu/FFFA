@@ -13,55 +13,67 @@ interface Row {
   goal_difference: number;
 }
 
-interface StandingsResponse {
-  standings: Row[];
-  teams: string[];
+interface SortState {
+  field: keyof Row | undefined;
+  direction: "ascending" | "descending";
 }
 
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [sortState, setSortState] = useState<SortState>({
+    field: undefined,
+    direction: "ascending",
+  });
+
+  // Sorting function
+  const sortData = (field: keyof Row) => {
+    setSortState((prevState) => {
+      const isAsc =
+        prevState.field === field && prevState.direction === "ascending";
+      return { field, direction: isAsc ? "descending" : "ascending" };
+    });
+  };
 
   useEffect(() => {
-    const fetchStandingsData = async () => {
-      try {
-        const response = await fetch("/api/standings");
-        const data: StandingsResponse = await response.json();
+    if (!sortState.field) return; // Return early if sortState.field is null
 
-        if (!data.standings) {
-          throw new Error("Standings data is missing");
-        }
+    const sortedData = [...pointsData].sort((a, b) => {
+      // TypeScript will now trust that sortState.field is not null
+      const valueA = a[sortState.field!];
+      const valueB = b[sortState.field!];
+      if (valueA < valueB) return sortState.direction === "ascending" ? -1 : 1;
+      if (valueA > valueB) return sortState.direction === "ascending" ? 1 : -1;
+      return 0;
+    });
 
-        const teamMap: { [key: string]: Row } = {};
-        data.standings.forEach((row) => {
-          teamMap[row.team_name] = row;
-        });
+    setPointsData(sortedData);
+  }, [sortState, pointsData]);
 
-        const allTeams: Row[] = data.teams.map((teamName) => {
-          return teamMap[teamName] || {
-            team_name: teamName,
-            total_matches: 0,
-            wins: 0,
-            draws: 0,
-            losses: 0,
-            goal_difference: 0,
-          };
-        });
-
-        const sortedTeams = allTeams.sort((a, b) => {
+  const fetchPointsData = async (teamId: string) => {
+    try {
+      const response = await fetch(`/api/standings?teamId=${teamId}`);
+      const data = await response.json();
+      setPointsData((prevData) => {
+        const newData = data.standings.filter(
+          (newRow: { team_name: string }) =>
+            !prevData.some((prevRow) => prevRow.team_name === newRow.team_name)
+        );
+        const sortedData = [...prevData, ...newData].sort((a, b) => {
           const pointsA = a.wins * 3 + a.draws * 1;
           const pointsB = b.wins * 3 + b.draws * 1;
           return pointsB - pointsA;
         });
-
-        setPointsData(sortedTeams);
-      } catch (error) {
-        setError("Failed to fetch standings data");
-        console.error("Error fetching standings data:", error);
-      }
-    };
-
-    fetchStandingsData();
+        return sortedData;
+      });
+    } catch (error) {
+      console.error("Error fetching points data for teamId:", teamId, error);
+    }
+  };
+  useEffect(() => {
+    const teamIds = ["1", "2", "3", "4", "5", "6", "7"];
+    teamIds.forEach((teamId) => {
+      fetchPointsData(teamId);
+    });
   }, []);
 
   return (
@@ -75,11 +87,11 @@ export default function Page() {
       <table>
         <thead>
           <tr>
-            <th>Team</th>
+            <th onClick={() => sortData("team_name")}>Team</th>
             <th></th>
-            <th>Wins</th>
+            <th onClick={() => sortData("wins")}>Wins</th>
             <th>Draws</th>
-            <th>Losses</th>
+            <th>Loses</th>
             <th>Goal Difference</th>
             <th>Points</th>
             <th>Matches Played</th>
@@ -103,7 +115,7 @@ export default function Page() {
               <td>{row.draws}</td>
               <td>{row.losses}</td>
               <td>{row.goal_difference}</td>
-              <td>{row.wins * 3 + row.draws * 1}</td>
+              <td>{row.wins * 3 + row.draws}</td>
               <td>{row.total_matches}</td>
             </tr>
           ))}
@@ -112,4 +124,3 @@ export default function Page() {
     </div>
   );
 }
-
