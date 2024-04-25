@@ -2,8 +2,11 @@
 import React, { useState, useEffect, cache } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
+import AddPlayerForm from "./AddPlayerForm";
+
 import Button from "react-bootstrap/Button";
 import { Toaster, toast } from "sonner";
+
 const OrganiserMatchSchedule = () => {
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [rows, setRows] = useState([]);
@@ -12,6 +15,7 @@ const OrganiserMatchSchedule = () => {
   const [futureMatches, setFutureMatches] = useState([]);
   const [alert, setAlert] = useState("");
   const [newlocation, setNewLocation] = useState("");
+  const [team, setTeam] = useState("someTeam");
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().substring(0, 10)
   );
@@ -211,6 +215,37 @@ const OrganiserMatchSchedule = () => {
             ))}
           </>
         )}
+        {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
+        <br />
+        <br />
+        <div
+          style={{
+            textAlign: "left",
+            padding: "20px",
+            margin: "20px auto",
+            width: "80%",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+          }}
+        >
+          <h2 style={{ marginLeft: "10px" }}>Add or Update Player</h2>
+          <select
+            value={team}
+            onChange={(e) => setTeam(e.target.value)}
+            style={{ width: "100%", padding: "8px 10px", margin: "10px 0" }}
+          >
+            <option value="">Select a team</option>
+            <option value="mockingbirds">Mockingbirds</option>
+            <option value="hyenas">Hyenas</option>
+            <option value="emus">Emus</option>
+            <option value="grasskickers">Grasskickers</option>
+            <option value="mosquitoes">Mosquitoes</option>
+            <option value="penguins">Penguins</option>
+            <option value="Los Flamingos">Los Flamingos</option>
+          </select>
+          {team && <AddPlayerForm team={team} />}
+        </div>
+        <br />
       </center>
     </div>
   );
