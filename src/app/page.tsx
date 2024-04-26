@@ -13,67 +13,57 @@ interface Row {
   goal_difference: number;
 }
 
-interface SortState {
-  field: keyof Row | undefined;
-  direction: "ascending" | "descending";
+interface StandingsResponse {
+  standings: Row[];
+  teams: string[];
 }
 
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
-  const [sortState, setSortState] = useState<SortState>({
-    field: undefined,
-    direction: "ascending",
-  });
-
-  // Sorting function
-  const sortData = (field: keyof Row) => {
-    setSortState((prevState) => {
-      const isAsc =
-        prevState.field === field && prevState.direction === "ascending";
-      return { field, direction: isAsc ? "descending" : "ascending" };
-    });
-  };
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!sortState.field) return; // Return early if sortState.field is null
+    const fetchStandingsData = async () => {
+      try {
+        const response = await fetch("/api/standings");
+        const data: StandingsResponse = await response.json();
 
-    const sortedData = [...pointsData].sort((a, b) => {
-      // TypeScript will now trust that sortState.field is not null
-      const valueA = a[sortState.field!];
-      const valueB = b[sortState.field!];
-      if (valueA < valueB) return sortState.direction === "ascending" ? -1 : 1;
-      if (valueA > valueB) return sortState.direction === "ascending" ? 1 : -1;
-      return 0;
-    });
+        if (!data.standings) {
+          throw new Error("Standings data is missing");
+        }
 
-    setPointsData(sortedData);
-  }, [sortState, pointsData]);
+        const teamMap: { [key: string]: Row } = {};
+        data.standings.forEach((row) => {
+          teamMap[row.team_name] = row;
+        });
 
-  const fetchPointsData = async (teamId: string) => {
-    try {
-      const response = await fetch(`/api/standings?teamId=${teamId}`);
-      const data = await response.json();
-      setPointsData((prevData) => {
-        const newData = data.standings.filter(
-          (newRow: { team_name: string }) =>
-            !prevData.some((prevRow) => prevRow.team_name === newRow.team_name)
-        );
-        const sortedData = [...prevData, ...newData].sort((a, b) => {
+        const allTeams: Row[] = data.teams.map((teamName) => {
+          return (
+            teamMap[teamName] || {
+              team_name: teamName,
+              total_matches: 0,
+              wins: 0,
+              draws: 0,
+              losses: 0,
+              goal_difference: 0,
+            }
+          );
+        });
+
+        const sortedTeams = allTeams.sort((a, b) => {
           const pointsA = a.wins * 3 + a.draws * 1;
           const pointsB = b.wins * 3 + b.draws * 1;
           return pointsB - pointsA;
         });
-        return sortedData;
-      });
-    } catch (error) {
-      console.error("Error fetching points data for teamId:", teamId, error);
-    }
-  };
-  useEffect(() => {
-    const teamIds = ["1", "2", "3", "4", "5", "6", "7"];
-    teamIds.forEach((teamId) => {
-      fetchPointsData(teamId);
-    });
+
+        setPointsData(sortedTeams);
+      } catch (error) {
+        setError("Failed to fetch standings data");
+        console.error("Error fetching standings data:", error);
+      }
+    };
+
+    fetchStandingsData();
   }, []);
 
   return (
@@ -87,11 +77,11 @@ export default function Page() {
       <table>
         <thead>
           <tr>
-            <th onClick={() => sortData("team_name")}>Team</th>
+            <th>Team</th>
             <th></th>
-            <th onClick={() => sortData("wins")}>Wins</th>
+            <th>Wins</th>
             <th>Draws</th>
-            <th>Loses</th>
+            <th>Losses</th>
             <th>Goal Difference</th>
             <th>Points</th>
             <th>Matches Played</th>
@@ -115,7 +105,7 @@ export default function Page() {
               <td>{row.draws}</td>
               <td>{row.losses}</td>
               <td>{row.goal_difference}</td>
-              <td>{row.wins * 3 + row.draws}</td>
+              <td>{row.wins * 3 + row.draws * 1}</td>
               <td>{row.total_matches}</td>
             </tr>
           ))}
