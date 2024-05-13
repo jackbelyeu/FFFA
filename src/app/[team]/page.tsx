@@ -3,13 +3,26 @@ import React, { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Image from "next/image";
+import Spinner from "react-bootstrap/Spinner";
+import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface RosterScheduleProps {
   params: {
     team: string;
   };
 }
+
+const validTeams = [
+  "emus",
+  "mockingbirds",
+  "chickens",
+  "mosquitoes",
+  "grasskickers",
+  "hyenas",
+];
+
 export default function RosterSchedule({ params }: RosterScheduleProps) {
   const [schedule, setSchedule] = useState([]);
   const [teamNames, setTeamNames] = useState<{ [key: number]: string }>({});
@@ -30,6 +43,9 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
         if (selectedTeamId) {
           setSelectedTeam(Number(selectedTeamId));
         }
+      })
+      .catch((error) => {
+        console.error("Error fetching team data:", error);
       });
   }, [decodedTeamName]);
 
@@ -38,12 +54,19 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
       .then((res) => res.json())
       .then((data) => {
         setSchedule(data.rows);
+      })
+      .catch((error) => {
+        console.error("Error fetching schedule data:", error);
       });
+
     const teamName = decodeURIComponent(decodedTeamName).toLowerCase();
     fetch(`/api/${teamName}/players`)
       .then((res) => res.json())
       .then((data) => {
         setPlayers(data.rows);
+      })
+      .catch((error) => {
+        console.error("Error fetching players data:", error);
       });
   }, [decodedTeamName]);
 
@@ -65,12 +88,12 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
           style={{
             borderRadius: "5px",
             marginBottom: "10px",
-            width:"200px",
-            height:"30px",
-            backgroundColor:"#0d6efd",
-            color:"white",
-            fontWeight:"bolder",
-            textAlign:"center"
+            width: "200px",
+            height: "30px",
+            backgroundColor: "#0d6efd",
+            color: "white",
+            fontWeight: "bolder",
+            textAlign: "center",
           }}
         >
           {Object.entries(teamNames).map(([teamId, teamName]) => (
@@ -80,6 +103,11 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
           ))}
         </select>
 
+        <br />
+        <br />
+        <h1>
+          View <Link href={`/${params.team.toLowerCase()}/roster`}>Roster</Link>
+        </h1>
         <br />
         <br />
         <Tabs
