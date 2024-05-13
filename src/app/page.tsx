@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 import AlertDismisible from "@/app/Components/alerts/alert";
 import Image from "next/image";
 import Link from "next/link";
+import ffaLogo from "@/images/logo.jpeg";
+import bgfield from "@/images/field.png";
+import { HomeCarousel } from "@/components/HomeCarousel";
+import TeamStandings from "@/components/TeamStandings";
+import MatchCard from "@/components/MatchCard";
 
 interface Row {
   team_name: string;
@@ -18,27 +23,72 @@ interface StandingsResponse {
   teams: string[];
 }
 
+type ISOString = string;
+type matchRow = {
+  matchid: number;
+  hometeamid: number;
+  awayteamid: number;
+  hometeamscore: number;
+  awayteamscore: number;
+  date: ISOString;
+  time: string;
+  locationid: number;
+};
+
 export default function Page() {
   const [pointsData, setPointsData] = useState<Row[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [todayMatches, setTodayMatches] = useState<matchRow[]>([]);
+  const [pastMatches, setPastMatches] = useState<matchRow[]>([]);
+  const [futureMatches, setFutureMatches] = useState<matchRow[]>([]);
+  const [todayDate, setTodayDate] = useState(
+    new Date().toISOString().substring(0, 10)
+  );
 
+  useEffect(() => {
+    // Fetch match data
+    fetch("/api/matchSchedule")
+      .then((response) => response.json())
+      .then((data) => {
+        const matchRows: matchRow[] = data.matches;
+
+        // Get the current date in UTC
+        const todayUTC = new Date();
+        const localOffset = todayUTC.getTimezoneOffset() * 60 * 1000;
+        const todayLocal = new Date(todayUTC.getTime() - localOffset);
+        const todayDate = todayLocal.toISOString().split("T")[0];
+        setTodayDate(todayDate);
+
+        // Categorize matches based on date
+        const todayMatches = matchRows.filter(
+          (row) => row.date.split("T")[0] === todayDate
+        );
+        const pastMatches = matchRows.filter(
+          (row) => row.date.split("T")[0] < todayDate
+        );
+        const futureMatches = matchRows.filter(
+          (row) => row.date.split("T")[0] > todayDate
+        );
+
+        // Set state
+        setTodayMatches(todayMatches);
+        setPastMatches(pastMatches);
+        setFutureMatches(futureMatches);
+      });
+  }, []);
   useEffect(() => {
     const fetchStandingsData = async () => {
       try {
         const response = await fetch("/api/standings");
         const data: StandingsResponse = await response.json();
 
-        if (!data.standings) {
-          throw new Error("Standings data is missing");
-        }
+        if (!data.standings) throw new Error("Standings data is missing");
 
         const teamMap: { [key: string]: Row } = {};
-        data.standings.forEach((row) => {
-          teamMap[row.team_name] = row;
-        });
+        data.standings.forEach((row) => (teamMap[row.team_name] = row));
 
-        const allTeams: Row[] = data.teams.map((teamName) => {
-          return (
+        const allTeams = data.teams.map(
+          (teamName) =>
             teamMap[teamName] || {
               team_name: teamName,
               total_matches: 0,
@@ -47,16 +97,11 @@ export default function Page() {
               losses: 0,
               goal_difference: 0,
             }
-          );
-        });
+        );
 
-        const sortedTeams = allTeams.sort((a, b) => {
-          const pointsA = a.wins * 3 + a.draws * 1;
-          const pointsB = b.wins * 3 + b.draws * 1;
-          return pointsB - pointsA;
-        });
-
-        setPointsData(sortedTeams);
+        setPointsData(
+          allTeams.sort((a, b) => b.wins * 3 + b.draws - (a.wins * 3 + a.draws))
+        );
       } catch (error) {
         setError("Failed to fetch standings data");
         console.error("Error fetching standings data:", error);
@@ -68,49 +113,63 @@ export default function Page() {
 
   return (
     <div>
-      <AlertDismisible />
-      <center>
-        <h1>Flagrant Fowl Futbol Association</h1>
-        <h2>Current Standings</h2>
-      </center>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th></th>
-            <th>Wins</th>
-            <th>Draws</th>
-            <th>Losses</th>
-            <th>Goal Difference</th>
-            <th>Points</th>
-            <th>Matches Played</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pointsData.map((row, index) => (
-            <tr key={index}>
-              <td>
-                <Link href={`/${row.team_name}`}>{row.team_name}</Link>
-              </td>
-              <td>
-                <Image
-                  src={`/logos/${row.team_name}.jpeg`}
-                  alt={`Logo of ${row.team_name}`}
-                  width={50}
-                  height={50}
-                />
-              </td>
-              <td>{row.wins}</td>
-              <td>{row.draws}</td>
-              <td>{row.losses}</td>
-              <td>{row.goal_difference}</td>
-              <td>{row.wins * 3 + row.draws * 1}</td>
-              <td>{row.total_matches}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Main div */}
+      <div className="relative sm:h-[68vh] z-1">
+        <HomeCarousel />
+        <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-2 text-white">
+          {/* Team Logo */}
+          <div className="rounded-full overflow-hidden inline-block max-w-[100%] mb-[-20%] sm:mb-[-60px]">
+            <Image src={ffaLogo} alt="People playing Soccer in a field" />
+          </div>
+        </div>
+        {/* the rounder top after the logo*/}
+        <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-1 text-white">
+          <div className="inline-block rounded-full w-full sm:w-screen sm:h-10 bg-mainColor mb-[-10%] sm:mb-[-12px]"></div>
+        </div>
+      </div>
+      {/* After the carousel div*/}
+      <div>
+        <div>
+          {/* the background after the logo*/}
+          <div className="inline-block w-full h-64 z-1 bg-mainColor p-2">
+            <div>
+              {todayMatches.length > 0 ? (
+                todayMatches.map((match) => (
+                  <MatchCard
+                    key={match.matchid}
+                    match_id={match.matchid.toString()}
+                    home_team={match.hometeamid}
+                    away_team={match.awayteamid}
+                    time={match.time}
+                    date={match.date}
+                    location={match.locationid}
+                  />
+                ))
+              ) : (
+                <p className="text-center">No matches today</p>
+              )}
+            </div>
+          </div>
+        </div>
+        {/* Table container */}
+        <div className="relative flex flex-col items-center justify-center min-h-screen">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src={bgfield}
+              alt="Background Field"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <div className="p-4"></div>
+          {/* Table and its content */}
+          <center className="z-10 text-white">
+            <h1>Flagrant Fowl Futbol Association</h1>
+            <h1>Current Standings</h1>
+          </center>
+          <TeamStandings pointsData={pointsData} />
+        </div>
+      </div>
     </div>
   );
 }
