@@ -5,8 +5,7 @@ import Image from "next/image";
 import ffaLogo from "@/images/logo.jpeg";
 import bgfield from "@/images/field.png";
 import { HomeCarousel } from "@/components/HomeCarousel";
-import TeamStandings from "@/components/TeamStandings";
-import MatchCard from "@/components/MatchCard";
+import StandingsTable from "@/app/Components/StandingsTable/StandingsTable";
 import EmailButton from "@/app/Components/EmailButton/EmailButton";
 
 interface Row {
@@ -127,27 +126,6 @@ export default function Page() {
         </div>
       </div>
       <div>
-        <div>
-          <div className="inline-block w-full h-64 z-1 bg-mainColor p-2">
-            <div>
-              {todayMatches.length > 0 ? (
-                todayMatches.map((match) => (
-                  <MatchCard
-                    key={match.matchid}
-                    match_id={match.matchid.toString()}
-                    home_team={match.hometeamid}
-                    away_team={match.awayteamid}
-                    time={match.time}
-                    date={match.date}
-                    location={match.locationid}
-                  />
-                ))
-              ) : (
-                <p className="text-center">No matches today</p>
-              )}
-            </div>
-          </div>
-        </div>
         <div className="relative flex flex-col items-center justify-center min-h-screen">
           <div className="absolute inset-0">
             <Image
@@ -161,7 +139,7 @@ export default function Page() {
             <h1>Flagrant Fowl Futbol Association</h1>
             <h1>Current Standings</h1>
           </center>
-          <TeamStandings pointsData={pointsData} />
+          <StandingsTable pointsData={pointsData} />
         </div>
       </div>
 

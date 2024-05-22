@@ -17,7 +17,7 @@ interface TeamStandingsProps {
   pointsData: Row[];
 }
 
-export default function TeamStandings({ pointsData }: TeamStandingsProps) {
+export default function StandingsTable({ pointsData }: TeamStandingsProps) {
   return (
     <div className="z-10 flex justify-center items-center">
       <table className="border-collapse mx-auto my-4 w-full max-w-4xl bg-black bg-opacity-50 text-white rounded-lg">
