@@ -1,13 +1,5 @@
 "use client";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -72,7 +64,7 @@ export default function Navbar() {
         </DropdownMenu>
 
         <Link
-          href="/matchSchedule"
+          href="/schedule"
           className="text-white no-underline hover:text-gray-300"
         >
           Match Schedule
