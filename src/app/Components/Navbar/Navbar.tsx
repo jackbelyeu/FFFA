@@ -1,11 +1,26 @@
-"use client"; // Ensure it's a client-only component
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+"use client";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
-function MyNavbar() {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSheet = () => setIsOpen((prev) => !prev);
   const [teams, setTeams] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("");
 
@@ -27,85 +42,77 @@ function MyNavbar() {
   };
 
   const isActive = (path: string) => activeTab === path;
-
   return (
-    <Navbar
-      bg="primary"
-      collapseOnSelect
-      expand="lg"
-      sticky="top"
-      data-bs-theme="dark"
-    >
-      <Container>
-        <Navbar.Brand
-          href="/"
-          onClick={() => handleNavClick("/")}
-          {...(isActive("/") ? { active: true } : {})} // Conditionally set `active`
-        >
-          Flagrant Fowl Futbol Association
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link
-              href="/"
-              onClick={() => handleNavClick("/")}
-              {...(isActive("/") ? { active: true } : {})}
-            >
-              Home
-            </Nav.Link>
-            <Nav.Link
-              href="/learnmore"
-              onClick={() => handleNavClick("/learnmore")}
-              {...(isActive("/learnmore") ? { active: true } : {})}
-            >
-              Learn More
-            </Nav.Link>
-            <NavDropdown
-              title="Teams"
-              id="basic-nav-dropdown"
-              {...(isActive("/teams") ? { active: true } : {})} // Avoiding warning
-            >
-              {teams.map((team, index) => (
-                <NavDropdown.Item
-                  key={index}
-                  href={`/${team}`}
-                  onClick={() => handleNavClick(`/${team}`)}
-                  {...(isActive(`/${team}`) ? { active: true } : {})}
-                >
-                  {team}
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
+    <nav className="flex items-center justify-between bg-primary p-4">
+      {/* Brand name on the left */}
+      <div className="text-white text-lg font-bold">
+        Flagrant Fowl Futbol Association
+      </div>
 
-            <Nav.Link
-              href="/matchSchedule"
-              onClick={() => handleNavClick("/matchSchedule")}
-              {...(isActive("/matchSchedule") ? { active: true } : {})}
+      {/* Navigation Links in the center */}
+      <div className="flex space-x-6">
+        <Link href="/" className="text-white no-underline hover:text-gray-300">
+          Home
+        </Link>
+
+        {/* Teams Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <span className="text-white cursor-pointer hover:text-gray-300">
+              Teams
+            </span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {teams.map((team, index) => (
+              <DropdownMenuItem key={index} asChild>
+                <Link href={`/${team}`}>{team}</Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <Link
+          href="/matchSchedule"
+          className="text-white no-underline hover:text-gray-300"
+        >
+          Match Schedule
+        </Link>
+      </div>
+
+      <div>
+        {" "}
+        {/* Login Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="bg-white text-black hover:bg-gray-300"
             >
-              Match Schedule
-            </Nav.Link>
-            <NavDropdown title="Login">
-              <NavDropdown.Item
+              Login
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem asChild>
+              <Link
                 href="/organiserlogin"
                 onClick={() => handleNavClick("/organiserlogin")}
-                {...(isActive("/organiserlogin") ? { active: true } : {})}
+                className={isActive("/organiserlogin") ? "active" : ""}
               >
                 Organizer Login
-              </NavDropdown.Item>
-              <NavDropdown.Item
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
                 href="/PlayerLogin"
                 onClick={() => handleNavClick("/PlayerLogin")}
-                {...(isActive("/PlayerLogin") ? { active: true } : {})}
+                className={isActive("/PlayerLogin") ? "active" : ""}
               >
                 Player Login
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </nav>
   );
 }
-
-export default MyNavbar;

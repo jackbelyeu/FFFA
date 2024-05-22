@@ -1,7 +1,6 @@
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyNavbar from "@/app/Components/Navbar/Navbar";
-import MainNavbar from "@/components/NavBar";
+import Navbar from "@/app/Components/Navbar/Navbar";
 export default function RootLayout({
   children,
 }: {
@@ -10,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MainNavbar />
+        <Navbar />
         {children}
       </body>
     </html>

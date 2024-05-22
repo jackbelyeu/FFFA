@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import AlertDismisible from "@/app/Components/alerts/alert";
+import AlertDismissible from "@/app/Components/Alert/Alert";
 import Image from "next/image";
 import ffaLogo from "@/images/logo.jpeg";
 import bgfield from "@/images/field.png";
@@ -8,7 +8,6 @@ import { HomeCarousel } from "@/components/HomeCarousel";
 import TeamStandings from "@/components/TeamStandings";
 import MatchCard from "@/components/MatchCard";
 import EmailButton from "@/app/Components/EmailButton/EmailButton";
-import Email from "next-auth/providers/email";
 
 interface Row {
   team_name: string;
@@ -114,7 +113,7 @@ export default function Page() {
 
   return (
     <div>
-      <AlertDismisible />
+      <AlertDismissible />
       <div className="relative sm:h-[68vh] z-1">
         <HomeCarousel />
         <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-2 text-white">
