@@ -113,7 +113,7 @@ export default function Page() {
 
   return (
     <div>
-      {/* Main div */}
+      <AlertDismisible/>
       <div className="relative sm:h-[68vh] z-1">
         <HomeCarousel />
         <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-2 text-white">
@@ -122,15 +122,12 @@ export default function Page() {
             <Image src={ffaLogo} alt="People playing Soccer in a field" />
           </div>
         </div>
-        {/* the rounder top after the logo*/}
         <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-1 text-white">
           <div className="inline-block rounded-full w-full sm:w-screen sm:h-10 bg-mainColor mb-[-10%] sm:mb-[-12px]"></div>
         </div>
       </div>
-      {/* After the carousel div*/}
       <div>
         <div>
-          {/* the background after the logo*/}
           <div className="inline-block w-full h-64 z-1 bg-mainColor p-2">
             <div>
               {todayMatches.length > 0 ? (
@@ -151,9 +148,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        {/* Table container */}
         <div className="relative flex flex-col items-center justify-center min-h-screen">
-          {/* Background Image */}
           <div className="absolute inset-0">
             <Image
               src={bgfield}
@@ -162,7 +157,6 @@ export default function Page() {
             />
           </div>
           <div className="p-4"></div>
-          {/* Table and its content */}
           <center className="z-10 text-white">
             <h1>Flagrant Fowl Futbol Association</h1>
             <h1>Current Standings</h1>
