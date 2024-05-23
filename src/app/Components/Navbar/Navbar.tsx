@@ -21,7 +21,6 @@ export default function Navbar() {
       setActiveTab(window.location.pathname);
     }
 
-    // Fetch teams data
     fetch("/api/teams")
       .then((res) => res.json())
       .then((data) => {
@@ -30,24 +29,23 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (path: string) => {
-    setActiveTab(path); // Update active tab when a link is clicked
+    setActiveTab(path); 
   };
 
   const isActive = (path: string) => activeTab === path;
+
   return (
-    <nav className="flex items-center justify-between bg-primary p-4">
+    <nav className="sticky top-0 z-50 flex items-center justify-between bg-primary p-4 shadow-lg">
       {/* Brand name on the left */}
       <div className="text-white text-lg font-bold">
         Flagrant Fowl Futbol Association
       </div>
 
-      {/* Navigation Links in the center */}
       <div className="flex space-x-6">
         <Link href="/" className="text-white no-underline hover:text-gray-300">
           Home
         </Link>
 
-        {/* Teams Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <span className="text-white cursor-pointer hover:text-gray-300">
@@ -72,8 +70,6 @@ export default function Navbar() {
       </div>
 
       <div>
-        {" "}
-        {/* Login Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

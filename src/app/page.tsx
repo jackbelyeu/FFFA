@@ -7,6 +7,7 @@ import bgfield from "@/images/field.png";
 import { HomeCarousel } from "@/components/HomeCarousel";
 import StandingsTable from "@/app/Components/StandingsTable/StandingsTable";
 import EmailButton from "@/app/Components/EmailButton/EmailButton";
+import Footer from "@/app/Components/Footer/Footer";
 
 interface Row {
   team_name: string;
@@ -142,8 +143,6 @@ export default function Page() {
           <StandingsTable pointsData={pointsData} />
         </div>
       </div>
-
-      <EmailButton></EmailButton>
     </div>
   );
 }
