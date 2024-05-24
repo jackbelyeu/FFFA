@@ -1,6 +1,4 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,19 +27,18 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (path: string) => {
-    setActiveTab(path); 
+    setActiveTab(path);
   };
 
   const isActive = (path: string) => activeTab === path;
 
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between bg-primary p-4 shadow-lg">
-      {/* Brand name on the left */}
       <div className="text-white text-lg font-bold">
         Flagrant Fowl Futbol Association
       </div>
 
-      <div className="flex space-x-6">
+      <div className="hidden md:flex space-x-6">
         <Link href="/" className="text-white no-underline hover:text-gray-300">
           Home
         </Link>
@@ -69,15 +66,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div>
+      <div className="hidden md:flex">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="bg-white text-black hover:bg-gray-300"
-            >
+            <button className="bg-white text-primary px-4 py-2 rounded-md hover:bg-secondary-dark">
               Login
-            </Button>
+            </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
@@ -101,6 +95,66 @@ export default function Navbar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <div className="flex md:hidden">
+        <button
+          className="text-white focus:outline-none"
+          onClick={toggleSheet}
+        >
+          ☰
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="absolute top-0 left-0 w-full bg-primary p-4 md:hidden">
+          <div className="flex flex-col space-y-4">
+            <Link href="/" className="text-white no-underline hover:text-gray-300" onClick={toggleSheet}>
+              Home
+            </Link>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <span className="text-white cursor-pointer hover:text-gray-300">
+                  Teams
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {teams.map((team, index) => (
+                  <DropdownMenuItem key={index} asChild>
+                    <Link href={`/${team}`} onClick={toggleSheet}>
+                      {team}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Link href="/schedule" className="text-white no-underline hover:text-gray-300" onClick={toggleSheet}>
+              Match Schedule
+            </Link>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="bg-white text-primary px-4 py-2 rounded-md hover:bg-secondary-dark">
+                  Login
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link href="/organiserlogin" onClick={() => { handleNavClick("/organiserlogin"); toggleSheet(); }} className={isActive("/organiserlogin") ? "active" : ""}>
+                    Organizer Login
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/PlayerLogin" onClick={() => { handleNavClick("/PlayerLogin"); toggleSheet(); }} className={isActive("/PlayerLogin") ? "active" : ""}>
+                    Player Login
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
