@@ -62,17 +62,13 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
   }, [decodedTeamName]);
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       <Toaster />
-      <br />
-      <h1 className="text-center text-xl font-medium text-blue-500">
+      <h1 className="text-center text-2xl font-medium text-blue-500">
         Schedule and Roster
       </h1>
-      <br />
-      <center>
-        <h2 className="text-center text-medium font-medium text-blue-500">
-          Select a Team:
-        </h2>
+      <div className="my-4 text-center">
+        <h2 className="text-lg font-medium text-blue-500">Select a Team:</h2>
         <select
           value={selectedTeam}
           onChange={(e) => {
@@ -81,7 +77,7 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
             const teamName = decodeURIComponent(teamNames[selectedTeam]);
             router.push(`/${teamName}`);
           }}
-          className="text-center text-medium font-medium text-blue-500 color:blue-500 border-2 border-green-500 rounded-md"
+          className="text-center text-lg font-medium text-blue-500 border-2 border-green-500 rounded-md p-2"
         >
           {Object.entries(teamNames).map(([teamId, teamName]) => (
             <option key={teamId} value={teamId}>
@@ -89,49 +85,46 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
             </option>
           ))}
         </select>
-
-        <br />
-        <br />
-        <h1 className="text-center text-xl font-medium text-grey-500">
+      </div>
+      <div className="my-4 text-center">
+        <h1 className="text-xl font-medium text-gray-500">
           View <Link href={`/${params.team.toLowerCase()}/roster`}>Roster</Link>
         </h1>
-        <br />
-        <br />
-        {loading ? (
+      </div>
+      {loading ? (
+        <div className="flex justify-center">
           <Spinner animation="border" />
-        ) : (
-          <Tabs
-            defaultActiveKey="schedule"
-            id="justify-tab-example"
-            className="mb-3"
-            justify
-          >
-            <Tab eventKey="home" title="Home">
-              <div>
-                <h2>Welcome to {decodedTeamName}</h2>
-                <p>Here you can find the schedule and roster for the team</p>
-                <Image
-                  src={`/logos/${decodedTeamName}.jpeg`}
-                  alt={`Logo of the ${decodedTeamName} team`}
-                  width={100}
-                  height={100}
-                />
-              </div>
-            </Tab>
-            <Tab eventKey="schedule" title="Schedule">
+        </div>
+      ) : (
+        <Tabs defaultActiveKey="schedule" id="justify-tab-example" className="mb-3" justify>
+          <Tab eventKey="home" title="Home">
+            <div className="text-center">
+              <h2>Welcome to {decodedTeamName}</h2>
+              <p>Here you can find the schedule and roster for the team</p>
+              <Image
+                src={`/logos/${decodedTeamName}.jpeg`}
+                alt={`Logo of the ${decodedTeamName} team`}
+                width={100}
+                height={100}
+                className="mx-auto"
+              />
+            </div>
+          </Tab>
+          <Tab eventKey="schedule" title="Schedule">
+            <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-center text-xs-strong font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Date
                     </th>
-                    <th className="px-6 py-3 text-center text-xs-strong font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Time
                     </th>
-                    <th className="px-6 py-3 text-center text-xs-strong font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Location
                     </th>
-                    <th className="px-6 py-3 text-center text-xs-strong font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Opponent
                     </th>
                   </tr>
@@ -147,7 +140,7 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
                       hometeamname: string;
                     }) => (
                       <tr key={match.match_id}>
-                        <td className="px-6 py-4 whitespace-nowrap border-b-2 text-center">
+                        <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                           {match.date.split("T")[0]}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
@@ -166,19 +159,21 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
                   )}
                 </tbody>
               </table>
-            </Tab>
-            <Tab eventKey="longer-tab" title="Players">
+            </div>
+          </Tab>
+          <Tab eventKey="longer-tab" title="Players">
+            <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th></th>
-                    <th className="px-6 py-3 text-left text-xs-strong font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                       Player Name
                     </th>
-                    <th className="px-6 py-3 text-left text-xs-strong font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                       Position
                     </th>
-                    <th className="px-6 py-3 text-left text-xs- font-medium text-gray-500 uppercase tracking-wider text-center">
+                    <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
                       Commitment
                     </th>
                   </tr>
@@ -197,16 +192,16 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
                             alt={`Logo of the ${decodedTeamName} team`}
                             width={70}
                             height={70}
+                            className="mx-auto"
                           />
                         </td>
-
-                        <td className="px-6 py-4 whitespace-nowrap border-b-2 text-center">
+                        <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                           {player.player_name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap border-b-2 text-center">
+                        <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                           {player.position}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap border-b-2 text-center">
+                        <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                           {player.commitment}
                         </td>
                       </tr>
@@ -214,10 +209,10 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
                   )}
                 </tbody>
               </table>
-            </Tab>
-          </Tabs>
-        )}
-      </center>
+            </div>
+          </Tab>
+        </Tabs>
+      )}
     </div>
   );
 }
