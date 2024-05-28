@@ -100,3 +100,8 @@
 .logo {
   display: inline-block;
 }
+
+.select {
+  color: black;
+  background-color: white;
+}
