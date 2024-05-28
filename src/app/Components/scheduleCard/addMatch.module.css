@@ -24,7 +24,6 @@
   padding: 8px;
   border-radius: 4px;
   font-size: 14px;
-
 }
 
 .card input {
@@ -63,7 +62,6 @@
   border-radius: 50%;
   width: 100px;
   height: 100px;
-
 }
 
 .card .score {
@@ -97,4 +95,8 @@
 .team p {
   margin-top: 5px;
   font-size: 16px;
+}
+
+.logo {
+  display: inline-block;
 }
