@@ -110,7 +110,7 @@ export default function RSVP({ params }: RSVPProps) {
   if (loading) {
     return (
       <main>
-        <h1>Loading...</h1>
+        <h1 className="text-center text-2xl font-medium text-blue-500">Loading...</h1>
         <center>
           <Spinner animation="border" size="sm" />
           <Spinner animation="border" />
@@ -122,42 +122,32 @@ export default function RSVP({ params }: RSVPProps) {
   }
   const validTeamContent = (
     <main>
-      <h1>RSVP FOR {params.team.toUpperCase()}</h1>
+      <h1 className="text-center text-2xl mb-3 font-medium text-blue-500">RSVP FOR {params.team.toUpperCase()}</h1>
       <Toaster richColors closeButton />
+      <div className="flex justify-center items-center h-full">
       <Image
         src={`/logos/${params.team}.jpeg`}
         alt="Team logo"
         width={100}
         height={100}
-        style={{
-          display: "flex",
-          margin: "auto",
-          marginBottom: "-20px",
-        }}
+        className="rounded-full"
       />
-       <h1>Please Click here to Access <Link href={`/${params.team}/roster`}>Roster</Link></h1>
+      </div>
+       <h1 className="text-center text-2xl mt-5 font-medium text-blue-500">Please Click here to Access <Link href={`/${params.team}/roster`}>Roster</Link></h1>
+       
       <center>
         <table
-          style={{
-            marginTop: "5%",
-          }}
+         className="min-w-full divide-y divide-gray-200"
         >
-          <thead>
+          <thead className="bg-gray-50">
             <tr>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Player
               </th>
               <th
-                style={{
-                  textAlign: "center",
-
-                  fontWeight: "bold",
-                }}
+               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 8
                 <br />
@@ -166,20 +156,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_8 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 15
                 <br />
@@ -188,20 +170,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_15 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 22
                 <br />
@@ -210,20 +184,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_22 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 29
                 <br />
@@ -232,20 +198,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_29 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 5
                 <br />
@@ -254,20 +212,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_5 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 12
                 <br />
@@ -276,20 +226,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_12 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 19
                 <br />
@@ -298,20 +240,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_19 === "YES").length}
               </th>
               <th
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
+                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 26
                 <br />
@@ -320,25 +254,20 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  style={{
-                    display: "flex",
-                    margin: "auto",
-                    marginBottom: "-20px",
-                    marginLeft: "13px",
-                  }}
+                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_26 === "YES").length}
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white divide-y divide-gray-200">
             {rsvpData.map((row) => (
               <tr key={row.player_name}>
-                <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   {row.player_name}
                 </td>
-                <td>
-                  <select
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
+                  <select className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     defaultValue={row.oct_8}
                     id={`oct_8_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
@@ -349,11 +278,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.oct_15}
                     id={`oct_15_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -361,11 +291,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.oct_22}
                     id={`oct_22_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -373,11 +304,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.oct_29}
                     id={`oct_29_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -385,11 +317,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.nov_5}
                     id={`nov_5_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -397,11 +330,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.nov_12}
                     id={`nov_12_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -409,11 +343,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.nov_19}
                     id={`nov_19_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
@@ -421,11 +356,12 @@ export default function RSVP({ params }: RSVPProps) {
                     <option value="pending">Pending</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                   <select
                     defaultValue={row.nov_26}
                     id={`nov_26_${row.player_name}`}
                     onChange={(event) => handleChange(event, row)}
+                    className="border-2 border-gray-300 rounded-lg p-1 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="YES">Yes</option>
                     <option value="NO">No</option>
