@@ -2,7 +2,6 @@
 import React, { useState, useEffect, cache } from "react";
 import AddMatch from "@/app/Components/scheduleCard/addMatch";
 import OrganiserMatch from "@/app/Components/scheduleCard/matchscore";
-import AddPlayerForm from "./AddPlayerForm";
 
 import Button from "react-bootstrap/Button";
 import { Toaster, toast } from "sonner";
@@ -104,12 +103,12 @@ const OrganiserMatchSchedule = () => {
     <div>
       <center>
         <br />
-        <h1>Organiser Dashboard</h1>
+        <h1 className="text-center text-2xl font-medium text-blue-500">Organiser Dashboard</h1>
         <input
           type="text"
           placeholder="Enter Alert"
           onChange={(e) => setAlert(e.target.value)}
-          style={{ margin: "10px", padding: "5px" }}
+          className="border-2 border-gray-300 rounded-lg p-3 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         <Button
           variant="primary"
@@ -123,7 +122,7 @@ const OrganiserMatchSchedule = () => {
           type="text"
           placeholder="Enter Location"
           onChange={(e) => setNewLocation(e.target.value)}
-          style={{ margin: "10px", padding: "5px" }}
+          className="border-2 border-gray-300 rounded-lg p-3 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
         <Button
           variant="primary"
@@ -135,7 +134,7 @@ const OrganiserMatchSchedule = () => {
         <br />
         <select
           onChange={handleLocationChange}
-          style={{ margin: "10px", padding: "5px" }}
+          className="border-2 border-gray-300 rounded-lg p-3 m-2 shadow-sm  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">Select Location to Delete</option>
           {locations.map((location) => (
@@ -156,7 +155,7 @@ const OrganiserMatchSchedule = () => {
           Sign Out
         </Button>
         <Toaster richColors />
-        <h1>Match Schedule</h1>
+        <h1 className="text-center text-2xl font-medium text-blue-500">Match Schedule</h1>
         {!showAddMatch && (
           <Button variant="outline-success" onClick={handleAddMatchClick}>
             Add Match
@@ -165,11 +164,11 @@ const OrganiserMatchSchedule = () => {
         {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
-          pastMatches.length < 1 && <h2>No matches scheduled</h2>}
-        {todayMatches.length == 0 && <h2>No Matches Today</h2>}
+          pastMatches.length < 1 && <h2 className="text-center text-xl font-medium text-blue-500">No matches scheduled</h2>}
+        {todayMatches.length == 0 && <h2 className="text-center text-xl font-medium text-blue-500">No Matches Today</h2>}
         {todayMatches.length > 0 && (
           <div>
-            <h2>Today&apos;s Matches</h2>
+            <h2 className="text-center text-2xl font-medium text-blue-500">Today&apos;s Matches</h2>
             {todayMatches.map((row: any) => (
               <OrganiserMatch
                 key={row.matchid}
@@ -185,7 +184,7 @@ const OrganiserMatchSchedule = () => {
         )}
         {futureMatches.length > 0 && (
           <>
-            <h2>Upcoming Matches</h2>
+            <h2 className="text-center text-2xl font-medium text-blue-500">Upcoming Matches</h2>
             {futureMatches.map((row: any) => (
               <OrganiserMatch
                 key={row.matchid}
@@ -201,7 +200,7 @@ const OrganiserMatchSchedule = () => {
         )}
         {pastMatches.length > 0 && (
           <>
-            <h2>Past Matches</h2>
+            <h2 className="text-center text-2xl font-medium text-blue-500">Past Matches</h2>
             {pastMatches.map((row: any) => (
               <OrganiserMatch
                 key={row.matchid}
@@ -217,34 +216,6 @@ const OrganiserMatchSchedule = () => {
         )}
         {showAddMatch && <AddMatch onClose={() => setShowAddMatch(false)} />}
         <br />
-        <br />
-        <div
-          style={{
-            textAlign: "left",
-            padding: "20px",
-            margin: "20px auto",
-            width: "80%",
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-          }}
-        >
-          <h2 style={{ marginLeft: "10px" }}>Add or Update Player</h2>
-          <select
-            value={team}
-            onChange={(e) => setTeam(e.target.value)}
-            style={{ width: "100%", padding: "8px 10px", margin: "10px 0" }}
-          >
-            <option value="">Select a team</option>
-            <option value="mockingbirds">Mockingbirds</option>
-            <option value="hyenas">Hyenas</option>
-            <option value="emus">Emus</option>
-            <option value="grasskickers">Grasskickers</option>
-            <option value="mosquitoes">Mosquitoes</option>
-            <option value="penguins">Penguins</option>
-            <option value="Los Flamingos">Los Flamingos</option>
-          </select>
-          {team && <AddPlayerForm team={team} />}
-        </div>
         <br />
       </center>
     </div>

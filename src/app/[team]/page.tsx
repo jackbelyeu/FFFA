@@ -7,7 +7,6 @@ import Spinner from "react-bootstrap/Spinner";
 import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import styles from "./styles.module.css"; // Assuming you have a CSS module
 
 interface RosterScheduleProps {
   params: {

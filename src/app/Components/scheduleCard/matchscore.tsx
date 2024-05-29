@@ -200,14 +200,16 @@ export default function OrganiserMatch({
   };
   return (
     <div className={styles.card}>
-      <h2>Match {matchid}</h2>
+      <h2 className="text-center text-2xl font-medium text-blue-500" >Match {matchid}</h2>
+      <div className="flex justify-center items-center h-full">
       <Image
         src={`/logos/${home_team}.jpeg`}
         alt={`Logo of ${home_team}`}
         width={100}
         height={100}
-        className={styles.logo}
+        className="mx-auto"
       />
+      </div>
       <p>
         Home Team: 
         {editing ? (
@@ -227,13 +229,15 @@ export default function OrganiserMatch({
         )}
       </p>
       <p>vs</p>
+      <div className="flex justify-center items-center h-full">
       <Image
         src={`/logos/${away_team}.jpeg`}
         alt={`Logo of ${away_team}`}
         width={100}
         height={100}
-        className={styles.logo}
+        className="mx-auto"
       />
+      </div>
       <p>
       Away Team:
         {editing ? (

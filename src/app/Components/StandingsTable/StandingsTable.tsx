@@ -1,16 +1,16 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 interface Row {
-  team_name: string;
-  total_matches: number;
+  teamname: string;
+  matches_played: number;
   wins: number;
   draws: number;
   losses: number;
   goal_difference: number;
+  points: number;
 }
 
 interface TeamStandingsProps {
@@ -26,6 +26,7 @@ export default function StandingsTable({ pointsData }: TeamStandingsProps) {
             {/* Table Headers */}
             {[
               "Team",
+              "",
               "Wins",
               "Draws",
               "Losses",
@@ -44,48 +45,28 @@ export default function StandingsTable({ pointsData }: TeamStandingsProps) {
         </thead>
         <tbody>
           {pointsData.map((row, index) => {
-            const isLastRow = index === pointsData.length - 1;
             return (
-              <tr key={index} className="text-center">
-                <td
-                  className={`border-b border-slate-300 p-2 sm:p-3 ${
-                    isLastRow ? "rounded-bl-lg" : ""
-                  }`}
-                >
-                  <div className="flex flex-col items-center">
-                    <div className="transition-transform duration-300 hover:scale-110">
-                      <Link href={`/${row.team_name}`}>
-                        <Image
-                          src={`/logos/${row.team_name}.jpeg`}
-                          alt={`Logo of ${row.team_name}`}
-                          width={75}
-                          height={75}
-                          className="w-full h-auto"
-                        />
-                      </Link>
-                    </div>
-                  </div>
+              <tr key={index} className="border-b border-slate-300">
+                <td className="p-2 sm:p-3 text-center">{row.teamname}</td>
+                <td>
+                  <Link href={`/${row.teamname}`}>
+                    <Image
+                      src={`/logos/${row.teamname}.jpeg`}
+                      alt={row.teamname}
+                      width={100}
+                      height={100}
+                      className="rounded-full border-4 border-gray-200 shadow-lg"
+                    />
+                  </Link>
                 </td>
-                {["wins", "draws", "losses", "goal_difference"].map(
-                  (key, i) => (
-                    <td
-                      key={i}
-                      className="p-2 sm:p-3 min-w-[50px] sm:min-w-[100px] border-b border-slate-300"
-                    >
-                      {row[key as keyof Row]}
-                    </td>
-                  )
-                )}
-                <td className="p-2 sm:p-3 min-w-[50px] sm:min-w-[100px] border-b border-slate-300">
-                  {row.wins * 3 + row.draws}
+                <td className="p-2 sm:p-3 text-center">{row.wins}</td>
+                <td className="p-2 sm:p-3 text-center">{row.draws}</td>
+                <td className="p-2 sm:p-3 text-center">{row.losses}</td>
+                <td className="p-2 sm:p-3 text-center">
+                  {row.goal_difference}
                 </td>
-                <td
-                  className={`p-2 sm:p-3 min-w-[50px] sm:min-w-[100px] border-b border-slate-300 ${
-                    isLastRow ? "rounded-br-lg" : ""
-                  }`}
-                >
-                  {row.total_matches}
-                </td>
+                <td className="p-2 sm:p-3 text-center">{row.points}</td>
+                <td className="p-2 sm:p-3 text-center">{row.matches_played}</td>
               </tr>
             );
           })}
