@@ -90,7 +90,7 @@ const ValidTeamContent = ({
   showRemovePlayer: boolean;
 }) => (
   <main>
-    <h1>ROSTER FOR {params.team.toUpperCase()}</h1>
+    <h1 className="text-center text-2xl font-medium text-blue-500">ROSTER FOR {params.team.toUpperCase()}</h1>
     <li>
       <center>
         <Button href="/api/auth/signout" variant="danger">
@@ -117,17 +117,15 @@ const InvalidTeamContent = ({ params }: { params: { team: string } }) => (
 );
 
 const TeamLogo = ({ team }: { team: string }) => (
+  <div className="flex justify-center items-center h-full">
   <Image
     src={`/logos/${team}.jpeg`}
     alt="Team logo"
     width={100}
     height={100}
-    style={{
-      display: "flex",
-      margin: "auto",
-      marginBottom: "-20px",
-    }}
+    className="mx-auto"
   />
+  </div>
 );
 
 const PlayerCards = ({
@@ -220,8 +218,8 @@ const PlayerCards = ({
       </div>
       <div className={styles.cardContainer}>
         <div className={styles.addPlayer}>
-          <h1>Add Player to {params.team}</h1>
-          <label>Player Name :</label>
+          <h1 className="text-center text-2xl font-medium text-blue-500">Add Player to {params.team}</h1>
+          <label >Player Name :</label>
           <input
             type="text"
             value={newPlayerName}
@@ -238,7 +236,7 @@ const PlayerCards = ({
             <option value="Part time">Part Time</option>
           </select>
           <br />
-          <label>Position :</label>
+          <label >Position :</label>
 
           <select
             value={position}
@@ -270,8 +268,9 @@ const PlayerCards = ({
           </Button>
         </div>
         <div className={styles.addPlayer}>
-          <h2>Remove Player</h2>
+          <h2 className="text-center text-xl font-medium text-blue-500">Remove Player</h2>
           <select onChange={(e) => setRemovePlayerName(e.target.value)}>
+            <option>Select Player to Remove</option>
             {rosterData.map((player) => (
               <option key={player.player_name} value={player.player_name}>
                 {player.player_name}

@@ -107,30 +107,30 @@ const Card = ({
         height={100}
         className={styles.logo}
       />
-      <h2>{player_name}</h2>
-      <p>Commitment: {localCommitment}</p>
+      <h2 className="text-center text-xl font-medium text-blue-500">{player_name}</h2>
+      <p className="text-center font-medium text-blue-500">Commitment: {localCommitment}</p>
       <select
-        value={localCommitment}
-        onChange={handleCommitmentChange}
-        id={`commitment-${player_name}`}
-      >
+      value={localCommitment}
+      onChange={handleCommitmentChange}
+      id={`commitment-${player_name}`}
+    >
         <option>Select Commitment</option>
         <option value="Full time">Full Time</option>
         <option value="Part time">Part Time</option>
       </select>
-      <p>Position: {localPosition}</p>
+      <p className="text-center font-medium text-blue-500">Position: {localPosition}</p>
       <select
         value={localPosition}
         onChange={handlePositionChange}
         id={`position-${player_name}`}
       >
-        <option>Select Position</option>
+        <option>Select Position </option>
         <option value="Goal Keeper">Goalkeeper</option>
         <option value="Defender">Defender</option>
         <option value="Midfielder">Midfielder</option>
         <option value="Forward">Forward</option>
       </select>
-      <p>Previous Club: {localPreviousClub}</p>
+      <p className="text-center font-medium text-blue-500">Previous Club: {localPreviousClub}</p>
       <select
         value={localPreviousClub}
         onChange={handlePreviousClubChange}
