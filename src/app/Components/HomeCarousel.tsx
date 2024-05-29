@@ -10,7 +10,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
+} from "@/app/Components/ui/carousel";
 
 export function HomeCarousel() {
   return (

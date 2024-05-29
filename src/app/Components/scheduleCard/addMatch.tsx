@@ -74,7 +74,11 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         />
         <br />
         Home Team :
-        <select value={homeTeam} onChange={handleHomeTeamChange}>
+        <select
+          className={styles.select}
+          value={homeTeam}
+          onChange={handleHomeTeamChange}
+        >
           <option value="">Select Home Team</option>
           {teams.map((team) => (
             <option key={team} value={team}>
@@ -94,7 +98,11 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
         />
         <br />
         Away Team :
-        <select value={awayTeam} onChange={handleAwayTeamChange}>
+        <select
+          className={styles.select}
+          value={awayTeam}
+          onChange={handleAwayTeamChange}
+        >
           <option value="">Select Away Team</option>
           {teams
             .filter((team) => team !== homeTeam)
@@ -107,11 +115,16 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       </p>
       <p>
         Time:
-        <input type="time" onChange={(e) => setTime(e.target.value)} />
+        <input
+          className={styles.select}
+          type="time"
+          onChange={(e) => setTime(e.target.value)}
+        />
       </p>
       <p>
         Date:
         <input
+          className={styles.select}
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -119,7 +132,11 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       </p>
       <p>
         Location:
-        <select value={location} onChange={handleLocationChange}>
+        <select
+          className={styles.select}
+          value={location}
+          onChange={handleLocationChange}
+        >
           <option value="">Select Location</option>
           {locations.map((location) => (
             <option key={location} value={location}>

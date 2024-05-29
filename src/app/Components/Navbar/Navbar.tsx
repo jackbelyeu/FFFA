@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/app/Components/ui/dropdown-menu";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
@@ -97,10 +97,7 @@ export default function Navbar() {
       </div>
 
       <div className="flex md:hidden">
-        <button
-          className="text-white focus:outline-none"
-          onClick={toggleSheet}
-        >
+        <button className="text-white focus:outline-none" onClick={toggleSheet}>
           ☰
         </button>
       </div>
@@ -108,7 +105,11 @@ export default function Navbar() {
       {isOpen && (
         <div className="absolute top-0 left-0 w-full bg-primary p-4 md:hidden">
           <div className="flex flex-col space-y-4">
-            <Link href="/" className="text-white no-underline hover:text-gray-300" onClick={toggleSheet}>
+            <Link
+              href="/"
+              className="text-white no-underline hover:text-gray-300"
+              onClick={toggleSheet}
+            >
               Home
             </Link>
 
@@ -129,7 +130,11 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link href="/schedule" className="text-white no-underline hover:text-gray-300" onClick={toggleSheet}>
+            <Link
+              href="/schedule"
+              className="text-white no-underline hover:text-gray-300"
+              onClick={toggleSheet}
+            >
               Match Schedule
             </Link>
 
@@ -141,12 +146,26 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem asChild>
-                  <Link href="/organiserlogin" onClick={() => { handleNavClick("/organiserlogin"); toggleSheet(); }} className={isActive("/organiserlogin") ? "active" : ""}>
+                  <Link
+                    href="/organiserlogin"
+                    onClick={() => {
+                      handleNavClick("/organiserlogin");
+                      toggleSheet();
+                    }}
+                    className={isActive("/organiserlogin") ? "active" : ""}
+                  >
                     Organizer Login
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/PlayerLogin" onClick={() => { handleNavClick("/PlayerLogin"); toggleSheet(); }} className={isActive("/PlayerLogin") ? "active" : ""}>
+                  <Link
+                    href="/PlayerLogin"
+                    onClick={() => {
+                      handleNavClick("/PlayerLogin");
+                      toggleSheet();
+                    }}
+                    className={isActive("/PlayerLogin") ? "active" : ""}
+                  >
                     Player Login
                   </Link>
                 </DropdownMenuItem>
