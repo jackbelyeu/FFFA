@@ -9,7 +9,7 @@ export default function Footer() {
     window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
   };
   return (
-    <footer className="bg-primary flex items-center justify-between p-3 mt-3 shadow dark:bg-gray-800 w-full">
+    <footer className="bg-primary flex items-center justify-between p-3 shadow dark:bg-gray-800 w-full">
     <div className="w-full mx-auto max-w-screen-xl flex flex-col items-center justify-center">
       <ul className="flex flex-wrap justify-center items-center mt-2 mb-2 text-large font-large text-white dark:text-white sm:mt-0">
         <li>
