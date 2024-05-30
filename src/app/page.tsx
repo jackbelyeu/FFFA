@@ -6,7 +6,6 @@ import ffaLogo from "@/images/logo.jpeg";
 import bgfield from "@/images/field.png";
 import { HomeCarousel } from "@/app/Components/HomeCarousel";
 import StandingsTable from "@/app/Components/StandingsTable/StandingsTable";
-import Footer from "@/app/Components/Footer/Footer";
 
 interface Row {
   teamname: string;
