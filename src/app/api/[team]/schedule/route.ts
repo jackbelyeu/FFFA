@@ -23,7 +23,9 @@ export async function GET(
       JOIN
         locations l ON m.locationid = l.locationid
       WHERE
-      t1.teamname = ${params.team} OR t2.teamname = ${params.team};
+      t1.teamname = ${params.team} OR t2.teamname = ${params.team}
+      order by m.date desc, m.time desc 
+      ;
     `;
     return NextResponse.json(result);
   } catch (error) {
