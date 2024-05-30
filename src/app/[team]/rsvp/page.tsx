@@ -134,20 +134,20 @@ export default function RSVP({ params }: RSVPProps) {
       />
       </div>
        <h1 className="text-center text-2xl mt-5 font-medium text-blue-500">Please Click here to Access <Link href={`/${params.team}/roster`}>Roster</Link></h1>
-       
+       <div className="overflow-x-auto">
       <center>
         <table
          className="min-w-full divide-y divide-gray-200"
         >
-          <thead className="bg-gray-50">
+          <thead className="border-collapse mx-auto my-4 w-full max-w-4xl bg-primary bg-opacity-80 text-white rounded-lg">
             <tr>
               <th
-               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+               className="px-6 py-3 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Player
               </th>
               <th
-               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+               className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 8
                 <br />
@@ -156,12 +156,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_8 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 15
                 <br />
@@ -170,12 +170,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_15 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 22
                 <br />
@@ -184,12 +184,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_22 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Oct 29
                 <br />
@@ -198,12 +198,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.oct_29 === "YES").length}
               </th>
               <th
-               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+               className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 5
                 <br />
@@ -212,12 +212,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_5 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 12
                 <br />
@@ -226,12 +226,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_12 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 19
                 <br />
@@ -240,12 +240,12 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_19 === "YES").length}
               </th>
               <th
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
               >
                 Nov 26
                 <br />
@@ -254,7 +254,7 @@ export default function RSVP({ params }: RSVPProps) {
                   alt="correct"
                   width={20}
                   height={20}
-                  className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-1 text-center text-medium font-medium text-gray-500 uppercase tracking-wider"
                 />
                 {rsvpData.filter((row) => row.nov_26 === "YES").length}
               </th>
@@ -374,6 +374,7 @@ export default function RSVP({ params }: RSVPProps) {
           </tbody>
         </table>
       </center>
+      </div>
     </main>
   );
 
