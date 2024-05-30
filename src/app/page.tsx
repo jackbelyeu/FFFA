@@ -50,9 +50,6 @@ export default function Page() {
             <Image src={ffaLogo} alt="People playing Soccer in a field" />
           </div>
         </div>
-        <div className="absolute left-0 right-0 bottom-0 flex justify-center items-center z-1 text-white">
-          <div className="inline-block rounded-full w-full sm:w-screen sm:h-10 bg-mainColor mb-[-10%] sm:mb-[-12px]"></div>
-        </div>
       </div>
       <div>
         <div className="relative flex flex-col items-center justify-center min-h-screen">

@@ -57,16 +57,16 @@ const MatchSchedule = () => {
     <div>
       <center>
         <br />
-        <h1>Match Schedule</h1>
+        <h1 className="text-center text-2xl font-medium text-blue-500">Match Schedule</h1>
         {todayMatches.length < 1 &&
           futureMatches.length < 1 &&
-          pastMatches.length < 1 && <h2>No matches scheduled</h2>}
-        {todayMatches.length == 0 && <h2>No Matches Today</h2>}
+          pastMatches.length < 1 && <h2 className="text-center text-xl font-medium text-blue-500">No matches scheduled</h2>}
+        {todayMatches.length == 0 && <h2 className="text-center text-xl font-medium text-blue-500">No Matches Today</h2>}
 
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
             <Accordion.Header>
-              <h2>Today&apos;s Matches</h2>
+              <h2 className="text-center text-xl font-medium text-blue-500">Today&apos;s Matches</h2>
             </Accordion.Header>
             <Accordion.Body>
               {todayMatches.length > 0 && (
@@ -88,7 +88,7 @@ const MatchSchedule = () => {
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>
-              <h2>Upcoming Matches</h2>
+              <h2 className="text-center text-xl font-medium text-blue-500">Upcoming Matches</h2>
             </Accordion.Header>
             <Accordion.Body>
               {futureMatches.length > 0 && (
@@ -110,7 +110,7 @@ const MatchSchedule = () => {
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>
-              <h2>Past Matches</h2>
+              <h2 className="text-center text-xl font-medium text-blue-500">Past Matches</h2>
             </Accordion.Header>
             <Accordion.Body>
               {pastMatches.length > 0 && (
