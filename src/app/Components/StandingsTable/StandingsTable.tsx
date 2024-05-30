@@ -20,10 +20,9 @@ interface TeamStandingsProps {
 export default function StandingsTable({ pointsData }: TeamStandingsProps) {
   return (
     <div className="z-10 flex justify-center items-center">
-      <table className="border-collapse mx-auto my-4 w-full max-w-4xl bg-black bg-opacity-50 text-white rounded-lg">
+      <table className="border-collapse w-full max-w-4xl bg-white text-black rounded-lg m-3">
         <thead>
           <tr>
-            {/* Table Headers */}
             {[
               "Team",
               "",
@@ -36,7 +35,7 @@ export default function StandingsTable({ pointsData }: TeamStandingsProps) {
             ].map((header, idx) => (
               <th
                 key={idx}
-                className="p-2 sm:p-3 text-center min-h-[50px] sm:min-h-[80px] border-b border-slate-300"
+                className="p-2 sm:p-4 text-center min-h-[50px] sm:min-h-[80px] border-b border-slate-300"
               >
                 {header}
               </th>
@@ -46,16 +45,16 @@ export default function StandingsTable({ pointsData }: TeamStandingsProps) {
         <tbody>
           {pointsData.map((row, index) => {
             return (
-              <tr key={index} className="border-b border-slate-300">
+              <tr key={index} className="border-b border-slate-400">
                 <td className="p-2 sm:p-3 text-center">{row.teamname}</td>
-                <td>
+                <td className="p-2 sm:p-3 text-center">
                   <Link href={`/${row.teamname}`}>
                     <Image
                       src={`/logos/${row.teamname}.jpeg`}
                       alt={row.teamname}
                       width={100}
                       height={100}
-                      className="rounded-full border-4 border-gray-200 shadow-lg"
+                      className="rounded-full border-4 border-black-200 shadow-lg"
                     />
                   </Link>
                 </td>
