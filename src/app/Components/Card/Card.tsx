@@ -99,30 +99,35 @@ const Card = ({
   };
 
   return (
-    <div className={styles.card}>
+    <div className="max-w-sm mx-auto bg-[#009879] border-5 border-black shadow-md rounded-lg overflow-hidden my-4">
+      <div className="flex justify-center mt-4">
       <Image
         src={`/logos/${player_team}.jpeg`}
         alt={`Logo of ${player_name}`}
         width={100}
         height={100}
-        className={styles.logo}
+        className="rounded-full"
       />
+      </div>
+      <div className="p-4">
       <h2 className="text-center text-xl font-medium text-blue-500">{player_name}</h2>
-      <p className="text-center font-medium text-blue-500">Commitment: {localCommitment}</p>
+      <p className="text-center font-medium color-black-500">Commitment: {localCommitment}</p>
       <select
       value={localCommitment}
       onChange={handleCommitmentChange}
       id={`commitment-${player_name}`}
+      className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     >
         <option>Select Commitment</option>
-        <option value="Full time">Full Time</option>
+        <option value="Full time" >Full Time</option>
         <option value="Part time">Part Time</option>
       </select>
-      <p className="text-center font-medium text-blue-500">Position: {localPosition}</p>
+      <p className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-color black"> Position: {localPosition}</p>
       <select
         value={localPosition}
         onChange={handlePositionChange}
         id={`position-${player_name}`}
+        className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         <option>Select Position </option>
         <option value="Goal Keeper">Goalkeeper</option>
@@ -135,6 +140,7 @@ const Card = ({
         value={localPreviousClub}
         onChange={handlePreviousClubChange}
         id={`previous_club-${player_name}`}
+        className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         <option>Select Previous Club</option>
         <option value="Mosquitoes">Mosquitoes</option>
@@ -144,6 +150,7 @@ const Card = ({
         <option value="Mockingbirds">Mockingbirds</option>
         <option value="Emus">Emus</option>
       </select>
+      </div>
     </div>
   );
 };

@@ -203,35 +203,40 @@ const PlayerCards = ({
 
   return (
     <center>
-      <div className={styles.cardContainer}>
-        <Toaster richColors closeButton />
-        {rosterData.map((row) => (
-          <Card
-            key={row.player_name}
-            player_name={row.player_name}
-            commitment={row.commitment}
-            position={row.position}
-            player_team={params.team}
-            previous_club={row.previous_club}
-          />
-        ))}
-      </div>
-      <div className={styles.cardContainer}>
-        <div className={styles.addPlayer}>
+    <div className="container mx-auto px-4">
+  <Toaster richColors closeButton />
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {rosterData.map((row) => (
+      <Card
+        key={row.player_name}
+        player_name={row.player_name}
+        commitment={row.commitment}
+        position={row.position}
+        player_team={params.team}
+        previous_club={row.previous_club}
+      />
+    ))}
+  </div>
+</div>
+      <div className="p-4">
+        <div className="max-w-sm mx-auto bg-[#009879] border-5 border-black shadow-md rounded-lg overflow-hidden my-4">
           <h1 className="text-center text-2xl font-medium text-blue-500">Add Player to {params.team}</h1>
+          <br />
           <label >Player Name :</label>
           <input
             type="text"
             value={newPlayerName}
             onChange={(e) => setNewPlayerName(e.target.value)}
+            className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
           <br />
           <label>Commitment :</label>
           <select
             value={commitmentLevel}
             onChange={(e) => setCommitmentLevel(e.target.value)}
+            className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            <option>Select Commitment Level</option>
+            <option >Select Commitment Level</option>
             <option value="Full time">Full Time</option>
             <option value="Part time">Part Time</option>
           </select>
@@ -241,6 +246,7 @@ const PlayerCards = ({
           <select
             value={position}
             onChange={(e) => setPosition(e.target.value)}
+            className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option>Select Position</option>
             <option value="Goalkeeper">Goalkeeper</option>
@@ -249,10 +255,11 @@ const PlayerCards = ({
             <option value="Defender">Defender</option>
           </select>
           <br />
-          <label>Previous Club :</label>
+          <label className="color-black-500">Previous Club :</label>
           <select
             value={previous_club}
             onChange={(e) => setPreviousClub(e.target.value)}
+            className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option>Select Previous Club</option>
             <option value="Mosquitoes">Mosquitoes</option>
@@ -267,9 +274,9 @@ const PlayerCards = ({
             Add Player
           </Button>
         </div>
-        <div className={styles.addPlayer}>
-          <h2 className="text-center text-xl font-medium text-blue-500">Remove Player</h2>
-          <select onChange={(e) => setRemovePlayerName(e.target.value)}>
+        <div className="max-w-sm mx-auto bg-[#009879] border-5 border-black shadow-md rounded-lg overflow-hidden my-4">
+          <h2 className="text-center text-xl font-medium text-blue-500 ">Remove Player</h2>
+          <select onChange={(e) => setRemovePlayerName(e.target.value) } className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             <option>Select Player to Remove</option>
             {rosterData.map((player) => (
               <option key={player.player_name} value={player.player_name}>
@@ -278,9 +285,9 @@ const PlayerCards = ({
             ))}
           </select>
           <br />
-          <Button variant="danger" onClick={handleRemovePlayer}>
+          <button className="" onClick={handleRemovePlayer}>
             Remove Player
-          </Button>
+          </button>
         </div>
       </div>
     </center>
