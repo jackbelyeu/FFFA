@@ -30,14 +30,12 @@ const MatchSchedule = () => {
         const matchRows: matchRow[] = data.matches;
 
         // Get the current date in UTC
-        const todayUTC = new Date();
-        const localOffset = todayUTC.getTimezoneOffset() * 60 * 1000;
-        const todayLocal = new Date(todayUTC.getTime() - localOffset);
-        const todayDate = todayLocal.toISOString().split("T")[0];
-        setTodayDate(todayDate);
-
+        const todayUTC = new Date(new Date().toUTCString());
+        const centralOffset = -5 * 60 * 60 * 1000;
+        const todayCentral = new Date(todayUTC.getTime() + centralOffset);
+        const todayDate = todayCentral.toISOString().split("T")[0];
         const todayMatches = matchRows.filter(
-          (row: matchRow) => row.date.split("T")[0] === todayDate
+          (row: any) => row.date.substring(0, 10) === todayDate
         );
         setTodayMatches(todayMatches);
 
