@@ -1,8 +1,7 @@
 "use client";
-import styles from "./addMatch.module.css";
 import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/esm/Button";
 import Image from "next/image";
-import Button from "react-bootstrap/Button";
 import { toast } from "sonner";
 
 interface AddMatchProps {
@@ -59,23 +58,27 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
   };
 
   return (
-    <div className={styles.card}>
-      <Button id="close" onClick={onClose} variant="danger">
+    <div className="max-w-sm mx-auto bg-[#009879] border-5 border-black shadow-md rounded-lg overflow-hidden my-4">
+      <Button id="close"
+        variant="danger"
+        onClick={onClose}
+        className="mt-3"
+      >
         X
       </Button>
-      <h2> Add Match</h2>
+      <h2 className="text-center text-xl font-medium text-blue-500"> Add Match</h2>
       <p>
         <Image
           src={`/logos/${homeTeam}.jpeg`}
           alt={`Logo of ${homeTeam}`}
           width={100}
           height={100}
-          className={styles.logo}
+          className="rounded-full"
         />
         <br />
         Home Team :
         <select
-          className={styles.select}
+          className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={homeTeam}
           onChange={handleHomeTeamChange}
         >
@@ -94,12 +97,12 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
           alt={`Logo of ${awayTeam}`}
           width={100}
           height={100}
-          className={styles.logo}
+          className="rounded-full"
         />
         <br />
         Away Team :
         <select
-          className={styles.select}
+          className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={awayTeam}
           onChange={handleAwayTeamChange}
         >
@@ -116,7 +119,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       <p>
         Time:
         <input
-          className={styles.select}
+          className="border-2 border-gray-300 rounded-lg p-2 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
           type="time"
           onChange={(e) => setTime(e.target.value)}
         />
@@ -124,7 +127,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       <p>
         Date:
         <input
-          className={styles.select}
+          className="border-2 border-gray-300 rounded-lg p-2 m-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black-bolder"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -133,7 +136,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
       <p>
         Location:
         <select
-          className={styles.select}
+          className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={location}
           onChange={handleLocationChange}
         >
@@ -145,9 +148,12 @@ const AddMatch: React.FC<AddMatchProps> = ({ onClose }) => {
           ))}
         </select>
       </p>
-      <Button variant="success" onClick={addMatch}>
+      <Button className="mb-3"
+      variant="success"
+       onClick={addMatch}>
         Save
       </Button>
+
     </div>
   );
 };

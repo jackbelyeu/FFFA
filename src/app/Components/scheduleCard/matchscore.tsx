@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styles from "./addMatch.module.css";
 import Image from "next/image";
 import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
@@ -199,156 +198,168 @@ export default function OrganiserMatch({
     });
   };
   return (
-    <div className={styles.card}>
-      <h2 className="text-center text-2xl font-medium text-blue-500" >Match {matchid}</h2>
-      <div className="flex justify-center items-center h-full">
+    <div className="max-w-sm mx-auto bg-[#009879] border-4 border-black shadow-md rounded-lg overflow-hidden my-4 text-white">
+    <h2 className="text-center text-2xl font-medium text-blue-500">
+      Match {matchid}
+    </h2>
+    <div className="flex justify-center items-center h-full my-2">
       <Image
         src={`/logos/${home_team}.jpeg`}
         alt={`Logo of ${home_team}`}
         width={100}
         height={100}
-        className="mx-auto"
+        className="mx-auto rounded-full border border-black"
       />
-      </div>
-      <p>
-        Home Team: 
-        {editing ? (
-          <select onChange={(e) => setHomeTeam(e.target.value)}>
-            {teams.map((team) => (
-              <option key={team} value={team}>
-                {team}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <span
-            className={hometeamscore > awayteamscore ? styles.winningTeam : ""}
-          >
-            {home_team}
-          </span>
-        )}
-      </p>
-      <p>vs</p>
-      <div className="flex justify-center items-center h-full">
+    </div>
+    <p className="text-center">
+      Home Team:{' '}
+      {editing ? (
+        <select
+          onChange={(e) => setHomeTeam(e.target.value)}
+          className="border-2 border-gray-300 rounded-lg p-2 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+        >
+          {teams.map((team) => (
+            <option key={team} value={team}>
+              {team}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <span className={hometeamscore > awayteamscore ? 'text-black' : ''}>
+          {home_team}
+        </span>
+      )}
+    </p>
+    <p className="text-center">vs</p>
+    <div className="flex justify-center items-center h-full my-2">
       <Image
         src={`/logos/${away_team}.jpeg`}
         alt={`Logo of ${away_team}`}
         width={100}
         height={100}
-        className="mx-auto"
+        className="mx-auto rounded-full border border-black"
       />
-      </div>
-      <p>
-      Away Team:
-        {editing ? (
-          <select id="awayteam" onChange={(e) => setAwayTeam(e.target.value)}>
-            {teams
-              .filter((team) => team !== home_team)
-              .map((team) => (
-                <option key={team} value={team}>
-                  {team}
-                </option>
-              ))}
-          </select>
-        ) : (
-          <span
-            className={awayteamscore > hometeamscore ? styles.winningTeam : ""}
-          >
-              {away_team}
-          </span>
-        )}
-      </p>
-      <p>
-        Time:{" "}
-        {editing ? (
-          <input
-            type="time"
-            onChange={(e) => setTime(e.target.value)}
-            value={time}
-          />
-        ) : (
-          time
-        )}
-      </p>
-      <p>
-        Date:{" "}
-        {editing ? (
-          <input
-            type="date"
-            onChange={(e) => setDate(e.target.value)}
-            value={date.substring(0, 10)}
-          />
-        ) : (
-          date.substring(5, 7) +
-          "/" +
-          date.substring(8, 10) +
-          "/" +
-          date.substring(0, 4)
-        )}
-      </p>
-      <p>
-        Location:{" "}
-        {editing ? (
-          <select onChange={(e) => setLocation(e.target.value)}>
-            {locationNames.map((location) => (
-              <option key={location} value={location}>
-                {location}
+    </div>
+    <p className="text-center">
+      Away Team:{' '}
+      {editing ? (
+        <select
+          id="awayteam"
+          onChange={(e) => setAwayTeam(e.target.value)}
+          className="border-2 border-gray-300 rounded-lg p-2 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+        >
+          {teams
+            .filter((team) => team !== home_team)
+            .map((team) => (
+              <option key={team} value={team}>
+                {team}
               </option>
             ))}
-          </select>
-        ) : (
-          location
-        )}
-      </p>
-      {editing ? (
-        <>
-          <Button variant="success" onClick={handleSave}>
-            Save
-          </Button>
-          <Button variant="primary" onClick={handleCancel}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </>
+        </select>
       ) : (
+        <span className={awayteamscore > hometeamscore ? 'text-black' : ''}>
+          {away_team}
+        </span>
+      )}
+    </p>
+    <p className="text-center">
+      Time:{' '}
+      {editing ? (
+        <input
+          type="time"
+          onChange={(e) => setTime(e.target.value)}
+          value={time}
+          className="border-2 border-gray-300 rounded-lg p-2 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+        />
+      ) : (
+        time
+      )}
+    </p>
+    <p className="text-center">
+      Date:{' '}
+      {editing ? (
+        <input
+          type="date"
+          onChange={(e) => setDate(e.target.value)}
+          value={date.substring(0, 10)}
+          className="border-2 border-gray-300 rounded-lg p-2 m-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+        />
+      ) : (
+        `${date.substring(5, 7)}/${date.substring(8, 10)}/${date.substring(0, 4)}`
+      )}
+    </p>
+    <p className="text-center">
+      Location:{' '}
+      {editing ? (
+        <select
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full sm:w-auto mb-4 px-3 py-2 border border-gray-300 text-black rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          {locationNames.map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
+      ) : (
+        location
+      )}
+    </p>
+    {editing ? (
+      <div className="flex justify-around my-4">
+        <Button variant="success" onClick={handleSave}>
+          Save
+        </Button>
+        <Button variant="primary" onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button variant="danger" onClick={handleDelete}>
+          Delete
+        </Button>
+      </div>
+    ) : (
+      <div className="flex justify-center my-4">
         <Button variant="primary" onClick={handleEdit}>
           Edit Match Details
         </Button>
-      )}
-      <div className={styles.score}>
-        <p>Score</p>
+      </div>
+    )}
+    <div className="items-center h-full my-4">
+    <p>Score</p>
+      <div>
         <Button variant="danger" onClick={handleHomeScoreDecrement}>
           -
         </Button>
-        <span>
-          {home_team.toUpperCase()} :<big> {hometeamscore}</big>
+        <span className="mx-2">
+          {home_team.toUpperCase()}: <strong>{hometeamscore}</strong>
         </span>
         <Button variant="success" onClick={handleHomeScoreIncrement}>
           +
         </Button>
-        <br />
-        <br />
-        <span>
-          <Button variant="danger" onClick={handleAwayScoreDecrement}>
-            -
-          </Button>
-          {away_team.toUpperCase()} : <big>{awayteamscore}</big>
-          <Button variant="success" onClick={handleAwayScoreIncrement}>
-            +
-          </Button>
+      </div>
+      <br />
+      <div>
+        <Button variant="danger" onClick={handleAwayScoreDecrement}>
+          -
+        </Button>
+        <span className="mx-2">
+          {away_team.toUpperCase()}: <strong>{awayteamscore}</strong>
         </span>
-        <br />
-        <br />
-        <Button variant="primary" onClick={handleSubmit}>
-          {" "}
-          Submit Score
+        <Button variant="success" onClick={handleAwayScoreIncrement}>
+          +
         </Button>
       </div>
-      {scoresSubmitted && (
-        <Alert variant="success">Scores submitted successfully</Alert>
-      )}
     </div>
-  );
+    <div className="flex justify-center my-4">
+      <Button variant="primary" onClick={handleSubmit}>
+        Submit Score
+      </Button>
+    </div>
+    {scoresSubmitted && (
+      <div className="flex justify-center my-4">
+        <Alert variant="success">Scores submitted successfully</Alert>
+      </div>
+    )}
+  </div>
+);
 }
