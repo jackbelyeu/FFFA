@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./addMatch.module.css";
 import Image from "next/image";
 
 export default function Match({
@@ -57,44 +56,41 @@ export default function Match({
   };
 
   return (
-    <div className={styles.card}>
+    <div className="max-w-sm mx-auto bg-[#009879] border-4 border-black shadow-md rounded-lg overflow-hidden my-4 text-white mt-3">
       <h2>Match {match_id}</h2>
-      <div className={styles.teamContainer}>
-        <div className={styles.team}>
+      <div className="items-center h-full my-2">
           <p>Home Team</p>
           <Image
             src={`/logos/${teamNames[home_team]}.jpeg`}
             alt={`Logo of ${home_team}`}
             width={100}
             height={100}
-            className={styles.logo}
+            className="mx-auto rounded-full"
           />
           <p>{teamNames[home_team]}</p>
-        </div>
         <div>
           <Image
             src={`/images/vs.png`}
             alt={`Logo of ${home_team}`}
             width={100}
             height={100}
-            className={styles.logo}
+            className="mx-auto rounded-full "
           />
         </div>
-        <div className={styles.team}>
           <p>Away Team</p>
           <Image
             src={`/logos/${teamNames[away_team]}.jpeg`}
             alt={`Logo of ${away_team}`}
             width={100}
             height={100}
-            className={styles.logo}
-          />
+            className="mx-auto rounded-full"
+          /> 
           <p>{teamNames[away_team]}</p>
-        </div>
       </div>
       <p>Time: {time}</p>
       <p>Date: {new Date(date).toLocaleDateString()}</p>
       <p>Location: {locationNames[location]}</p>
+      <br />
     </div>
   );
 }
