@@ -16,7 +16,6 @@ type matchRow = {
 };
 
 const MatchSchedule = () => {
-  const [todayMatches, setTodayMatches] = useState<matchRow[]>([]);
   const [pastMatches, setPastMatches] = useState<matchRow[]>([]);
   const [futureMatches, setFutureMatches] = useState<matchRow[]>([]);
   const [todayDate, setTodayDate] = useState(
@@ -34,10 +33,6 @@ const MatchSchedule = () => {
         const centralOffset = -5 * 60 * 60 * 1000;
         const todayCentral = new Date(todayUTC.getTime() + centralOffset);
         const todayDate = todayCentral.toISOString().split("T")[0];
-        const todayMatches = matchRows.filter(
-          (row: any) => row.date.substring(0, 10) === todayDate
-        );
-        setTodayMatches(todayMatches);
 
         const pastMatches = matchRows.filter(
           (row: matchRow) => row.date.split("T")[0] < todayDate
@@ -45,7 +40,7 @@ const MatchSchedule = () => {
         setPastMatches(pastMatches);
 
         const futureMatches = matchRows.filter(
-          (row: matchRow) => row.date.split("T")[0] > todayDate
+          (row: matchRow) => row.date.split("T")[0] >= todayDate
         );
         setFutureMatches(futureMatches);
       });
@@ -55,38 +50,21 @@ const MatchSchedule = () => {
     <div>
       <center>
         <br />
-        <h1 className="text-center text-2xl font-medium text-blue-500">Match Schedule</h1>
-        {todayMatches.length < 1 &&
-          futureMatches.length < 1 &&
-          pastMatches.length < 1 && <h2 className="text-center text-xl font-medium text-blue-500">No matches scheduled</h2>}
-        {todayMatches.length == 0 && <h2 className="text-center text-xl font-medium text-blue-500">No Matches Today</h2>}
+        <h1 className="text-center text-2xl font-medium text-blue-500">
+          Match Schedule
+        </h1>
+        {futureMatches.length < 1 && pastMatches.length < 1 && (
+          <h2 className="text-center text-xl font-medium text-blue-500">
+            No matches scheduled
+          </h2>
+        )}
 
-        <Accordion defaultActiveKey="0">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>
-              <h2 className="text-center text-xl font-medium text-blue-500">Today&apos;s Matches</h2>
-            </Accordion.Header>
-            <Accordion.Body>
-              {todayMatches.length > 0 && (
-                <>
-                  {todayMatches.map((row: any) => (
-                    <Match
-                      key={row.matchid}
-                      match_id={row.matchid}
-                      home_team={row.hometeamid}
-                      away_team={row.awayteamid}
-                      time={row.time}
-                      date={row.date}
-                      location={row.locationid}
-                    />
-                  ))}
-                </>
-              )}
-            </Accordion.Body>
-          </Accordion.Item>
+        <Accordion defaultActiveKey="1">
           <Accordion.Item eventKey="1">
             <Accordion.Header>
-              <h2 className="text-center text-xl font-medium text-blue-500">Upcoming Matches</h2>
+              <h2 className="text-center text-xl font-medium text-blue-500">
+                Upcoming Matches
+              </h2>
             </Accordion.Header>
             <Accordion.Body>
               {futureMatches.length > 0 && (
@@ -108,7 +86,9 @@ const MatchSchedule = () => {
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>
-              <h2 className="text-center text-xl font-medium text-blue-500">Past Matches</h2>
+              <h2 className="text-center text-xl font-medium text-blue-500">
+                Past Matches
+              </h2>
             </Accordion.Header>
             <Accordion.Body>
               {pastMatches.length > 0 && (
