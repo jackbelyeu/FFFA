@@ -22,6 +22,15 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  const convertTo12HourFormat = (time24:string) => {
+    const [hours, minutes] = time24.split(':');
+    let hours12 = parseInt(hours);
+    const ampm = hours12 >= 12 ? 'PM' : 'AM';
+    hours12 = hours12 % 12 || 12; 
+    return `${hours12}:${minutes} ${ampm}`;
+  };
+  
+
   useEffect(() => {
     fetch(`/api/teams`)
       .then((res) => res.json())
@@ -143,7 +152,7 @@ export default function RosterSchedule({ params }: RosterScheduleProps) {
                           {match.date.split("T")[0]}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
-                          {match.time}
+                          {convertTo12HourFormat(match.time)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center border-b-2">
                           {match.locationname}
