@@ -22,6 +22,14 @@ const MatchSchedule = () => {
     new Date().toISOString().substring(0, 10)
   );
 
+  const convertTo12HourFormat = (time24:string) => {
+    const [hours, minutes] = time24.split(':');
+    let hours12 = parseInt(hours);
+    const ampm = hours12 >= 12 ? 'PM' : 'AM';
+    hours12 = hours12 % 12 || 12; 
+    return `${hours12}:${minutes} ${ampm}`;
+  };
+  
   useEffect(() => {
     fetch("api/matchSchedule")
       .then((response) => response.json())
@@ -75,7 +83,7 @@ const MatchSchedule = () => {
                       match_id={row.matchid}
                       home_team={row.hometeamid}
                       away_team={row.awayteamid}
-                      time={row.time}
+                      time={convertTo12HourFormat(row.time)}
                       date={row.date}
                       location={row.locationid}
                     />
@@ -99,7 +107,7 @@ const MatchSchedule = () => {
                       match_id={row.matchid}
                       home_team={row.hometeamid}
                       away_team={row.awayteamid}
-                      time={row.time}
+                      time={convertTo12HourFormat(row.time)}
                       date={row.date}
                       location={row.locationid}
                     />
