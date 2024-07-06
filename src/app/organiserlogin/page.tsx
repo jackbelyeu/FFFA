@@ -27,6 +27,10 @@ const OrganiserMatchSchedule = () => {
     setShowAddMatch(true);
   };
   const handleAddAlert = (e: any) => {
+    if (alert === "") {
+      toast.error("Please enter an alert");
+      return;
+    }
     fetch("/api/alert", {
       method: "POST",
       body: JSON.stringify({
@@ -36,6 +40,10 @@ const OrganiserMatchSchedule = () => {
     toast.success("Alert added successfully");
   };
   const handleAddNewLocation = (e: any) => {
+    if (newlocation === "") {
+      toast.error("Please enter a location");
+      return;
+    }
     fetch("/api/addlocation", {
       method: "POST",
       body: JSON.stringify({
@@ -45,6 +53,10 @@ const OrganiserMatchSchedule = () => {
     toast.success("New Location added successfully");
   };
   const handleDeleteLocation = (e: any) => {
+    if (deletelocation === "") {
+      toast.error("Please select a location to delete");
+      return;
+    }
     fetch("/api/deletelocation", {
       method: "POST",
       body: JSON.stringify({
